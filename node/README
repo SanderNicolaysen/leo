@@ -1,0 +1,3 @@
+Start server with `npm run start` in console
+
+Test-API at: localhost:8081/api/test

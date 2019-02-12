@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+$dark-grey: #4B5364;
+$yellow: #FEDA00;
+$light-blue: #5ECBF3;
+$dark-blue: #3A5994;
+$grey: #B2B6BE;
+$white: #FEFEFE;
+$black: #0A0A0A;
+
+
+$primary: $dark-blue;
+$link: $dark-blue;
+$info: $light-blue;
+$warning: $yellow;
+$dark: $dark-grey;
+$text: $black;
+
+$body-background-color: $white;
+
+
+// Import only what you need from Bulma

@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+// Colors from Police Website
 $dark-grey: #4B5364;
 $yellow: #FEDA00;
 $light-blue: #5ECBF3;
@@ -8,7 +9,7 @@ $grey: #B2B6BE;
 $white: #FEFEFE;
 $black: #0A0A0A;
 
-
+// Bulma overrides
 $primary: $dark-blue;
 $link: $dark-blue;
 $info: $light-blue;
@@ -17,6 +18,3 @@ $dark: $dark-grey;
 $text: $black;
 
 $body-background-color: $white;
-
-
-// Import only what you need from Bulma

@@ -50,7 +50,7 @@ import CompactCard from '@/components/CompactCard.vue'
 import Inquiries from '@/services/Inquiries.js'
 
 export default {
-  name: 'cat',
+  name: 'booth',
   components: {
     CompactCard
   },

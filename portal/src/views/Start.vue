@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="block has-text-centered">
-        <button class="button is-success is-size-2 is-uppercase">Trekk kølapp</button>
+        <button v-on:click="$router.push({ name: 'grabticket' })" class="button is-success is-size-2 is-uppercase">Trekk kølapp</button>
       </div>
 
       <div class="notification is-info">

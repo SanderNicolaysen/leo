@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Start from './views/Start.vue'
 import Grabticket from './views/Grabticket.vue'
+import Booth from './views/Booth.vue'
 
 Vue.use(Router)
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/grabticket',
       name: 'grabticket',
       component: Grabticket
+    },
+    {
+      path: '/booth',
+      name: 'booth',
+      component: Booth
     }/*,
     {
       path: '/example-path',

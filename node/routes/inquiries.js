@@ -18,17 +18,17 @@ router.post('/', (req, res) => {
         gender: gender,
         NIN: NIN,
         type: type
-    })
+    });
 
     new_inquiry.save(function (error) {
         if (error) {
-        console.log(error)
+        console.log(error);
         }
         res.send({
         success: true,
         message: 'Inquiry saved successfully!'
-    })
-    })
+      });
+    });
 });
 
 // Fetch all inquiries
@@ -37,9 +37,9 @@ router.get('/', ({}, res) => {
         if (error) { console.error(error); }
         res.send({
             inquiries: inquiries
-        })
+        });
     // The newest inquiry will be the last object in the fetched array
-    }).sort({_id:1}) 
+    }).sort({_id:1}); 
 });   
 
 module.exports = router;

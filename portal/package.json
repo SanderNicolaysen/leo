@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.4",
+    "lodash": "^4.17.11",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1"
   },

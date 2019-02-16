@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Start from './views/Start.vue'
 import Grabticket from './views/Grabticket.vue'
 import Booth from './views/Booth.vue'
+import Forms from './views/Forms.vue'
 
 Vue.use(Router)
 
@@ -12,7 +13,8 @@ export default new Router({
       path: '/',
       name: 'start',
       component: Start
-    }, {
+    },
+    {
       path: '/grabticket',
       name: 'grabticket',
       component: Grabticket
@@ -21,6 +23,11 @@ export default new Router({
       path: '/booth',
       name: 'booth',
       component: Booth
+    },
+    {
+      path: '/skjema/:name',
+      name: 'forms',
+      component: Forms
     }/*,
     {
       path: '/example-path',

@@ -37,12 +37,21 @@
         {{ element.label }}
       </label>
     </div>
+
+    <p class="help is-primary" v-if="exists(element.info)">{{ element.info }}</p>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'FlexiInput',
-  props: ['element']
+  props: ['element'],
+  methods: {
+    exists: function (prop) {
+      return !_.isUndefined(prop) && prop !== ''
+    }
+  }
 }
 </script>

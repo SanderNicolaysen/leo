@@ -1,20 +1,24 @@
 <template>
-  <div class="hero is-fullheight">
+  <div class="hero is-fullheight-with-navbar">
     <div class="hero-head section">
       <div class="container">
         <h1 class="title">
           {{ page.title }}
         </h1>
         <h2 class="subtitle">
-          {{ page.text }}
+          {{ page.subtitle }}
         </h2>
       </div>
     </div>
 
     <div class="hero-body section">
       <div class="container">
+        <div class="notification is-info" v-if="exists(page.info)">
+          {{ page.info }}
+        </div>
+
         <div class="columns is-multiline">
-          <FlexiInput v-for="element in page.elements" :key="element" :element="element" />
+          <FlexiInput v-for="element in page.elements" :key="element.id" :element="element" />
         </div>
       </div>
     </div>
@@ -26,7 +30,7 @@
           <button class="button is-large is-uppercase is-link is-outlined" @click="next">Neste</button>
         </div>
         <div>
-          <a>Eller, avslutt og trekk kølapp</a>
+          <router-link :to="{ name: 'grabticket' }">Eller, avslutt og trekk kølapp</router-link>
         </div>
       </div>
     </div>
@@ -57,7 +61,7 @@ export default {
       if (this.page.nextPage != null) {
         this.pageId = this.page.nextPage
       } else {
-        // TODO: Go to completed page/ticket page, or something similar
+        this.$router.push({ name: 'grabticket' })
       }
     },
     previous: function () {
@@ -67,6 +71,9 @@ export default {
         // Go back
         this.$router.go(-1)
       }
+    },
+    exists: function (prop) {
+      return !_.isUndefined(prop) && prop !== ''
     }
   },
   created: function () {

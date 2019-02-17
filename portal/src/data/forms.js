@@ -1,7 +1,8 @@
 let page1 = {
   id: 0,
   title: 'Anmelde tyveri eller skadeverk',
-  text: 'Fyll ut anmeldelse',
+  subtitle: 'Fyll ut anmeldelse',
+  info: 'Hvis du anmelder på vegne av noen andre, husk å benytt navnet til den fornærmede (den du anmelder for).',
   elements: [
     {
       id: 0,
@@ -68,7 +69,7 @@ let page1 = {
 let page2 = {
   id: 1,
   title: 'Anmelde tyveri eller skadeverk',
-  text: 'Fyll ut anmeldelse',
+  subtitle: 'Fyll ut anmeldelse',
   elements: [
     {
       id: 0,
@@ -142,11 +143,12 @@ let page2 = {
 let page3 = {
   id: 2,
   title: 'Anmelde tyveri eller skadeverk',
-  text: 'Fyll ut anmeldelse',
+  subtitle: 'Fyll ut anmeldelse',
   elements: [
     {
       id: 0,
-      label: 'Gjerningsbeskrivelse - hva har skjedd? (Ved lommetyveri - hvor hadde du gjenstanden?)',
+      label: 'Gjerningsbeskrivelse',
+      info: 'Hva har skjedd? (Ved lommetyveri - hvor hadde du gjenstanden?)',
       type: 'textarea',
       value: '',
       sizeClass: 'is-full'

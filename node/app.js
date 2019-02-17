@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var db = require('./database/db'); 
 
 var testRouter = require('./routes/test');
 
@@ -22,5 +23,7 @@ app.use('/api/test', testRouter);
 app.listen('8081');
 
 console.log('Listening on port 8081');
+
+db.setUpDB();
 
 module.exports = app;

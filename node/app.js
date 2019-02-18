@@ -6,6 +6,7 @@ var cors = require('cors');
 var db = require('./database/db'); 
 
 var testRouter = require('./routes/test');
+var inquiriesRouter = require('./routes/inquiries');
 
 var app = express();
 
@@ -19,13 +20,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/api/test', testRouter);
+app.use('/api/inquiries', inquiriesRouter);
 
 app.listen('8081');
 
 console.log('Listening on port 8081');
 
 db.setUpDB();
-db.postNewInquiry(app);
-db.fetchAllInquiries(app);
 
 module.exports = app;

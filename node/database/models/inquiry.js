@@ -7,8 +7,7 @@ var InquirySchema = new Schema({
   last_name: String,
   gender: String,
   NIN: Number,
-  detail1: String,
-  detail2: String
+  type: String
 });
 
 var Inquiry = mongoose.model("Inquiry", InquirySchema);

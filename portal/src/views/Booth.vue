@@ -27,7 +27,7 @@
     <div class="columns">
       <div class="column columns is-multiline">
         <div class="column is-full" v-for="inquiry in inquiries" :key="inquiry.inquiry_id" @mousedown="showDetails = inquiry.inquiry_id">
-          <CompactCard v-bind:inquiry="inquiry" v-bind:active="showDetails"/>
+          <InquiryBox v-bind:inquiry="inquiry" v-bind:active="showDetails"/>
         </div>
       </div>
       <div class="column">
@@ -45,14 +45,14 @@
 
 <script>
 // @ is an alias to /src, Example:
-import CompactCard from '@/components/CompactCard.vue'
+import InquiryBox from '@/components/InquiryBox.vue'
 
 import Inquiries from '@/services/Inquiries.js'
 
 export default {
   name: 'booth',
   components: {
-    CompactCard
+    InquiryBox
   },
   data: function () {
     return {

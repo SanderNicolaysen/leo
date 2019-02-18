@@ -22,8 +22,6 @@ app.use(cors());
 app.use('/api/test', testRouter);
 app.use('/api/inquiries', inquiriesRouter);
 
-app.use('/api/inquiries', inquiriesRouter);
-
 app.listen('8081');
 
 console.log('Listening on port 8081');

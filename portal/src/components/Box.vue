@@ -3,7 +3,7 @@
     <article class="media">
       <div class="media-left">
         <span class="icon">
-          <i class="fas fa-passport is-size-3"></i>
+          <i v-bind:class="icon"></i>
         </span>
       </div>
       <div class="media-content">
@@ -11,8 +11,7 @@
           <p>
             <strong>{{ title }}</strong>
             <br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla
-            egestas. Nullam condimentum luctus turpis.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </div>
       </div>
@@ -26,7 +25,8 @@ export default {
   name: 'Box',
   props: [
     'title',
-    'text'
+    'text',
+    'icon'
   ],
   data () {
     return {

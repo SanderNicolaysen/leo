@@ -13,7 +13,7 @@
 
       <div class="columns">
         <div class="column">
-          <Box v-bind:title="'Pass'" />
+          <Box v-bind:title="'Pass'" :icon="'fas fa-passport is-size-3'" />
         </div>
         <div class="column">
           <Box v-bind:title="'Anmelde tyveri eller skadeverk'" />

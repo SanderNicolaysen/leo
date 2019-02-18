@@ -1,4 +1,8 @@
 {
+    "root": true,
+    "env": {
+        "node": true
+    },
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
@@ -7,6 +11,10 @@
         }
     },
     "rules": {
-        "semi": "error"
-    }
+        "semi": "error",
+        "no-console": 0,
+        "no-unused-vars": ["error", { "args": "none" }],
+        "indent": [2, 2]
+    },
+    "extends": "eslint:recommended"
 }

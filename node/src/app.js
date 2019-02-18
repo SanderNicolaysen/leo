@@ -1,14 +1,14 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var db = require('./database/db'); 
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import db from './database/db'; 
 
-var testRouter = require('./routes/test');
-var inquiriesRouter = require('./routes/inquiries');
+import testRouter from './routes/test';
+import inquiriesRouter from './routes/inquiries';
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());

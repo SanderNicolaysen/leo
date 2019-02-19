@@ -7,6 +7,7 @@ import db from './database/db';
 
 import testRouter from './routes/test';
 import inquiriesRouter from './routes/inquiries';
+import faqsRouter from './routes/faqs';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(cors());
 
 app.use('/api/test', testRouter);
 app.use('/api/inquiries', inquiriesRouter);
+app.use('/api/faqs', faqsRouter);
 
 app.listen('8081');
 

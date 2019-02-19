@@ -1,6 +1,13 @@
+// Dummy data 
 import inquiries from './seeds/inquiries';
-import mongoose from 'mongoose';
+import faqs from './seeds/faqs'
+
+// Models
 import Inquiry from './models/inquiry';
+import Faq from './models/faq'
+
+import mongoose from 'mongoose';
+
 
 module.exports = {
   setUpDB: function() {
@@ -15,6 +22,7 @@ module.exports = {
 
       // Add dummy-data inquiries
       Inquiry.insertMany(inquiries.inquiries, onInsert);
+      Faq.insertMany(faqs.faqs, onInsert);
     });
   }
 };

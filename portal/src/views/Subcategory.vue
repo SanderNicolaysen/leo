@@ -37,7 +37,7 @@
         <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">Trekk kølapp</button></router-link>
       </div>
 
-      <Faq :item="choices"/>
+      <Faq :item="faqs"/>
     </div>
   </div>
 </template>
@@ -46,6 +46,8 @@
 import Box from '@/components/Box.vue'
 import Faq from '@/components/Faq.vue'
 
+import Faqs from '@/services/Faqs.js'
+
 export default {
   components: {
     Box,
@@ -53,12 +55,15 @@ export default {
   },
   data () {
     return {
-      choices: [
-        { id: 1, question: 'Det ikke ble brukt vold eller trussel' },
-        { id: 2, question: 'Det ikke ble brukt vold eller trussel' },
-        { id: 3, question: 'Det ikke ble brukt vold eller trussel' }
-      ]
+      faqs: [],
+      title: ''
     }
+  },
+  created () {
+    let self = this
+    Faqs.getFaqs().then(function (response) {
+      self.faqs = response.data.faqs[1].fact
+    })
   }
 }
 </script>

@@ -10,7 +10,7 @@
       <ul class="faq-categories is-size-6">
         <li
           v-for="choice in item"
-          v-bind:key="choice.id">{{ choice.question }}
+          v-bind:key="choice.id">{{ choice.text }}
         </li>
       </ul>
     </div>

@@ -1,7 +1,12 @@
 import Api from '@/services/Api'
 
 export default {
-  test () {
-    return Api().get('/api/test')
+  async test () {
+    try {
+      const response = await Api().get('/api/test')
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

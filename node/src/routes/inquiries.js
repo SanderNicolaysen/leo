@@ -37,9 +37,7 @@ router.get('/', (req, res) => {
     if (error) {
       console.error(error);
     }
-    res.send({
-      inquiries: inquiries
-    });
+    res.send(inquiries);
     // The newest inquiry will be the last object in the fetched array
   }).sort({
     _id: 1

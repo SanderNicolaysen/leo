@@ -61,11 +61,8 @@ export default {
       showDetails: null
     }
   },
-  mounted: function () {
-    let self = this
-    Inquiries.getInquiries().then(function (response) {
-      self.inquiries = response.data.inquiries
-    })
+  mounted: async function () {
+    this.inquiries = await Inquiries.getInquiries()
   },
   methods: {
     toggleButton: function () {

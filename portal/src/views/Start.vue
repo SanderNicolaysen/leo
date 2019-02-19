@@ -51,13 +51,11 @@ export default {
 
     }
   },
-  mounted: function () {
+  mounted: async function () {
     let self = this
 
     // Do a GET request on the test API
-    TestService.test().then(function (response) {
-      self.testText = response.data.text
-    })
+    this.testText = await TestService.test()
   },
   components: {
     Box

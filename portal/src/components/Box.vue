@@ -34,3 +34,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.box:hover {
+  background-color: lavender;
+  cursor: pointer;
+}
+
+</style>

@@ -5,36 +5,36 @@
 
       <div class="columns">
         <div class="column">
-          <Box :title="'Mobiltelefon'" />
+          <Box title='Mobiltelefon' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Sykkel'" />
+          <Box title='Sykkel' />
         </div>
         <div class="column">
-          <Box v-bind:title="'ID-tyveri'" />
+          <Box title='ID-tyveri' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Skade på eiendom'" />
+          <Box title='Skade på eiendom' />
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box v-bind:title="'Mobiltelefon'" />
+          <Box title='Mobiltelefon' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Sykkel'" />
+          <Box title='Sykkel' />
         </div>
         <div class="column">
-          <Box v-bind:title="'ID-tyveri'" />
+          <Box title='ID-tyveri' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Skade på eiendom'" />
+          <Box title='Skade på eiendom' />
         </div>
       </div>
 
       <div class="block has-text-centered">
-        <button class="button is-success is-size-4 is-uppercase">Trekk kølapp</button>
+        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">Trekk kølapp</button></router-link>
       </div>
 
       <Faq :item="choices"/>

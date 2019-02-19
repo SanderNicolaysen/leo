@@ -13,25 +13,25 @@
 
       <div class="columns">
         <div class="column">
-          <Box v-bind:title="'Pass'" :icon="'fas fa-passport is-size-3'" />
+          <Box title='Pass' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Anmelde tyveri eller skadeverk'" />
+          <router-link to="/subcategory"><Box title='Anmelde tyveri eller skadeverk'/></router-link>
         </div>
         <div class="column">
-          <Box v-bind:title="'Hente beslag'" />
+          <Box title='Hente beslag' />
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box v-bind:title="'Bot'" />
+          <Box title='Bot' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Våpen'" />
+          <Box title='Våpen' />
         </div>
         <div class="column">
-          <Box v-bind:title="'Avhør'" />
+          <Box title='Avhør' />
         </div>
       </div>
     </div>

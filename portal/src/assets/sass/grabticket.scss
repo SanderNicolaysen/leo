@@ -1,0 +1,32 @@
+.layeredimg{
+  position: absolute;
+  top: 220px;
+  left: 40vw;
+}
+
+.hand_fingers{
+  z-index: 5;
+  top: 300px;
+  left: 33vw;
+}
+.hand_thumb{
+  z-index: 10;
+  top: 300px;
+  left: 33vw;
+}
+.port_bottom{
+  z-index: 0;
+  top: 256px;
+  left: 39.5vw;
+}
+.port_top{
+  z-index: 10;
+}
+.ticket{
+  top: 20px;
+  z-index: 5;
+  left: 41.2vw;
+}
+.title{
+  z-index: 50;
+}

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navbar />
     <div class="container">
       <div class="block has-text-centered">
         <button v-on:click="$router.push({ name: 'grabticket' })" class="button is-success is-size-2 is-uppercase">{{ $t('trekkKølapp') }}</button>

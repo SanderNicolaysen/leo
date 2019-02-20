@@ -5,6 +5,7 @@ import Grabticket from './views/Grabticket.vue'
 import Booth from './views/Booth.vue'
 import Forms from './views/Forms.vue'
 import Subcategory from './views/Subcategory.vue'
+import AdminFaq from './views/AdminFaq.vue'
 
 Vue.use(Router)
 
@@ -34,7 +35,13 @@ export default new Router({
       path: '/subcategory',
       name: 'subcategory',
       component: Subcategory
-    }/*,
+    },
+    {
+      path: '/admin-faq',
+      name: 'adminFaq',
+      component: AdminFaq
+    }
+    /*,
     {
       path: '/example-path',
       name: 'example',

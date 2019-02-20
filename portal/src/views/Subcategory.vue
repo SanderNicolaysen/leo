@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navbar />
     <div class="container">
       <h1 class="title has-text-centered is-uppercase">{{ $t('anmeldeTyveri') }}</h1>
 

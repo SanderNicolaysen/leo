@@ -1,7 +1,7 @@
 <template>
   <div class="section has-text-centered">
 
-    <h1 class="title">Vennligst ta kølappen</h1>
+    <h1 class="title">{{ $t('taKølapp') }}</h1>
 
     <img :src="`${publicPath}svg/grabticket.svg`" alt="ticketIllustration">
 

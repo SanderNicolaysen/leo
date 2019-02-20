@@ -1,6 +1,6 @@
 let page1 = {
   id: 0,
-  title: 'Anmelde tyveri eller skadeverk',
+  title: 'anmeldeTyveri',
   subtitle: 'Fyll ut anmeldelse',
   info: 'Hvis du anmelder på vegne av noen andre, husk å benytt navnet til den fornærmede (den du anmelder for).',
   elements: [
@@ -68,7 +68,7 @@ let page1 = {
 
 let page2 = {
   id: 1,
-  title: 'Anmelde tyveri eller skadeverk',
+  title: 'anmeldeTyveri',
   subtitle: 'Fyll ut anmeldelse',
   elements: [
     {
@@ -142,7 +142,7 @@ let page2 = {
 
 let page3 = {
   id: 2,
-  title: 'Anmelde tyveri eller skadeverk',
+  title: 'anmeldeTyveri',
   subtitle: 'Fyll ut anmeldelse',
   elements: [
     {

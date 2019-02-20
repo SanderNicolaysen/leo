@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <h1 class="title has-text-centered is-uppercase">Anmeld tyveri eller skadeverk</h1>
+      <h1 class="title has-text-centered is-uppercase">{{ $t('anmeldeTyveri') }}</h1>
 
       <div class="columns">
         <div class="column">
@@ -35,7 +35,7 @@
       </div>
 
       <div class="block has-text-centered">
-        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">Trekk kølapp</button></router-link>
+        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
       </div>
 
       <Faq :item="faqs"/>

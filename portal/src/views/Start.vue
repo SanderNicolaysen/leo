@@ -7,31 +7,31 @@
 
       <div class="notification is-info">
         <button class="delete"></button>
-        <p class="has-text-centered is-size-5">Eller, gjør noen steg selv slik at vi kan hjelpe deg raskere! <br>
-          Begynn med å velge henvedelse under</p>
+        <p class="has-text-centered is-size-5">{{ $t('doSomeStepsTop') }} <br>
+          {{ $t('doSomeStepsBottom') }}</p>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box title='Pass' />
+          <Box :title="$t('pass')" />
         </div>
         <div class="column">
-          <router-link to="/subcategory"><Box title='Anmelde tyveri eller skadeverk'/></router-link>
+          <router-link to="/subcategory"><Box :title="$t('anmeldeTyveri')"/></router-link>
         </div>
         <div class="column">
-          <Box title='Hente beslag' />
+          <Box :title="$t('henteBeslag')" />
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box title='Bot' />
+          <Box :title="$t('bot')" />
         </div>
         <div class="column">
-          <Box title='Våpen' />
+          <Box :title="$t('våpen')" />
         </div>
         <div class="column">
-          <Box title='Avhør' />
+          <Box :title="$t('avhør')" />
         </div>
       </div>
     </div>
@@ -48,7 +48,6 @@ export default {
   data: function () {
     return {
       testText: ''
-
     }
   },
   created: async function () {

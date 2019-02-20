@@ -21,10 +21,10 @@
         </div>
 
         <div class="navbar-end">
-          <a class="navbar-item">
+          <a class="navbar-item" @click="changeLocale('no')">
             <img src="./assets/icons/norway.svg" alt="country-Norway" width="50" height="60">
           </a>
-          <a class="navbar-item">
+          <a class="navbar-item" @click="changeLocale('en')">
             <img src="./assets/icons/uk.svg" alt="country-UK" width="50" height="60">
           </a>
         </div>
@@ -38,3 +38,16 @@
 <style lang="scss">
 
 </style>
+
+<script>
+import i18n from '@/plugins/i18n'
+
+export default {
+  name: 'app',
+  methods: {
+    changeLocale (locale) {
+      i18n.locale = locale
+    }
+  }
+}
+</script>

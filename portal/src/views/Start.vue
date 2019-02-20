@@ -51,9 +51,7 @@ export default {
 
     }
   },
-  mounted: async function () {
-    let self = this
-
+  created: async function () {
     // Do a GET request on the test API
     this.testText = await TestService.test()
   },

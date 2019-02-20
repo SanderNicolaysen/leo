@@ -61,7 +61,7 @@ export default {
       showDetails: null
     }
   },
-  mounted: async function () {
+  created: async function () {
     this.inquiries = await Inquiries.getInquiries()
   },
   methods: {

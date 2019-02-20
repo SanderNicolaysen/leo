@@ -60,11 +60,9 @@ export default {
       title: ''
     }
   },
-  created () {
-    let self = this
-    Faqs.getFaqs().then(function (response) {
-      self.faqs = response.data.faqs[1].fact
-    })
+  created: async function () {
+    const faq = await Faqs.getFaqs()
+    this.faqs = faq[1].fact
   }
 }
 </script>

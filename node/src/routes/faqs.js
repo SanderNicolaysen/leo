@@ -35,13 +35,9 @@ router.get('/', (req, res) => {
     if (error) {
       console.error(error);
     }
-    res.send({
-      faqs: faqs
-    });
+    res.send(faqs);
     // The newest faq will be the last object in the fetched array
-  }).sort({
-    _id: 1
-  });
+  })
 });
 
 module.exports = router;

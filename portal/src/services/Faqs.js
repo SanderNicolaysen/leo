@@ -1,7 +1,12 @@
 import Api from '@/services/Api'
 
 export default {
-  getFaqs () {
-    return Api().get('/api/faqs')
+  async getFaqs () {
+    try {
+      const response = await Api().get('/api/faqs')
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

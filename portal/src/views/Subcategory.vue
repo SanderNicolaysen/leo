@@ -5,31 +5,32 @@
 
       <div class="columns">
         <div class="column">
-          <Box title='Mobiltelefon' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Mobiltelefon' /></router-link>
         </div>
         <div class="column">
-          <Box title='Sykkel' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Sykkel' /></router-link>
         </div>
         <div class="column">
-          <Box title='ID-tyveri' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='ID-tyveri' /></router-link>
+
         </div>
         <div class="column">
-          <Box title='Skade på eiendom' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Skade på eiendom' /></router-link>
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box title='Mobiltelefon' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Mobiltelefon' /></router-link>
         </div>
         <div class="column">
-          <Box title='Sykkel' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Sykkel' /></router-link>
         </div>
         <div class="column">
-          <Box title='ID-tyveri' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='ID-tyveri' /></router-link>
         </div>
         <div class="column">
-          <Box title='Skade på eiendom' />
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Skade på eiendom' /></router-link>
         </div>
       </div>
 
@@ -69,23 +70,5 @@ export default {
 </script>
 
 <style>
-.section {
-  padding: 0px;
-}
-
-.section-border {
-  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-}
-
-.faq-categories {
-  list-style-type: none;
-  margin-left: 20px;
-}
-
-.faq-categories li {
-  margin-bottom: 2px;
-  padding: 5px;
-}
 
 </style>

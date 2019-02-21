@@ -7,8 +7,8 @@
 
       <div class="notification is-info">
         <button class="delete"></button>
-        <p class="has-text-centered is-size-5">{{ $t('doSomeStepsTop') }} <br>
-          {{ $t('doSomeStepsBottom') }}</p>
+        <p class="has-text-centered is-size-5">{{ $t('gjørNoenSteg') }} <br>
+          {{ $t('velgTypeHenvendelse') }}</p>
       </div>
 
       <div class="columns">

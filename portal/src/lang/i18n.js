@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import no from '@/languages/no'
-import en from '@/languages/en'
+import no from './no'
+import en from './en'
 
 Vue.use(VueI18n)
 

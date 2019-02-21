@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import i18n from '@/languages/i18n'
+import i18n from './lang/i18n'
 import './assets/sass/app.scss'
 
 Vue.config.productionTip = false

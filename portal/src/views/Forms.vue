@@ -3,7 +3,7 @@
     <div class="hero-head section">
       <div class="container">
         <h1 class="title">
-          {{ $t(page.title) }}
+          {{ page.title }}
         </h1>
         <h2 class="subtitle">
           {{ page.subtitle }}

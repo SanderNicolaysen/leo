@@ -1,0 +1,72 @@
+<svg
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg"
+  id="svg8"
+  version="1.1"
+  viewBox="0 0 167.82042 242.31277"
+  height="242.31277mm"
+  width="167.82042mm">
+  <defs
+    id="defs2" />
+  <metadata
+    id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+        rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+          rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+    transform="translate(-18.895164,-15.069504)"
+    id="layer1">
+    <g
+      id="fingers"
+      transform="translate(4.5816132,-16.471747)">
+      <path
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+        mask="none"
+        d="m 78.403536,206.75616 -9.256652,9.35411 v 45.24375 H 26.813551 l 3e-6,-118.53333 c 0,-15.34585 3.731162,-24.22566 22.680041,-40.8705 L 69.869448,84.051873 c 18.622581,-14.600165 21.935241,3.5447 11.259701,14.220243 L 53.801051,125.09359 v 26.72293 l 11.646162,3.23972"
+        id="fingerpath" />
+    </g>
+    <g
+      id="port_bot"
+      transform="translate(2.5701422,-53.776051)">
+      <path
+        id="path2036"
+        d="M 146.24831,81.345805 H 54.437896 v 14.02292 h 92.207294 v -13.89062"
+        style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" />
+    </g>
+    <g
+      id="ticket"
+      transform="translate(-1.4823371,-76.518311)">
+      <path
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.90591311;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+        d="m65 104v18l78 0v-18z"
+        id="ticketpath" />
+    </g>
+    <g
+      id="thumb"
+      transform="translate(4.5816132,-16.471747)">
+      <path
+        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+        mask="none"
+        d="m 65.447213,155.05624 5.01041,1.3938 c 0,0 5.96584,-8.91787 13.12624,-22.37941 6.61458,-12.43542 12.021347,-12.6812 14.667177,-11.62286 2.64584,1.05833 9.14353,2.25844 7.07291,9.98607 l -23.609367,70.97642 -3.31105,3.34591"
+        id="thumbpath" />
+    </g>
+    <g
+      id="port_top"
+      transform="translate(40.169202,-89.395776)">
+      <path
+        style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+        d="M 16.838847,116.96553 H 108.64925"
+        id="path2034" />
+    </g>
+  </g>
+</svg>

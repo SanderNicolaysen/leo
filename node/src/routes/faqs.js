@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
     }
     res.send(faqs);
     // The newest faq will be the last object in the fetched array
-  })
+  });
 });
 
 module.exports = router;

@@ -1,47 +1,67 @@
 import express from 'express';
-const router = express.Router();
 import Inquiry from '../database/models/inquiry';
 
-// Post new inquiry
-router.post('/', (req, res) => {
-  const inquiry_id = req.body.inquiry_id;
-  const first_name = req.body.first_name;
-  const last_name = req.body.last_name;
-  const gender = req.body.gender;
-  const NIN = req.body.NIN;
-  const type = req.body.type;
-
-  const new_inquiry = new Inquiry({
-    inquiry_id: inquiry_id,
-    first_name: first_name,
-    last_name: last_name,
-    gender: gender,
-    NIN: NIN,
-    type: type
-  });
-
-  new_inquiry.save(function (error) {
-    if (error) {
-      console.log(error);
-    }
-    res.send({
-      success: true,
-      message: 'Inquiry saved successfully!'
-    });
-  });
-});
+const router = express.Router();
 
 // Fetch all inquiries
-router.get('/', (req, res) => {
-  Inquiry.find({}, function (error, inquiries) {
-    if (error) {
-      console.error(error);
+router.get('/', async (req, res, next) => {
+  try {
+    const inquiries = await Inquiry.find({}).sort({ _id: 1 }).exec();
+    res.status(200).json(inquiries);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Start a new inquiry
+router.post('/', async (req, res, next) => {
+  const inquiry = new Inquiry({});
+
+  try {
+    await inquiry.save();
+    res.status(201).json(inquiry);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update inquiry
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const inquiry = await Inquiry.findById(req.params.id).exec();
+
+    if (inquiry === null) {
+      res.sendStatus(404);
+      return;
     }
-    res.send(inquiries);
-    // The newest inquiry will be the last object in the fetched array
-  }).sort({
-    _id: 1
-  });
+
+    // Copy values from the request body into the inquiry
+    Object.keys(req.body).forEach((field) => {
+      inquiry[field] = req.body[field];
+    });
+
+    await inquiry.save();
+    res.status(200).json(inquiry);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Delete inquiry
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const inquiry = await Inquiry.findById(req.params.id).exec();
+
+    if (inquiry === null) {
+      res.sendStatus(404);
+      return;
+    }
+
+    await inquiry.delete();
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

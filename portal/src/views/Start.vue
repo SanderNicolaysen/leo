@@ -53,6 +53,9 @@ export default {
   created: async function () {
     // Do a GET request on the test API
     this.testText = await TestService.test()
+
+    // Clear any inquiry in local storage
+    localStorage.removeItem('inquiry')
   },
   components: {
     Box

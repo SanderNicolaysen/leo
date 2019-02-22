@@ -41,19 +41,31 @@
 import _ from 'lodash'
 import FlexiInput from '@/components/FlexiInput.vue'
 
-import forms from '@/data/forms.js'
+import Forms from '@/services/Forms.js'
+import Inquiries from '@/services/Inquiries.js'
 
 export default {
   name: 'forms',
   data: function () {
     return {
       form: null,
-      pageId: 0
+      pageId: null
     }
   },
   computed: {
     page: function () {
-      return _.find(this.form.pages, { id: this.pageId })
+      if (this.pageId !== null) {
+        return _.find(this.form.pages, { id: this.pageId })
+      }
+      return {}
+    }
+  },
+  watch: {
+    form: {
+      handler: function (value) {
+        this.debouncedFormUpdate(value)
+      },
+      deep: true
     }
   },
   methods: {
@@ -76,9 +88,22 @@ export default {
       return !_.isUndefined(prop) && prop !== ''
     }
   },
-  created: function () {
-    this.form = _.find(forms, { name: this.$route.params.name })
-    this.pageId = this.form.pages[0].id
+  created: async function () {
+    this.form = await Forms.find(this.$route.params.name)
+    this.pageId = 0
+
+    const inquiry = JSON.parse(localStorage.getItem('inquiry'))
+    if (inquiry.form !== undefined) {
+      this.form = inquiry.form
+    }
+
+    this.debouncedFormUpdate = _.debounce(async (value) => {
+      let inquiry = JSON.parse(localStorage.getItem('inquiry'))
+      if (inquiry) {
+        inquiry = await Inquiries.update(inquiry._id, { form: this.form })
+        localStorage.setItem('inquiry', JSON.stringify(inquiry))
+      }
+    }, 2000)
   },
   components: {
     FlexiInput

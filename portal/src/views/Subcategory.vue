@@ -48,6 +48,7 @@ import Box from '@/components/Box.vue'
 import Faq from '@/components/Faq.vue'
 
 import Faqs from '@/services/Faqs.js'
+import Inquiries from '@/services/Inquiries.js'
 
 export default {
   components: {
@@ -63,6 +64,21 @@ export default {
   created: async function () {
     const faq = await Faqs.getFaqs()
     this.faqs = faq[1].fact
+
+    // Check if we have started an inquiry, and start one if not
+    // let inquiry = JSON.parse(localStorage.getItem('inquiry'))
+    // if (!inquiry) {
+    //   inquiry = await Inquiries.startInquiry()
+    //   inquiry = await Inquiries.update(inquiry._id, { type: 'Tyveri/Skadeverk' })
+    //   localStorage.setItem('inquiry', JSON.stringify(inquiry))
+    // } else {
+    //   inquiry = await Inquiries.update(this.$route.query.id, { type: 'Tyveri/Skadeverk' })
+    //   localStorage.setItem('inquiry', JSON.stringify(inquiry))
+    // }
+
+    let inquiry = await Inquiries.startInquiry()
+    inquiry = await Inquiries.update(inquiry._id, { type: 'Tyveri/Skadeverk' })
+    localStorage.setItem('inquiry', JSON.stringify(inquiry))
   }
 }
 </script>

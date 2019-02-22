@@ -1,4 +1,4 @@
-let page1 = {
+const page1 = {
   id: 0,
   title: 'Anmelde tyveri eller skadeverk',
   subtitle: 'Fyll ut anmeldelse',
@@ -64,9 +64,9 @@ let page1 = {
   ],
   nextPage: 1,
   prevPage: null
-}
+};
 
-let page2 = {
+const page2 = {
   id: 1,
   title: 'Anmelde tyveri eller skadeverk',
   subtitle: 'Fyll ut anmeldelse',
@@ -138,9 +138,9 @@ let page2 = {
   ],
   nextPage: 2,
   prevPage: 0
-}
+};
 
-let page3 = {
+const page3 = {
   id: 2,
   title: 'Anmelde tyveri eller skadeverk',
   subtitle: 'Fyll ut anmeldelse',
@@ -156,11 +156,9 @@ let page3 = {
   ],
   nextPage: null,
   prevPage: 1
-}
+};
 
-export default [
-  {
-    name: 'forenklet-anmeldelse',
-    pages: [page1, page2, page3]
-  }
-]
+export default {
+  name: 'forenklet-anmeldelse',
+  pages: [page1, page2, page3]
+};

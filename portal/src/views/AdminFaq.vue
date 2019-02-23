@@ -35,12 +35,14 @@
 
         <table class="table is-hoverable is-fullwidth is-striped">
           <thead>
-              <th>Nr</th>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Statement</th>
+            <tr>
+              <th scope="col">Nr</th>
+              <th scope="col">Question</th>
+              <th scope="col">Answer</th>
+              <th scope="col">Statement</th>
+            </tr>
           </thead>
-          <tbody>
+          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200}" @change="updateFaqs">
             <tr v-for="(item, index) in faqs" :key="item.id">
               <template v-if="isEditing !== item.id">
                 <td>{{ index + 1 }}</td>
@@ -80,7 +82,7 @@
                 </td>
               </template>
             </tr>
-          </tbody>
+          </draggable>
         </table>
 
       </div>
@@ -93,9 +95,13 @@
 // import Faq from '@/components/Faq'
 
 import Faq from '@/services/Faqs.js'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'adminFaq',
+  components: {
+    draggable
+  },
   data () {
     return {
       options: [
@@ -114,12 +120,12 @@ export default {
         answer: '',
         statement: ''
       },
-      isEditing: null
+      isEditing: null      
     }
   },
   created () {
     // Set pass as default
-    this.tabChange({queryString: this.currenChoice}) 
+    this.tabChange({ queryString: this.currenChoice })
   },
   methods: {
     tabChange: async function (subject) {
@@ -135,6 +141,13 @@ export default {
       await Faq.updateFaq(item)
       this.isEditing = null
     },
+    updateFaqs: async function() {
+      this.faqs.map((faq, index)  => {
+        faq.id = index;
+      });
+
+      await Faq.updateFaqs(this.faqs);
+    },
     exitFaq: function () {
       this.isEditing = null
     },
@@ -144,11 +157,10 @@ export default {
       this.faqs.push(response.faq)
 
       // Remove text from input field
-      this.form.answer = '';
-      this.form.question = '';
-      this.form.statement = '';
+      this.form.answer = ''
+      this.form.question = ''
+      this.form.statement = ''
     }
-
   }
 }
 </script>

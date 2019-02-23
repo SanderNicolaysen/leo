@@ -3,9 +3,6 @@ import Api from '@/services/Api'
 export default {
   async getFaqs (subject) {
     try {
-<<<<<<< HEAD
-      const response = await Api().get('/faqs')
-=======
       const response = await Api().get(`/api/faqs/${subject}`)
       return response.data
     } catch (error) {
@@ -39,7 +36,14 @@ export default {
   async updateFaq (body) {
     try {
       const response = await Api().patch(`/api/faqs/${body.subject}/${body.id}`, body)
->>>>>>> can now get, update, delete and post new faq or statement to a specific subject
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async updateFaqs (body) {
+    try {
+      const response = await Api().put(`/api/faqs/${body[0].subject}`, body)
       return response.data
     } catch (error) {
       console.error(error)

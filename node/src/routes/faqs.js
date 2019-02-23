@@ -4,6 +4,7 @@ import Faq from '../database/models/faq';
 
 router.get('/:subject', (req, res) => {
   Faq.find({subject: req.params.subject})
+    .sort({id: 1})
     .exec()
     .then(doc => {
       console.log(doc);
@@ -52,7 +53,7 @@ router.post('/', (req, res) => {
   const answer = req.body.answer;
   const statement = req.body.statement;
   
-  Faq.find({subject: subject}).count(function(error, size) {
+  Faq.find({subject: subject}).countDocuments(function(error, size) {
     if (error) {
       console.log(error);
     }
@@ -93,8 +94,6 @@ router.patch('/:subject/:id', (req, res) => {
     statement: req.body.statement
   };
 
-  console.log(props);
-
   Faq.update({subject: subject, id: id}, { $set: props })
     .exec()
     .then(result => {
@@ -109,11 +108,39 @@ router.patch('/:subject/:id', (req, res) => {
     });
 });
 
+router.put('/:subject', (req, res) => {
+  const subject = req.params.subject;
+  const body = req.body;
+
+  // delete everything for specific subject and insert new body
+  Faq.deleteMany({subject: subject})
+    .exec()
+    .then(result => {
+      Faq.insertMany(body)
+        .then(saveResult => {
+          console.log(saveResult);
+          res.status(200).json(saveResult);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
 router.delete('/:subject/:id', (req, res) => {
   const subject = req.params.subject;
   const id = req.params.id;
 
-  Faq.remove({subject: subject, id: id})
+  Faq.deleteMany({subject: subject, id: id})
     .exec()
     .then(doc => {
       console.log(doc);

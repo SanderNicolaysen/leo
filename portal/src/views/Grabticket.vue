@@ -51,6 +51,17 @@ export default {
         easing: 'easeInOutSine'
       }, 1500)
     }
+  },
+  async created () {
+    // Start a new inquiry if it doesn't already exists
+    if (!this.$inquiry.exists()) {
+      await this.$inquiry.start()
+    }
+
+    // And then delete any locally stored inquiry
+    this.$inquiry.complete()
+
+    setTimeout(() => { this.$router.push({ name: 'start' }) }, 5000)
   }
 }
 </script>

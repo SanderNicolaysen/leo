@@ -1,5 +1,6 @@
 import express from 'express';
 import Inquiry from '../database/models/inquiry';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/', async (req, res, next) => {
 
 // Start a new inquiry
 router.post('/', async (req, res, next) => {
-  const inquiry = new Inquiry({});
+  const inquiry = new Inquiry({ type: req.body.type });
 
   try {
     await inquiry.save();
@@ -27,20 +28,19 @@ router.post('/', async (req, res, next) => {
 
 // Update inquiry
 router.patch('/:id', async (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.sendStatus(404);
+    return;
+  }
+
   try {
-    const inquiry = await Inquiry.findById(req.params.id).exec();
+    const inquiry = await Inquiry.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
 
     if (inquiry === null) {
       res.sendStatus(404);
       return;
     }
 
-    // Copy values from the request body into the inquiry
-    Object.keys(req.body).forEach((field) => {
-      inquiry[field] = req.body[field];
-    });
-
-    await inquiry.save();
     res.status(200).json(inquiry);
   } catch (error) {
     next(error);

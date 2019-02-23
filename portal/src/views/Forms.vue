@@ -42,7 +42,6 @@ import _ from 'lodash'
 import FlexiInput from '@/components/FlexiInput.vue'
 
 import Forms from '@/services/Forms.js'
-import Inquiries from '@/services/Inquiries.js'
 
 export default {
   name: 'forms',
@@ -63,7 +62,8 @@ export default {
   watch: {
     form: {
       handler: function (value) {
-        this.debouncedFormUpdate(value)
+        // Update the form property of an ongoing inquiry
+        this.$inquiry.update({ form: value })
       },
       deep: true
     }
@@ -91,19 +91,6 @@ export default {
   created: async function () {
     this.form = await Forms.find(this.$route.params.name)
     this.pageId = 0
-
-    const inquiry = JSON.parse(localStorage.getItem('inquiry'))
-    if (inquiry.form !== undefined) {
-      this.form = inquiry.form
-    }
-
-    this.debouncedFormUpdate = _.debounce(async (value) => {
-      let inquiry = JSON.parse(localStorage.getItem('inquiry'))
-      if (inquiry) {
-        inquiry = await Inquiries.update(inquiry._id, { form: this.form })
-        localStorage.setItem('inquiry', JSON.stringify(inquiry))
-      }
-    }, 2000)
   },
   components: {
     FlexiInput

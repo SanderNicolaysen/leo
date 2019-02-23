@@ -5,7 +5,6 @@ import logger from 'morgan';
 import cors from 'cors';
 import db from './database/db'; 
 
-import testRouter from './routes/test';
 import inquiriesRouter from './routes/inquiries';
 import faqsRouter from './routes/faqs';
 import formsRouter from './routes/forms';
@@ -16,12 +15,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/../public/')));
 
 // Enable cross domain requests for development in seperate environments
 app.use(cors());
 
-app.use('/api/test', testRouter);
 app.use('/api/inquiries', inquiriesRouter);
 app.use('/api/faqs', faqsRouter);
 app.use('/api/forms', formsRouter);

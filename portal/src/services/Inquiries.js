@@ -10,9 +10,9 @@ export default {
     }
   },
 
-  async startInquiry () {
+  async startInquiry (_type) {
     try {
-      const response = await Api().post('/inquiries')
+      const response = await Api().post('/inquiries', { type: _type })
       return response.data
     } catch (error) {
       console.error(error)
@@ -22,6 +22,15 @@ export default {
   async update (id, data) {
     try {
       const response = await Api().patch('/inquiries/' + id, data)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
+  async delete (id) {
+    try {
+      const response = await Api().delete('/inquiries/' + id)
       return response.data
     } catch (error) {
       console.error(error)

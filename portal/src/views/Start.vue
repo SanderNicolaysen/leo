@@ -41,7 +41,6 @@
 <script>
 // @ is an alias to /src, Example:
 import Box from '@/components/Box.vue'
-import TestService from '@/services/TestService.js'
 
 export default {
   name: 'start',
@@ -51,11 +50,8 @@ export default {
     }
   },
   created: async function () {
-    // Do a GET request on the test API
-    this.testText = await TestService.test()
-
-    // Clear any inquiry in local storage
-    localStorage.removeItem('inquiry')
+    // Delete any incomplete inquiry if it exists
+    this.$inquiry.clear()
   },
   components: {
     Box

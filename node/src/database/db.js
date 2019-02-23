@@ -1,10 +1,12 @@
 // Dummy data 
 import faqs from './seeds/faqs';
 import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
+import inquiries from './seeds/inquiries';
 
 // Models
-import Form from './models/form';
 import Faq from './models/faq';
+import Form from './models/form';
+import Inquiry from './models/inquiry';
 
 import mongoose from 'mongoose';
 

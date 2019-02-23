@@ -62,11 +62,11 @@ export default {
     }
   },
   created: async function () {
-    const faq = await Faqs.getFaqs()
-    this.faqs = faq[1].fact
-
     // Start a new inquiry
     this.$inquiry.start('Tyveri/skadeverk')
+    
+    const faq = await Faqs.getFaqs('tyveri-og-skadeverk')
+    this.faqs = faq
   }
 }
 </script>

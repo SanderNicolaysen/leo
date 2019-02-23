@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const FaqSchema = new Schema({
   id: Number,
-  title: String,
+  subject: String,
   question: String,
   answer: String,
-  fact: Object
+  statement: String,
 });
 
 const Faq = mongoose.model("Faq", FaqSchema);

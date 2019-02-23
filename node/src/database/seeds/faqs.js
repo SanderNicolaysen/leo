@@ -1,21 +1,33 @@
 module.exports = {
   faqs: [
+    // PASS
     {
       id: 0,
-      title: 'Pass',
-      question: '',
-      answer: '',
-      fact: []
-    }, {
+      subject: 'pass',
+      question: 'Kan jeg få nødpass?',
+      answer: 'Ja det kan du få'
+    }, 
+    {
       id: 1,
-      title: 'Anmeld tyveri eller skadeverk',
-      question: '',
-      answer: '',
-      fact: [
-        { id: 0, text: 'Det ikke ble brukt vold eller trussel' },
-        { id: 1, text: 'Du er norsk statsborger over 18 år' },
-        { id: 2, text: 'Du kjenner ikke navnet på gjerningspersonen' }
-      ]
+      subject: 'pass',
+      question: 'Kan jeg få nytt bilde på passet mitt?',
+      answer: 'Ja det kan du få'
+    },
+    // TYVERI OG SKADEVERK
+    {
+      id: 0,
+      subject: 'tyveri-og-skadeverk',
+      statement: 'Det ikke ble brukt vold eller trussel' 
+    },
+    {
+      id: 1,
+      subject: 'tyveri-og-skadeverk',
+      statement: 'Du er norsk statsborger over 18 år' 
+    },
+    {
+      id: 2,
+      subject: 'tyveri-og-skadeverk',
+      statement: 'Du kjenner ikke navnet på gjerningspersonen' 
     }
   ]
 };

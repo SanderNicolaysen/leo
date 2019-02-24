@@ -1,25 +1,26 @@
 <template>
   <div>
+    <navbar />
     <div class="container">
       <nav class="block">
         <div class="tabs is-centered">
           <ul>
-            <li v-for="item in options" :key="item.id" v-on:click.prevent="tabChange(item)"><a>{{ item.option }}</a></li>
+            <li v-for="item in options" :key="item.id" v-on:click.prevent="tabChange(item, $event)"><a>{{ item.option }}</a></li>
           </ul>
         </div>
       </nav>
 
       <div class="box">
-        <h1 class="title has-text-centered">Legg til ny FAQ</h1>
-          <form v-on:submit.prevent="addFaq" method="POST">
+        <h1 class="title has-text-centered">{{ $t('leggTilNyFaq') }}</h1>
+          <form class="block" v-on:submit.prevent="addFaq" method="POST">
             <div class="field">
               <div class="control">
-                <input class="input" type="text" placeholder="Question" v-model="form.question">
+                <input class="input" type="text" :placeholder="$t('spørsmål')" v-model="form.question">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input" type="text" placeholder="Answer" v-model="form.answer">
+                <input class="input" type="text" :placeholder="$t('svar')" v-model="form.answer">
               </div>
             </div>
             <div class="field">
@@ -28,17 +29,16 @@
               </div>
             </div>
             <div class="block">
-              <button type="submit" class="button is-primary" @click.prevent="addFaq">Add</button>
+              <button type="submit" class="button is-primary" @click.prevent="addFaq">{{$t('leggTil')}}</button>
             </div>
           </form>
-          <hr>
 
         <table class="table is-hoverable is-fullwidth is-striped">
           <thead>
             <tr>
               <th scope="col">Nr</th>
-              <th scope="col">Question</th>
-              <th scope="col">Answer</th>
+              <th scope="col">{{$t('spørsmål')}}</th>
+              <th scope="col">{{$t('svar')}}</th>
               <th scope="col">Statement</th>
             </tr>
           </thead>
@@ -51,8 +51,8 @@
                 <td>{{ item.statement }}</td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-primary" @click='isEditing = item.id'>Rediger</span>
-                    <span class="button is-danger" @click='deleteFaq(item)'>Slett</span>
+                    <span class="button is-primary" @click='isEditing = item.id'>{{$t('rediger')}}</span>
+                    <span class="button is-danger" @click='deleteFaq(item)'>{{$t('slett')}}</span>
                   </div>
                 </td>
               </template>
@@ -76,8 +76,8 @@
                 </td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-primary" @click='updateFaq(item)'>Oppdater</span>
-                    <span class="button is-danger" @click='exitFaq'>Tibake</span>
+                    <span class="button is-primary" @click='updateFaq(item)'>{{$t('oppdater')}}</span>
+                    <span class="button is-danger" @click='exitFaq'>{{$t('tilbake')}}</span>
                   </div>
                 </td>
               </template>
@@ -113,46 +113,55 @@ export default {
         { id: 5, option: 'Avhør', queryString: 'avhør' }
       ],
       faqs: [],
-      currenChoice: 'pass',
+      currentChoice: null,
       form: {
         subject: '',
         question: '',
         answer: '',
         statement: ''
       },
-      isEditing: null      
+      isEditing: null
     }
   },
   created () {
-    // Set pass as default
-    this.tabChange({ queryString: this.currenChoice })
   },
   methods: {
-    tabChange: async function (subject) {
+    tabChange: async function (subject, event) {
       const faq = await Faq.getFaqs(subject.queryString)
       this.faqs = faq
-      this.currenChoice = subject.queryString
+      this.currentChoice = subject.queryString
+
+      // Remove the is-active class on all choices and set the class on the currentChoice
+      const ul = event.target.parentElement.parentElement;
+      const li = event.target.parentElement;
+      for (let i = 0; i < ul.children.length; i++) {
+        ul.children[i].classList.remove('is-active')
+      }
+      li.classList.add('is-active')
     },
     deleteFaq: async function (item) {
       await Faq.deleteFaq(item)
-      this.faqs.pop()
+      this.faqs.splice(item.id, 1)
+      this.faqs.map((faq, index) => {
+        faq.id = index
+      })
     },
     updateFaq: async function (item) {
       await Faq.updateFaq(item)
       this.isEditing = null
     },
-    updateFaqs: async function() {
-      this.faqs.map((faq, index)  => {
-        faq.id = index;
-      });
+    updateFaqs: async function () {
+      this.faqs.map((faq, index) => {
+        faq.id = index
+      })
 
-      await Faq.updateFaqs(this.faqs);
+      await Faq.updateFaqs(this.faqs)
     },
     exitFaq: function () {
       this.isEditing = null
     },
     addFaq: async function () {
-      this.form.subject = this.currenChoice
+      this.form.subject = this.currentChoice
       const response = await Faq.postFaq(this.form)
       this.faqs.push(response.faq)
 

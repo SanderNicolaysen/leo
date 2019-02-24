@@ -8,5 +8,13 @@ export default {
   bot: 'Fine',
   våpen: 'Weapon',
   avhør: 'Questioning',
-  taKølapp: 'Please take your ticket'
+  taKølapp: 'Please take your ticket',
+  leggTilNyFaq: 'Add new FAQ',
+  spørsmål: 'Question',
+  svar: 'Answer',
+  leggTil: 'Add',
+  rediger: 'Edit',
+  slett: 'Delete',
+  oppdater: 'Update',
+  tilbake: 'Return'
 }

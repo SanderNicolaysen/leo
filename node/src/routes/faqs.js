@@ -8,14 +8,7 @@ router.get('/:subject', (req, res) => {
     .exec()
     .then(doc => {
       console.log(doc);
-      if (doc && doc.length > 0) {
-        res.status(200).json(doc);
-      } else {
-        res.status(404).json({ 
-          message: `No entries found in api/faqs/${req.params.subject}`,
-          error: 404
-        });
-      }
+      res.status(200).json(doc);
     })
     .catch(err => {
       console.log(err);
@@ -32,14 +25,7 @@ router.get('/:subject/:id', (req, res) => {
     .exec()
     .then(doc => {
       console.log(doc);
-      if (doc && doc.length > 0) {
-        res.status(200).json(doc);
-      } else {
-        res.status(404).json({
-          message: `No entries found api/faqs/${subject}/${id}`,
-          error: 404
-        });
-      }
+      res.status(200).json(doc);
     })
     .catch(err => {
       console.log(err);

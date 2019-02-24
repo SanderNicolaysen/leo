@@ -8,5 +8,13 @@ export default {
   bot: 'Bot',
   våpen: 'Våpen',
   avhør: 'Avhør',
-  taKølapp: 'Vennligst ta kølappen'
+  taKølapp: 'Vennligst ta kølappen',
+  leggTilNyFaq: 'Legg til ny Faq',
+  spørsmål: 'Spørsmål',
+  svar: 'svar',
+  leggTil: 'Legg til',
+  rediger: 'Rediger',
+  slett: 'Slett',
+  oppdater: 'Oppdater',
+  tilbake: 'Tilbake'
 }

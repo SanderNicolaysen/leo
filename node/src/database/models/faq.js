@@ -5,8 +5,7 @@ const FaqSchema = new Schema({
   id: Number,
   subject: String,
   question: String,
-  answer: String,
-  statement: String,
+  answer: String
 });
 
 const Faq = mongoose.model("Faq", FaqSchema);

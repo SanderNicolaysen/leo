@@ -37,7 +37,6 @@ router.post('/', (req, res) => {
   const subject = req.body.subject;
   const question = req.body.question;
   const answer = req.body.answer;
-  const statement = req.body.statement;
   
   Faq.find({subject: subject}).countDocuments(function(error, size) {
     if (error) {
@@ -48,8 +47,7 @@ router.post('/', (req, res) => {
       id: size,
       subject: subject,
       question: question,
-      answer: answer,
-      statement: statement
+      answer: answer
     });
     
     new_faq
@@ -76,8 +74,7 @@ router.patch('/:subject/:id', (req, res) => {
 
   const props = {
     question: req.body.question,
-    answer: req.body.answer,
-    statement: req.body.statement
+    answer: req.body.answer
   };
 
   Faq.update({subject: subject, id: id}, { $set: props })

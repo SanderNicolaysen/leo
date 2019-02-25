@@ -23,11 +23,6 @@
                 <input class="input" type="text" :placeholder="$t('svar')" v-model="form.answer">
               </div>
             </div>
-            <div class="field">
-              <div class="control">
-                <input class="input" type="text" placeholder="Statement" v-model="form.statement">
-              </div>
-            </div>
             <div class="block">
               <button type="submit" class="button is-primary" @click.prevent="addFaq">{{$t('leggTil')}}</button>
             </div>
@@ -39,19 +34,18 @@
               <th scope="col">Nr</th>
               <th scope="col">{{$t('spørsmål')}}</th>
               <th scope="col">{{$t('svar')}}</th>
-              <th scope="col">Statement</th>
+              <th></th>
             </tr>
           </thead>
-          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200}" @change="updateFaqs">
-            <tr v-for="(item, index) in faqs" :key="item.id">
+          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDrag'}" @change="updateFaqs">
+            <tr class="drag hasDrag" v-for="(item, index) in faqs" :key="item.id">
               <template v-if="isEditing !== item.id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ item.question }}</td>
                 <td>{{ item.answer }}</td>
-                <td>{{ item.statement }}</td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-primary" @click='isEditing = item.id'>{{$t('rediger')}}</span>
+                    <span class="button is-primary" @click='edit(item)'>{{$t('rediger')}}</span>
                     <span class="button is-danger" @click='deleteFaq(item)'>{{$t('slett')}}</span>
                   </div>
                 </td>
@@ -61,17 +55,12 @@
                 <td>{{ index + 1 }}</td>
                 <td>
                   <div class="control">
-                    <input class="input" type="text" v-model='item.question'>
+                    <textarea class="textarea" v-model='item.questionr'></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="control">
-                    <input class="input" type="text" v-model='item.answer'>
-                  </div>
-                </td>
-                <td>
-                  <div class="control">
-                    <input class="input" type="text" v-model='item.statement'>
+                    <textarea class="textarea" v-model='item.answer'></textarea>
                   </div>
                 </td>
                 <td>
@@ -117,13 +106,10 @@ export default {
       form: {
         subject: '',
         question: '',
-        answer: '',
-        statement: ''
+        answer: ''
       },
       isEditing: null
     }
-  },
-  created () {
   },
   methods: {
     tabChange: async function (subject, event) {
@@ -132,8 +118,8 @@ export default {
       this.currentChoice = subject.queryString
 
       // Remove the is-active class on all choices and set the class on the currentChoice
-      const ul = event.target.parentElement.parentElement;
-      const li = event.target.parentElement;
+      const ul = event.target.parentElement.parentElement
+      const li = event.target.parentElement
       for (let i = 0; i < ul.children.length; i++) {
         ul.children[i].classList.remove('is-active')
       }
@@ -149,6 +135,13 @@ export default {
     updateFaq: async function (item) {
       await Faq.updateFaq(item)
       this.isEditing = null
+
+      const tr = document.querySelectorAll('.drag')
+      if (this.isEditing === null) {
+        tr.forEach(element => {
+          element.classList.add('hasDrag')
+        })
+      }
     },
     updateFaqs: async function () {
       this.faqs.map((faq, index) => {
@@ -168,7 +161,16 @@ export default {
       // Remove text from input field
       this.form.answer = ''
       this.form.question = ''
-      this.form.statement = ''
+    },
+    edit: function (item) {
+      this.isEditing = item.id
+
+      const tr = document.querySelectorAll('.drag')
+      if (this.isEditing !== null) {
+        tr.forEach(element => {
+          element.classList.remove('hasDrag')
+        })
+      }
     }
   }
 }

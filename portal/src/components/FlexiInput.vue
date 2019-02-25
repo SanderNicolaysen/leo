@@ -43,15 +43,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
   name: 'FlexiInput',
   props: ['element'],
   methods: {
     exists: function (prop) {
-      return !_.isUndefined(prop) && prop !== ''
+      return !_.isUndefined(prop) && prop !== '';
     }
   }
-}
+};
 </script>

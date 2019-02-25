@@ -1,18 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import i18n from './lang/i18n'
-import InquiryPlugin from './InquiryPlugin'
-import './assets/sass/app.scss'
-import Navbar from './components/NavBar'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import i18n from './lang/i18n';
+import InquiryPlugin from './InquiryPlugin';
+import './assets/sass/app.scss';
+import Navbar from './components/NavBar';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-Vue.use(InquiryPlugin)
-Vue.component('navbar', Navbar)
+Vue.use(InquiryPlugin);
+Vue.component('navbar', Navbar);
 
 new Vue({
   i18n,
   router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

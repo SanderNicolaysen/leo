@@ -83,8 +83,8 @@
 <script>
 // import Faq from '@/components/Faq'
 
-import Faq from '@/services/Faqs.js'
-import draggable from 'vuedraggable'
+import Faq from '@/services/Faqs.js';
+import draggable from 'vuedraggable';
 
 export default {
   name: 'adminFaq',
@@ -109,78 +109,78 @@ export default {
         answer: ''
       },
       isEditing: null
-    }
+    };
   },
   methods: {
     tabChange: async function (subject, event) {
-      const faq = await Faq.getFaqs(subject.queryString)
-      this.faqs = faq
-      this.currentChoice = subject.queryString
+      const faq = await Faq.getFaqs(subject.queryString);
+      this.faqs = faq;
+      this.currentChoice = subject.queryString;
 
       // Remove the is-active class on all choices and set the class on the currentChoice
-      const ul = event.target.parentElement.parentElement
-      const li = event.target.parentElement
+      const ul = event.target.parentElement.parentElement;
+      const li = event.target.parentElement;
       for (let i = 0; i < ul.children.length; i++) {
-        ul.children[i].classList.remove('is-active')
+        ul.children[i].classList.remove('is-active');
       }
-      li.classList.add('is-active')
+      li.classList.add('is-active');
     },
     deleteFaq: async function (item) {
-      await Faq.deleteFaq(item)
-      this.faqs.splice(item.id, 1)
+      await Faq.deleteFaq(item);
+      this.faqs.splice(item.id, 1);
       this.faqs.map((faq, index) => {
-        faq.id = index
-      })
+        faq.id = index;
+      });
     },
     updateFaq: async function (item) {
-      await Faq.updateFaq(item)
-      this.isEditing = null
+      await Faq.updateFaq(item);
+      this.isEditing = null;
 
-      const tr = document.querySelectorAll('.drag')
+      const tr = document.querySelectorAll('.drag');
       if (this.isEditing === null) {
         tr.forEach(element => {
-          element.classList.add('hasDrag')
-        })
+          element.classList.add('hasDrag');
+        });
       }
     },
     updateFaqs: async function () {
       this.faqs.map((faq, index) => {
-        faq.id = index
-      })
+        faq.id = index;
+      });
 
-      await Faq.updateFaqs(this.faqs)
+      await Faq.updateFaqs(this.faqs);
     },
     exitFaq: function () {
-      this.isEditing = null
+      this.isEditing = null;
 
-      const tr = document.querySelectorAll('.drag')
+      const tr = document.querySelectorAll('.drag');
       if (this.isEditing === null) {
         tr.forEach(element => {
-          element.classList.add('hasDrag')
-        })
+          element.classList.add('hasDrag');
+        });
       }
     },
     addFaq: async function () {
-      this.form.subject = this.currentChoice
-      const response = await Faq.postFaq(this.form)
-      this.faqs.push(response)
+      this.form.subject = this.currentChoice;
+      const response = await Faq.postFaq(this.form);
+      this.faqs.push(response);
 
       // Remove text from input field
-      this.form.answer = ''
-      this.form.question = ''
+      this.form.answer = '';
+      this.form.question = '';
     },
     edit: function (item) {
-      this.isEditing = item.id
+      this.isEditing = item.id;
 
-      const tr = document.querySelectorAll('.drag')
+      const tr = document.querySelectorAll('.drag');
       if (this.isEditing !== null) {
         tr.forEach(element => {
-          element.classList.remove('hasDrag')
-        })
+          element.classList.remove('hasDrag');
+        });
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -9,30 +9,30 @@
 </template>
 
 <script>
-import Anime from 'animejs'
+import Anime from 'animejs';
 
 export default {
   name: 'grabticket',
   data () {
     return {
       publicPath: process.env.BASE_URL
-    }
+    };
   },
   mounted () {
-    let svgObj = document.getElementsByClassName('grabticket')[0]
-    svgObj.addEventListener('load', this.runAnimationAndPush, false)
+    let svgObj = document.getElementsByClassName('grabticket')[0];
+    svgObj.addEventListener('load', this.runAnimationAndPush, false);
   },
   methods: {
     runAnimationAndPush: function () {
-      let svgObj = document.getElementsByClassName('grabticket')[0]
-      const self = this
-      const svgDoc = svgObj.contentDocument
+      let svgObj = document.getElementsByClassName('grabticket')[0];
+      const self = this;
+      const svgDoc = svgObj.contentDocument;
       var tl = Anime.timeline({
         loop: 2,
         complete: function (anim) {
-          self.$router.push({ name: 'start' })
+          self.$router.push({ name: 'start' });
         }
-      })
+      });
 
       tl.add({
         targets: svgDoc.querySelector('#ticketpath'),
@@ -42,26 +42,26 @@ export default {
           { delay: 500 }
         ]
 
-      }, 500)
+      }, 500);
 
       tl.add({
         targets: [svgDoc.querySelector('#thumb'), svgDoc.querySelector('#fingers')],
         translateY: 50,
         duration: 500,
         easing: 'easeInOutSine'
-      }, 1500)
+      }, 1500);
     }
   },
   async created () {
     // Start a new inquiry if it doesn't already exists
     if (!this.$inquiry.exists()) {
-      await this.$inquiry.start()
+      await this.$inquiry.start();
     }
 
     // And then delete any locally stored inquiry
-    this.$inquiry.complete()
+    this.$inquiry.complete();
 
-    setTimeout(() => { this.$router.push({ name: 'start' }) }, 5000)
+    setTimeout(() => { this.$router.push({ name: 'start' }); }, 5000);
   }
-}
+};
 </script>

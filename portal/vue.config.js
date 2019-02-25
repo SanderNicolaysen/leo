@@ -7,4 +7,4 @@ module.exports = {
   productionSourceMap: undefined,
   parallel: undefined,
   css: undefined
-}
+};

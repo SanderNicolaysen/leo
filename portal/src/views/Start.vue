@@ -41,23 +41,23 @@
 
 <script>
 // @ is an alias to /src, Example:
-import Box from '@/components/Box.vue'
+import Box from '@/components/Box.vue';
 
 export default {
   name: 'start',
   data: function () {
     return {
       testText: ''
-    }
+    };
   },
   created: async function () {
     // Delete any incomplete inquiry if it exists
-    this.$inquiry.clear()
+    this.$inquiry.clear();
   },
   components: {
     Box
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -14,5 +14,5 @@
 <script>
 export default {
   props: ['inquiry', 'active']
-}
+};
 </script>

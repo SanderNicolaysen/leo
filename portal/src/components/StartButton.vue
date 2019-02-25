@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'StartButton'
-}
+};
 </script>
 
 <style>

@@ -45,9 +45,9 @@
 
 <script>
 // @ is an alias to /src, Example:
-import InquiryBox from '@/components/InquiryBox.vue'
+import InquiryBox from '@/components/InquiryBox.vue';
 
-import Inquiries from '@/services/Inquiries.js'
+import Inquiries from '@/services/Inquiries.js';
 
 export default {
   name: 'booth',
@@ -59,20 +59,20 @@ export default {
       inquiries: [],
       buttonLabel: 'Kall inn',
       showDetails: null
-    }
+    };
   },
   created: async function () {
-    this.inquiries = await Inquiries.getInquiries()
+    this.inquiries = await Inquiries.getInquiries();
   },
   methods: {
     toggleButton: function () {
       if (this.buttonLabel === 'Kall inn') {
-        this.buttonLabel = 'Neste'
+        this.buttonLabel = 'Neste';
       } else {
-        this.buttonLabel = 'Kall inn'
-        this.$delete(this.inquiries, 0)
+        this.buttonLabel = 'Kall inn';
+        this.$delete(this.inquiries, 0);
       }
     }
   }
-}
+};
 </script>

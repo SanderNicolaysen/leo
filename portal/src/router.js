@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Start from './views/Start.vue'
-import Grabticket from './views/Grabticket.vue'
-import Booth from './views/Booth.vue'
-import Forms from './views/Forms.vue'
-import Subcategory from './views/Subcategory.vue'
-import AdminFaq from './views/AdminFaq.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Start from './views/Start.vue';
+import Grabticket from './views/Grabticket.vue';
+import Booth from './views/Booth.vue';
+import Forms from './views/Forms.vue';
+import Subcategory from './views/Subcategory.vue';
+import AdminFaq from './views/AdminFaq.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -49,4 +49,4 @@ export default new Router({
     }
     */
   ]
-})
+});

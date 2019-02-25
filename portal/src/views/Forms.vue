@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import FlexiInput from '@/components/FlexiInput.vue'
+import _ from 'lodash';
+import FlexiInput from '@/components/FlexiInput.vue';
 
-import Forms from '@/services/Forms.js'
+import Forms from '@/services/Forms.js';
 
 export default {
   name: 'forms',
@@ -50,21 +50,21 @@ export default {
     return {
       form: null,
       pageId: null
-    }
+    };
   },
   computed: {
     page: function () {
       if (this.pageId !== null) {
-        return _.find(this.form.pages, { id: this.pageId })
+        return _.find(this.form.pages, { id: this.pageId });
       }
-      return {}
+      return {};
     }
   },
   watch: {
     form: {
       handler: function (value) {
         // Update the form property of an ongoing inquiry
-        this.$inquiry.update({ form: value })
+        this.$inquiry.update({ form: value });
       },
       deep: true
     }
@@ -72,31 +72,31 @@ export default {
   methods: {
     next: function () {
       if (this.page.nextPage != null) {
-        this.pageId = this.page.nextPage
+        this.pageId = this.page.nextPage;
       } else {
-        this.$router.push({ name: 'grabticket' })
+        this.$router.push({ name: 'grabticket' });
       }
     },
     previous: function () {
       if (this.page.prevPage != null) {
-        this.pageId = this.page.prevPage
+        this.pageId = this.page.prevPage;
       } else {
         // Go back
-        this.$router.go(-1)
+        this.$router.go(-1);
       }
     },
     exists: function (prop) {
-      return !_.isUndefined(prop) && prop !== ''
+      return !_.isUndefined(prop) && prop !== '';
     }
   },
   created: async function () {
-    this.form = await Forms.find(this.$route.params.name)
-    this.pageId = 0
+    this.form = await Forms.find(this.$route.params.name);
+    this.pageId = 0;
   },
   components: {
     FlexiInput
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

@@ -17,4 +17,4 @@ export default {
   slett: 'Delete',
   oppdater: 'Update',
   tilbake: 'Return'
-}
+};

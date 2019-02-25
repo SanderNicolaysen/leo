@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import Box from '@/components/Box.vue'
-import Faq from '@/components/Faq.vue'
+import Box from '@/components/Box.vue';
+import Faq from '@/components/Faq.vue';
 
-import Faqs from '@/services/Faqs.js'
+import Faqs from '@/services/Faqs.js';
 
 export default {
   components: {
@@ -59,16 +59,16 @@ export default {
     return {
       faqs: [],
       title: ''
-    }
+    };
   },
   created: async function () {
     // Start a new inquiry
-    this.$inquiry.start('Tyveri/skadeverk')
-    
-    const faq = await Faqs.getFaqs('tyveri-og-skadeverk')
-    this.faqs = faq
+    this.$inquiry.start('Tyveri/skadeverk');
+
+    const faq = await Faqs.getFaqs('tyveri-og-skadeverk');
+    this.faqs = faq;
   }
-}
+};
 </script>
 
 <style>

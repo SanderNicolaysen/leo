@@ -11,10 +11,10 @@ export default {
   taKølapp: 'Vennligst ta kølappen',
   leggTilNyFaq: 'Legg til ny Faq',
   spørsmål: 'Spørsmål',
-  svar: 'svar',
+  svar: 'Svar',
   leggTil: 'Legg til',
   rediger: 'Rediger',
   slett: 'Slett',
   oppdater: 'Oppdater',
   tilbake: 'Tilbake'
-}
+};

@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import i18n from '../lang/i18n'
+import i18n from '../lang/i18n';
 
 export default {
   name: 'navbar',
   methods: {
     changeLocale (locale) {
-      i18n.locale = locale
+      i18n.locale = locale;
     }
   }
-}
+};
 </script>

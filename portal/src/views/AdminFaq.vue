@@ -55,7 +55,7 @@
                 <td>{{ index + 1 }}</td>
                 <td>
                   <div class="control">
-                    <textarea class="textarea" v-model='item.questionr'></textarea>
+                    <textarea class="textarea" v-model='item.question'></textarea>
                   </div>
                 </td>
                 <td>

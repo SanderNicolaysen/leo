@@ -31,13 +31,11 @@ router.post('/', async (req, res, next) => {
       question: req.body.question,
       answer: req.body.answer
     });
-    try {
-      await new_faq.save();
-      res.status(201).json(new_faq);
-    }
-    catch (error) {
-      next(error);
-    }
+    await new_faq.save();
+    res.status(201).json({
+      size: size,
+      faq: new_faq
+    });
   }
   catch (error) {
     next(error);
@@ -62,13 +60,13 @@ router.patch('/:subject/:id', async (req, res, next) => {
 router.put('/:subject', async (req, res, next) => {
   try {
     // delete everything for specific subject and insert new body
-    await Faq.deleteMany({subject: req.params.subject}).exec();
-    try {
-      const insertResponse = await Faq.insertMany(req.body);
-      res.status(200).json(insertResponse);
-    } catch (error) {
-      next(error);
-    }
+    const deleteResponse = await Faq.deleteMany({subject: req.params.subject}).exec();
+    const insertResponse = await Faq.insertMany(req.body);
+
+    res.status(200).json({
+      deleteResponse: deleteResponse,
+      insertResponse: insertResponse
+    });
   }
   catch (error) {
     next(error);

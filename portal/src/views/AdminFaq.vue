@@ -163,7 +163,7 @@ export default {
     addFaq: async function () {
       this.form.subject = this.currentChoice;
       const response = await Faq.postFaq(this.form);
-      this.faqs.push(response);
+      this.faqs.push(response.faq);
 
       // Remove text from input field
       this.form.answer = '';

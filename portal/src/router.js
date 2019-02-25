@@ -37,7 +37,7 @@ export default new Router({
       component: Subcategory
     },
     {
-      path: '/admin-faq',
+      path: '/admin/faq',
       name: 'adminFaq',
       component: AdminFaq
     }

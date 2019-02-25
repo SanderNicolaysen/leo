@@ -12,21 +12,21 @@
 
       <div class="box">
         <h1 class="title has-text-centered">{{ $t('leggTilNyFaq') }}</h1>
-          <form class="block" v-on:submit.prevent="addFaq" method="POST">
-            <div class="field">
-              <div class="control">
-                <input class="input" type="text" :placeholder="$t('spørsmål')" v-model="form.question">
-              </div>
+        <form class="block" v-on:submit.prevent="addFaq" method="POST">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" :placeholder="$t('spørsmål')" v-model="form.question">
             </div>
-            <div class="field">
-              <div class="control">
-                <input class="input" type="text" :placeholder="$t('svar')" v-model="form.answer">
-              </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" :placeholder="$t('svar')" v-model="form.answer">
             </div>
-            <div class="block">
-              <button type="submit" class="button is-primary" @click.prevent="addFaq">{{$t('leggTil')}}</button>
-            </div>
-          </form>
+          </div>
+          <div class="block">
+            <button type="submit" class="button is-primary" @click.prevent="addFaq">{{$t('leggTil')}}</button>
+          </div>
+        </form>
 
         <table class="table is-hoverable is-fullwidth is-striped">
           <thead>
@@ -37,7 +37,8 @@
               <th></th>
             </tr>
           </thead>
-          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDrag'}" @change="updateFaqs">
+          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDrag'}"
+            @change="updateFaqs">
             <tr class="drag hasDrag" v-for="(item, index) in faqs" :key="item.id">
               <template v-if="isEditing !== item.id">
                 <td>{{ index + 1 }}</td>
@@ -65,7 +66,7 @@
                 </td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-primary" @click='updateFaq(item)'>{{$t('oppdater')}}</span>
+                    <span class="button is-success" @click='updateFaq(item)'>{{$t('oppdater')}}</span>
                     <span class="button is-danger" @click='exitFaq'>{{$t('tilbake')}}</span>
                   </div>
                 </td>
@@ -75,9 +76,8 @@
         </table>
 
       </div>
-      </div> <!-- /.box -->
-
-</div>
+    </div> <!-- /.box -->
+  </div>
 </template>
 
 <script>
@@ -152,11 +152,18 @@ export default {
     },
     exitFaq: function () {
       this.isEditing = null
+
+      const tr = document.querySelectorAll('.drag')
+      if (this.isEditing === null) {
+        tr.forEach(element => {
+          element.classList.add('hasDrag')
+        })
+      }
     },
     addFaq: async function () {
       this.form.subject = this.currentChoice
       const response = await Faq.postFaq(this.form)
-      this.faqs.push(response.faq)
+      this.faqs.push(response)
 
       // Remove text from input field
       this.form.answer = ''

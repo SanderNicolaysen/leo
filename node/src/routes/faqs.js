@@ -2,139 +2,88 @@ import express from 'express';
 const router = express.Router();
 import Faq from '../database/models/faq';
 
-router.get('/:subject', (req, res) => {
-  Faq.find({subject: req.params.subject})
-    .sort({id: 1})
-    .exec()
-    .then(doc => {
-      console.log(doc);
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({error: err});
-    });
+router.get('/:subject', async (req, res, next) => {
+  try {
+    const faqs = await Faq.find({subject: req.params.subject}).sort({id: 1}).exec();
+    res.status(200).json(faqs);
+  } 
+  catch(error) {
+    next(error);
+  }
 });
 
-router.get('/:subject/:id', (req, res) => {
-  // Get parameters from uri
-  const subject = req.params.subject;
-  const id = req.params.id;
-
-  Faq.find({ subject: subject, id: id })
-    .exec()
-    .then(doc => {
-      console.log(doc);
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({error: err});
-    });
+router.get('/:subject/:id', async  (req, res, next) => {
+  try {
+    const faq = await Faq.findOne({ subject: req.params.subject, id: req.params.id }).exec();
+    res.status(200).json(faq);
+  }
+  catch (error) {
+    next(error);
+  }
 });
 
-router.post('/', (req, res) => {
-  const subject = req.body.subject;
-  const question = req.body.question;
-  const answer = req.body.answer;
-  
-  Faq.find({subject: subject}).countDocuments(function(error, size) {
-    if (error) {
-      console.log(error);
-    }
-
+router.post('/', async (req, res, next) => {
+  try {
+    const size = await Faq.find({subject: req.body.subject}).countDocuments().exec();
     const new_faq = new Faq({
       id: size,
-      subject: subject,
-      question: question,
-      answer: answer
+      subject: req.body.subject,
+      question: req.body.question,
+      answer: req.body.answer
     });
-    
-    new_faq
-      .save() 
-      .then(result => {
-        console.log(result);
-        res.status(201).json({
-          message: "POST request successful",
-          faq: result
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
-  });
+    try {
+      await new_faq.save();
+      res.status(201).json(new_faq);
+    }
+    catch (error) {
+      next(error);
+    }
+  }
+  catch (error) {
+    next(error);
+  }
 });
 
-router.patch('/:subject/:id', (req, res) => {
-  const subject = req.params.subject;
-  const id = req.params.id;
-
+router.patch('/:subject/:id', async (req, res, next) => {
   const props = {
     question: req.body.question,
     answer: req.body.answer
   };
 
-  Faq.update({subject: subject, id: id}, { $set: props })
-    .exec()
-    .then(result => {
-      console.log(result);
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+  try {
+    const faq = await Faq.update({subject: req.params.subject, id: req.params.id}, { $set: props }).exec();
+    res.status(200).json(faq);
+  }
+  catch (error) {
+    next(error);
+  } 
 });
 
-router.put('/:subject', (req, res) => {
-  const subject = req.params.subject;
-  const body = req.body;
-
-  // delete everything for specific subject and insert new body
-  Faq.deleteMany({subject: subject})
-    .exec()
-    .then(result => {
-      Faq.insertMany(body)
-        .then(saveResult => {
-          console.log(saveResult);
-          res.status(200).json(saveResult);
-        })
-        .catch(err => {
-          console.log(err);
-          res.status(500).json({
-            error: err
-          });
-        });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+router.put('/:subject', async (req, res, next) => {
+  try {
+    // delete everything for specific subject and insert new body
+    await Faq.deleteMany({subject: req.params.subject}).exec();
+    try {
+      const insertResponse = await Faq.insertMany(req.body);
+      res.status(200).json(insertResponse);
+    } catch (error) {
+      next(error);
+    }
+  }
+  catch (error) {
+    next(error);
+  }
 });
 
-router.delete('/:subject/:id', (req, res) => {
-  const subject = req.params.subject;
-  const id = req.params.id;
 
-  Faq.deleteMany({subject: subject, id: id})
-    .exec()
-    .then(doc => {
-      console.log(doc);
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+router.delete('/:subject/:id', async (req, res, next) => {
+  try {
+    const result = await Faq.deleteMany({subject: req.params.subject, id: req.params.id}).exec();
+    res.status(200).json(result);
+  }
+  catch (error) { 
+    next(error);
+  }
 });
 
 module.exports = router;

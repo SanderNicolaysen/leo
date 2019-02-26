@@ -28,10 +28,10 @@
       <div class="container has-text-centered">
         <div class="buttons is-inline-block">
           <button class="button is-large is-uppercase" @click="previous">Tilbake</button>
-          <button class="button is-large is-uppercase is-link is-outlined" @click="next">Neste</button>
+          <button class="button is-large is-uppercase is-link is-outlined" @click="next">{{ page.nextPage !== null ? 'Neste' : 'Fullfør' }}</button>
         </div>
         <div>
-          <router-link :to="{ name: 'grabticket' }">Eller, avslutt og trekk kølapp</router-link>
+          <router-link :to="{ name: 'grabticket' }" v-if="page.nextPage !== null">Eller, avslutt og trekk kølapp</router-link>
         </div>
       </div>
     </div>

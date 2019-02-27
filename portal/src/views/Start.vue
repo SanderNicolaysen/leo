@@ -7,32 +7,33 @@
       </div>
 
       <div class="notification is-info">
-        <button class="delete"></button>
         <p class="has-text-centered is-size-5">{{ $t('gjørNoenSteg') }} <br>
           {{ $t('velgTypeHenvendelse') }}</p>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box :title="$t('pass')" />
+          <Box :title="$t('pass')" :text="$t('passTekst')" icon="<img src='/icons/sharp-person.svg'/>" />
         </div>
         <div class="column">
-          <router-link to="/subcategory"><Box :title="$t('anmeldeTyveri')"/></router-link>
+          <router-link to="/subcategory">
+            <Box :title="$t('anmeldeTyveri')" :text="$t('anmeldeTyveriTekst')" icon="<img src='/icons/pickpocketing.svg'/>" />
+          </router-link>
         </div>
         <div class="column">
-          <Box :title="$t('henteBeslag')" />
+          <Box :title="$t('hittegods')" :text="$t('hittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
         </div>
       </div>
 
       <div class="columns">
         <div class="column">
-          <Box :title="$t('bot')" />
+          <Box :title="$t('meldeplikt')" :text="$t('meldepliktTekst')" icon="<img src='/icons/round-access_time.svg'/>" />
         </div>
         <div class="column">
-          <Box :title="$t('våpen')" />
+          <Box :title="$t('ferdigskrevneSaker')" :text="$t('ferdigskrevneSakerTekst')" icon="<img src='/icons/baseline-list_alt.svg'/>" />
         </div>
         <div class="column">
-          <Box :title="$t('avhør')" />
+          <Box :title="$t('annet')" :text="$t('annetTekst')" icon="<img src='/icons/round-help_outline.svg'/>" />
         </div>
       </div>
     </div>

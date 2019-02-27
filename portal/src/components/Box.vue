@@ -1,21 +1,15 @@
 <template>
   <div class="box">
     <article class="media">
-      <div class="media-left">
-        <span class="icon">
-          <i v-bind:class="icon"></i>
-        </span>
+      <div class="media-left" v-if="icon">
+        <span class="icon is-large" v-html="icon"></span>
       </div>
       <div class="media-content">
         <div class="content">
-          <p>
-            <strong>{{ title }}</strong>
-            <br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
+          <h4>{{ title }}</h4>
+          <p>{{ text }}</p>
         </div>
       </div>
-
     </article>
   </div> <!-- ./box -->
 </template>
@@ -36,10 +30,12 @@ export default {
 </script>
 
 <style scoped>
-
 .box:hover {
   background-color: lavender;
   cursor: pointer;
 }
 
+.box {
+  height: 100%;
+}
 </style>

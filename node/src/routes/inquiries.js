@@ -1,6 +1,7 @@
 import express from 'express';
 import Inquiry from '../database/models/inquiry';
 import mongoose from 'mongoose';
+import crypto from 'crypto';
 
 const router = express.Router();
 
@@ -18,6 +19,9 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const inquiry = new Inquiry({ type: req.body.type });
 
+  // Create a random key with the inquiry, used for limiting access
+  inquiry.key = crypto.randomBytes(32).toString('base64');
+  
   try {
     await inquiry.save();
     res.status(201).json(inquiry);
@@ -29,17 +33,27 @@ router.post('/', async (req, res, next) => {
 // Update inquiry
 router.patch('/:id', async (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.sendStatus(404);
+    res.sendStatus(400);
     return;
   }
 
   try {
-    const inquiry = await Inquiry.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
-
+    const inquiry = await Inquiry.findById(req.params.id).exec();
     if (inquiry === null) {
       res.sendStatus(404);
       return;
     }
+
+    // Authorize
+    if (inquiry.key !== req.body.key) {
+      res.sendStatus(401);
+      return;
+    }
+
+    for (const prop in req.body) {
+      inquiry[prop] = req.body[prop];
+    }
+    await inquiry.save();
 
     res.status(200).json(inquiry);
   } catch (error) {
@@ -54,6 +68,12 @@ router.delete('/:id', async (req, res, next) => {
 
     if (inquiry === null) {
       res.sendStatus(404);
+      return;
+    }
+
+    // Authorize
+    if (inquiry.key !== req.body.key) {
+      res.sendStatus(401);
       return;
     }
 

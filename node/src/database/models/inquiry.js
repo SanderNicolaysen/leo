@@ -8,7 +8,8 @@ const InquirySchema = new Schema({
   gender: String,
   NIN: Number,
   type: String,
-  form: mongoose.model('Form').schema
+  form: mongoose.model('Form').schema,
+  key: String
 });
 
 const Inquiry = mongoose.model("Inquiry", InquirySchema);

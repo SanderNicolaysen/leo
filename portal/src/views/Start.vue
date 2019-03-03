@@ -21,7 +21,7 @@
           </router-link>
         </div>
         <div class="column">
-          <Box :title="$t('hittegods')" :text="$t('hittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
+          <router-link to="/lost-found"><Box :title="$t('hittegods')" :text="$t('hittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" /></router-link>
         </div>
       </div>
 

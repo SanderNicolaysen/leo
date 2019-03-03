@@ -20,6 +20,12 @@ export default {
   annet: 'Other',
   annetTekst: 'Tap here for any other inquiries.',
 
+  hentBeslagHittegods: 'Retrieve seizure',
+  leverBeslagHittegods: 'Deliver seizure',
+
+  bot: 'Fine',
+  våpen: 'Weapon',
+  avhør: 'Questioning',
   taKølapp: 'Please take your ticket',
   leggTilNyFaq: 'Add new FAQ',
   spørsmål: 'Question',

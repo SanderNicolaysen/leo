@@ -21,6 +21,12 @@ export default {
   annet: 'Annet',
   annetTekst: 'Trykk her for andre henvendelser.',
 
+  hentBeslagHittegods: 'Hent Beslag/Hittegods',
+  leverBeslagHittegods: 'Lever Beslag/Hittegods',
+
+  bot: 'Bot',
+  våpen: 'Våpen',
+  avhør: 'Avhør',
   taKølapp: 'Vennligst ta kølappen',
   leggTilNyFaq: 'Legg til ny Faq',
   spørsmål: 'Spørsmål',

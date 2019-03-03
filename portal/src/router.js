@@ -6,6 +6,7 @@ import Booth from './views/Booth.vue';
 import Forms from './views/Forms.vue';
 import Subcategory from './views/Subcategory.vue';
 import AdminFaq from './views/AdminFaq.vue';
+import Login from './views/Login.vue';
 
 Vue.use(Router);
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'start',
       component: Start
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/grabticket',

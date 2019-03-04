@@ -2,7 +2,7 @@
   <div>
     <article class="message is-dark">
       <div class="message-body">
-        <div class="field">          
+        <div class="field">
           <FlexiInput v-for="element in page.elements" :key="element.id" :element="element" />
         </div>
         <div class="field is-grouped">
@@ -19,30 +19,28 @@
 </template>
 
 <script>
-  import LostFoundInput from '@/components/lostFoundInput.vue'
-  import FlexiInput from '@/components/FlexiInput.vue';
+import FlexiInput from '@/components/FlexiInput.vue';
 
-  export default {
-    name: 'lostFoundInput',
-    components: {
-      FlexiInput
-    },
-    props: {
-      text: String,
-      next: { type: Function },
-      previous: { type: Function },
-      page: Object
-    },
-    data() {
-      return {
-        inputValue: ''
-      }
-    },
-    created () {
-      this.$emit('next')
-    }
+export default {
+  name: 'lostFoundInput',
+  components: {
+    FlexiInput
+  },
+  props: {
+    text: String,
+    next: { type: Function },
+    previous: { type: Function },
+    page: Object
+  },
+  data () {
+    return {
+      inputValue: ''
+    };
+  },
+  created () {
+    this.$emit('next');
   }
-
+};
 </script>
 
 <style scoped>

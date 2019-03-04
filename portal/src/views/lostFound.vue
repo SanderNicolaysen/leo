@@ -1,35 +1,31 @@
 <template>
-<div>
-<navbar />
+  <div>
+    <navbar />
+    <div class="container">
+      <h1 class="title has-text-centered is-uppercase">{{ $t('hittegods') }}</h1>
+      <p class="subtitle has-text-centered">{{ $t('hittegodsTekst') }}</p>
 
-<div class="container">
+      <div class="columns">
+        <div class="column">
+          <router-link to="/lost-found/form/hentHittegods">
+            <Box :title="$t('hentBeslagHittegods')" :text="$t('hentBeslagHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
+          </router-link>
+        </div>
 
-  <h1 class="title has-text-centered is-uppercase">{{ $t('hittegods') }}</h1>
-  <p class="subtitle has-text-centered">{{ $t('hittegodsTekst') }}</p>
+        <div class="column">
+          <router-link to="/lost-found/form/leverHittegods">
+            <Box :title="$t('leverHittegods')" :text="$t('leverHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
+          </router-link>
+        </div>
+      </div> <!-- columns -->
 
-  <div class="columns">
-    <div class="column">
-        <router-link to="/lost-found/form/hentHittegods">
-          <Box :title="$t('hentBeslagHittegods')" :text="$t('hentBeslagHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
-        </router-link>
-    </div>
+      <Faq class="block" :items="faqs" title="Frequently Asked Questions" text="Commodo laborum ipsum cupidatat adipisicing qui sit." />
 
-    <div class="column">
-        <router-link to="/lost-found/form/leverHittegods">
-          <Box :title="$t('leverHittegods')" :text="$t('leverHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
-        </router-link>
-    </div>
-
-  </div> <!-- columns -->
-
-  <Faq class="block" :items="faqs" title="Frequently Asked Questions" text= "Commodo laborum ipsum cupidatat adipisicing qui sit."/>
-
-  <div class="block has-text-centered">
-      <router-link to="/grabticket"><button class="button is-success is-size-5 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
-  </div>
-
-  </div> <!-- Container -->
-</div> <!-- div -->
+      <div class="block has-text-centered">
+        <router-link to="/grabticket"><button class="button is-success is-size-5 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
+      </div>
+    </div> <!-- Container -->
+  </div> <!-- div -->
 </template>
 
 <script>
@@ -45,13 +41,12 @@ export default {
   data () {
     return {
       faqs: [
-        { id: 1, question: "Hvor leverer jeg hittegods" }
+        { id: 1, question: 'Hvor leverer jeg hittegods' }
       ]
     };
   },
   created () {
-    if (!this.$inquiry.exists())
-      this.$inquiry.start('hittegods-og-beslag');
+    if (!this.$inquiry.exists()) { this.$inquiry.start('hittegods-og-beslag'); }
   }
 };
 </script>

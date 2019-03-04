@@ -16,7 +16,7 @@
 
     <div class="columns">
       <div class="column">
-        <LostFoundInput :next='next' :previous="previous" :page="page" />         
+        <LostFoundInput :next='next' :previous="previous" :page="page" />
       </div>
       <div class="column">
         <article class="message is-primary">
@@ -39,7 +39,7 @@
 
 <script>
 import _ from 'lodash';
-import LostFoundInput from '@/components/lostFoundInput.vue'
+import LostFoundInput from '@/components/lostFoundInput.vue';
 import Forms from '@/services/Forms.js';
 
 export default {
@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-   page: function () {
+    page: function () {
       if (this.pageId !== null) {
         return _.find(this.form.pages, { id: this.pageId });
       }
@@ -101,7 +101,7 @@ export default {
     this.progress = 0;
     this.progressSlope = 100 / this.form.pages.length;
   }
-}
+};
 </script>
 
 <style scoped>

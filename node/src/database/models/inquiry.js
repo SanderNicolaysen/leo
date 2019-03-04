@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import TypeMultiplier from './typeMultiplier';
 const Schema = mongoose.Schema;
 
 const InquirySchema = new Schema({
@@ -9,8 +10,22 @@ const InquirySchema = new Schema({
   NIN: Number,
   type: String,
   form: mongoose.model('Form').schema,
-  key: String
+  key: String,
+  created: Number,
 });
+
+InquirySchema.methods.getPoints = async function () {
+  // relation between points and ms
+  const pointratio = 0.001/60;
+
+  let mul;
+  try {
+    mul = (await TypeMultiplier.find({ type: this.type }).exec())[0].multiplier;
+  } catch (error) {
+    mul = 1;
+  }
+  return (Date.now() - this.created) * mul * pointratio;
+};
 
 const Inquiry = mongoose.model("Inquiry", InquirySchema);
 module.exports = Inquiry;

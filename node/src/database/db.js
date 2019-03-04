@@ -1,9 +1,11 @@
 // Dummy data 
 import faqs from './seeds/faqs';
+import typeMultipliers from './seeds/typeMultipliers';
 import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
 
 // Models
 import Faq from './models/faq';
+import TypeMultiplier from './models/typeMultiplier';
 import Form from './models/form';
 import User from './models/user';
 
@@ -23,6 +25,8 @@ module.exports = {
 
     // Add dummy-data
     Faq.insertMany(faqs.faqs, onInsert);
+
+    TypeMultiplier.insertMany(typeMultipliers.typeMultipliers, onInsert);
 
     Form.create(forenkletAnmeldelse, onCreate);
 

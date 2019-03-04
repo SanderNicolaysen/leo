@@ -3,7 +3,37 @@ import Inquiry from '../database/models/inquiry';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import auth from '../middleware/auth';
+import _ from 'lodash';
+
 const router = express.Router();
+
+// Fetch next inquiry
+router.get('/next', auth(), async (req, res, next) => {
+
+  try {
+    // Get all inquiries
+    const inquiries = await Inquiry.find({}).exec();
+
+    // If no inquiries are found, return not found status code
+    if (_.size(inquiries) < 1) {
+      res.sendStatus(404);
+      return;
+    }
+
+    // Map the points of an inquiry to the inquiry in a new array
+    let points = await Promise.all(_.map(inquiries, async function (i) {
+      return { _id: i._id, points: await i.getPoints() };
+    }));
+
+    // Get the inquiry with the most points
+    const first = _.find(inquiries, ['_id', _.maxBy(points, 'points')._id]);
+
+    res.status(200).json(first);
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Fetch all inquiries
 router.get('/', auth(), async (req, res, next) => {
@@ -17,7 +47,7 @@ router.get('/', auth(), async (req, res, next) => {
 
 // Start a new inquiry
 router.post('/', async (req, res, next) => {
-  const inquiry = new Inquiry({ type: req.body.type });
+  const inquiry = new Inquiry({ type: req.body.type, created: Date.now() });
 
   // Create a random key with the inquiry, used for limiting access
   inquiry.key = crypto.randomBytes(32).toString('base64');

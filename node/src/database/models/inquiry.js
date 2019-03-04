@@ -20,7 +20,7 @@ InquirySchema.methods.getPoints = async function () {
 
   let mul;
   try {
-    mul = (await TypeMultiplier.find({ type: this.type }).exec())[0].multiplier;
+    mul = (await TypeMultiplier.findOne({ type: this.type }).exec()).multiplier;
   } catch (error) {
     mul = 1;
   }

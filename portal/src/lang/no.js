@@ -10,7 +10,13 @@ export default {
   anmeldeTyveriTekst: 'Tyveri av sykkel, lommebok, veske, mobiltelefon, hærverk og skader.',
 
   hittegods: 'Hittegods og beslag',
-  hittegodsTekst: 'Henting og levering av hittegods, og henting av beslag.',
+  hittegodsTekst: 'Henting og levering av hittegods, og henting av beslag',
+
+  hentBeslagHittegods: 'Hent Beslag/Hittegods',
+  hentBeslagHittegodsTekst: 'Henting av hittegods, og henting av beslag',
+
+  leverHittegods: 'Lever Hittegods',
+  leverHittegodsTekst: 'Levering av hittegods',
 
   meldeplikt: 'Avtalt time',
   meldepliktTekst: 'Meldeplikt, avhør. Registrer din ankomst.',
@@ -20,9 +26,6 @@ export default {
 
   annet: 'Annet',
   annetTekst: 'Trykk her for andre henvendelser.',
-
-  hentBeslagHittegods: 'Hent Beslag/Hittegods',
-  leverBeslagHittegods: 'Lever Beslag/Hittegods',
 
   bot: 'Bot',
   våpen: 'Våpen',

@@ -38,6 +38,11 @@
       </label>
     </div>
 
+    <!-- Input type: tel -->
+    <div class="control" v-else-if="element.type === 'tel'">
+      <input class="input" type="tel" v-model="element.value">
+    </div>
+
     <p class="help is-primary" v-if="exists(element.info)">{{ element.info }}</p>
   </div>
 </template>

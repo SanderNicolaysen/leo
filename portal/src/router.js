@@ -8,7 +8,7 @@ import Subcategory from './views/Subcategory.vue';
 import AdminFaq from './views/AdminFaq.vue';
 import Login from './views/Login.vue';
 import lostFound from './views/lostFound.vue';
-import lostFoundDescription from './views/lostFoundDescription.vue';
+import lostFoundForm from './views/lostFoundForm.vue';
 
 Vue.use(Router);
 
@@ -55,9 +55,9 @@ export default new Router({
       component: lostFound
     },
     {
-      path: '/lost-found/description/:id',
-      name: 'lostFoundDescription',
-      component: lostFoundDescription
+      path: '/lost-found/form/:name',
+      name: 'lostFoundForm',
+      component: lostFoundForm
     }
     /*,
     {

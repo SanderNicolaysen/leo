@@ -2,7 +2,7 @@ const page1 = {
   id: 0,
   title: 'Anmelde tyveri eller skadeverk',
   subtitle: 'Fyll ut anmeldelse',
-  info: 'Hvis du anmelder på vegne av noen andre, husk å benytt navnet til den fornærmede (den du anmelder for).',
+  info: 'Hvis du anmelder på vegne av noen andre, husk å benytt navnet til den fornærmede (den du anmelder for)',
   elements: [
     {
       id: 0,

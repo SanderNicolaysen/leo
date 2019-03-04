@@ -9,7 +9,13 @@ export default {
   anmeldeTyveriTekst: 'Theft of bicycle, wallet, bag, mobile phone, or vandalism/damage.',
 
   hittegods: 'Lost and found, seized items',
-  hittegodsTekst: 'Collect and deliver lost and found items, or collect seized items.',
+  hittegodsTekst: 'Collect and deliver lost and found items, or collect seized items',
+
+  hentBeslagHittegods: 'Retrieve seizure',
+  hentBeslagHittegodsTekst: 'Collect lost and found items, or collect seized items',
+
+  leverHittegods: 'Deliver seizure',
+  leverHittegodsTekst: 'Deliver lost and found items, or collect seized items',
 
   meldeplikt: 'Scheduled appointment',
   meldepliktTekst: 'Duty to report, or scheduled interviews.',
@@ -19,9 +25,6 @@ export default {
 
   annet: 'Other',
   annetTekst: 'Tap here for any other inquiries.',
-
-  hentBeslagHittegods: 'Retrieve seizure',
-  leverBeslagHittegods: 'Deliver seizure',
 
   bot: 'Fine',
   våpen: 'Weapon',

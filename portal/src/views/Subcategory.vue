@@ -64,7 +64,8 @@ export default {
   },
   created: async function () {
     // Start a new inquiry
-    this.$inquiry.start('Tyveri/skadeverk');
+    if (!this.$inquiry.exists())
+      this.$inquiry.start('Tyveri/skadeverk');
 
     const faq = await Faqs.getFaqs('tyveri-og-skadeverk');
     this.faqs = faq;

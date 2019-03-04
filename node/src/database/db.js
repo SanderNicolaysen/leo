@@ -2,7 +2,8 @@
 import faqs from './seeds/faqs';
 import typeMultipliers from './seeds/typeMultipliers';
 import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
-import hittegods from './seeds/forms/hittegods';
+import hentHittegods from './seeds/forms/hentHittegods';
+import leverHittegods from './seeds/forms/leverHittegods';
 
 // Models
 import Faq from './models/faq';
@@ -30,8 +31,8 @@ module.exports = {
     TypeMultiplier.insertMany(typeMultipliers.typeMultipliers, onInsert);
 
     Form.create(forenkletAnmeldelse, onCreate);
-    Form.create(forenkletAnmeldelse, onCreate);
-    Form.create(hittegods, onCreate);
+    Form.create(hentHittegods, onCreate);
+    Form.create(leverHittegods, onCreate);
 
     User.register(new User({ username: 'leo' }), 'secret', function (err) {
       if (err) {

@@ -8,25 +8,16 @@
   <p class="subtitle has-text-centered">{{ $t('hittegodsTekst') }}</p>
 
   <div class="columns">
-
     <div class="column">
-      <router-link to="/lost-found/description/0">
-        <div class="box">
-          <div class="content is-large">
-            <p class="has-text-centered"> {{ $t('hentBeslagHittegods') }}</p>
-          </div>
-        </div>
-      </router-link>
+        <router-link to="/lost-found/form/hentHittegods">
+          <Box :title="$t('hentBeslagHittegods')" :text="$t('hentBeslagHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
+        </router-link>
     </div>
 
     <div class="column">
-      <router-link to="/lost-found/description/1">
-        <div class="box hover">
-          <div class="content is-large">
-            <p class="has-text-centered">{{ $t('leverBeslagHittegods') }}</p>
-          </div>
-        </div>
-      </router-link>
+        <router-link to="/lost-found/form/leverHittegods">
+          <Box :title="$t('leverHittegods')" :text="$t('leverHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
+        </router-link>
     </div>
 
   </div> <!-- columns -->
@@ -43,11 +34,13 @@
 
 <script>
 import Faq from '@/components/Faq.vue';
+import Box from '@/components/Box.vue';
 
 export default {
   name: 'lostFound',
   components: {
-    Faq
+    Faq,
+    Box
   },
   data () {
     return {
@@ -55,6 +48,10 @@ export default {
         { id: 1, question: "Hvor leverer jeg hittegods" }
       ]
     };
+  },
+  created () {
+    if (!this.$inquiry.exists())
+      this.$inquiry.start('hittegods-og-beslag');
   }
 };
 </script>
@@ -62,9 +59,5 @@ export default {
 /* Center element exactly in middle of the screen */
 .columns {
   margin-top: 5rem;
-}
-
-.box {
-  background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%);
 }
 </style>

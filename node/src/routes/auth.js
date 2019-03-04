@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import User from '../database/models/user';
+import auth from '../middleware/auth';
 
 const router = express.Router();
 
@@ -14,10 +15,10 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.post('/register', async (req, res, next) => {
-  const error = await User.register(new User({ username: req.body.username }), req.body.password);
-
-  if (error) {
+router.post('/register', auth(), async (req, res, next) => {
+  try {
+    await User.register(new User({ username: req.body.username }), req.body.password);
+  } catch (error) {
     next(error);
     return;
   }

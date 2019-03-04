@@ -18,12 +18,6 @@
                   <input name="password" class="input is-large" type="password" placeholder="Passord" v-model="password">
                 </div>
               </div>
-              <div class="field">
-                <label class="checkbox">
-                  <input type="checkbox">
-                  Husk meg
-                </label>
-              </div>
               <button class="button is-block is-info is-large is-fullwidth" type="submit">Logg inn</button>
             </div>
           </form>

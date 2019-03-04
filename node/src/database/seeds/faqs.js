@@ -17,17 +17,20 @@ module.exports = {
     {
       id: 0,
       subject: 'tyveri-og-skadeverk',
-      question: 'Det ikke ble brukt vold eller trussel' 
+      question: 'Det ikke ble brukt vold eller trussel',
+      answer: 'Svar 1' 
     },
     {
       id: 1,
       subject: 'tyveri-og-skadeverk',
-      question: 'Du er norsk statsborger over 18 år' 
+      question: 'Du er norsk statsborger over 18 år',
+      answer: 'Svar 2' 
     },
     {
       id: 2,
       subject: 'tyveri-og-skadeverk',
-      question: 'Du kjenner ikke navnet på gjerningspersonen' 
+      question: 'Du kjenner ikke navnet på gjerningspersonen',
+      answer: 'Svar 3' 
     }
   ]
 };

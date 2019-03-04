@@ -32,6 +32,7 @@ export default {
       },
 
       update: debounce(async function (data) {
+        data.key = getLocal().key;
         await Inquiries.update(getLocal()._id, data);
       }, 5000),
 

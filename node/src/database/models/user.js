@@ -1,13 +1,9 @@
 import mongoose from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
 
-const UserSchema = new mongoose.Schema({
-  username: String,
-  password: String
-});
+const UserSchema = new mongoose.Schema({});
 
-UserSchema.methods.validPassword = function (password) {
-  return password === this.password;
-};
+UserSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", UserSchema);
 module.exports = User;

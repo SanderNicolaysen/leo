@@ -81,3 +81,6 @@ typings/
 
 # build directory
 dist/
+
+# Editor directories and files
+.vscode

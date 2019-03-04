@@ -2,11 +2,11 @@ import express from 'express';
 import Inquiry from '../database/models/inquiry';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-
+import auth from '../middleware/auth';
 const router = express.Router();
 
 // Fetch all inquiries
-router.get('/', async (req, res, next) => {
+router.get('/', auth(), async (req, res, next) => {
   try {
     const inquiries = await Inquiry.find({}).sort({ _id: 1 }).exec();
     res.status(200).json(inquiries);

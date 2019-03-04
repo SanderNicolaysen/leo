@@ -5,26 +5,37 @@ import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
 // Models
 import Faq from './models/faq';
 import Form from './models/form';
+import User from './models/user';
 
 import mongoose from 'mongoose';
 
 
 module.exports = {
-  setUpDB: function() {
-    mongoose.connect('mongodb://localhost:27017/leodb', { useNewUrlParser: true });
-    const db = mongoose.connection;
-    db.on("error", console.error.bind(console, "connection error"));
-    db.once("open", function(callback){
-      console.log("Connection Succeeded");
+  setUpDB: async function () {
+    const ret = await mongoose.connect('mongodb://localhost:27017/leodb', { useNewUrlParser: true });
+    if (ret !== mongoose) {
+      console.error("connection error");
+    }
+    console.log("Connection Succeeded");
 
-      // Delete the current database
-      db.db.dropDatabase();
+    // Delete the current database
+    mongoose.connection.db.dropDatabase();
 
-      // Add dummy-data
-      Faq.insertMany(faqs.faqs, onInsert);
+    // Add dummy-data
+    Faq.insertMany(faqs.faqs, onInsert);
 
-      Form.create(forenkletAnmeldelse, onCreate);
+    Form.create(forenkletAnmeldelse, onCreate);
+
+    User.register(new User({ username: 'leo' }), 'secret', function (err) {
+      if (err) {
+        console.error('Error while registering default user', err);
+      } else {
+        console.log('Registered user "leo"');
+      }
     });
+  },
+  connection: function () {
+    return mongoose.connection;
   }
 };
 

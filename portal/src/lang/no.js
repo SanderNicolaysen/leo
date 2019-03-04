@@ -2,6 +2,7 @@ export default {
   trekkKølapp: 'Trekk kølapp',
   gjørNoenSteg: 'Eller, gjør noen enkle steg slik at vi kan hjelpe deg raskere!',
   velgTypeHenvendelse: 'Start med å velge en type henvendelse under',
+  ofteStilteSpørsmål: 'Ofte stilte spørsmål',
 
   pass: 'Pass',
   passTekst: 'Fornye eller søke om nytt pass, eller nødpass, utenfor passkontorets åpningstider.',

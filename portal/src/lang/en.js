@@ -2,6 +2,8 @@ export default {
   trekkKølapp: 'Press for ticket',
   gjørNoenSteg: 'Or, do some simple steps so that we can help you faster!',
   velgTypeHenvendelse: 'Start by choosing one of the following inquiry-types',
+  ofteStilteSpørsmål: 'Frequently asked questions',
+
   pass: 'Passport',
   passTekst: 'Renew or apply for passport, or emergency passport, outside the Passport Office\'s opening hours.',
 

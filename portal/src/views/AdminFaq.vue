@@ -16,28 +16,28 @@
         <form class="block" v-on:post.prevent="addFaq()" method="POST">
           <section>
             <b-field :label="$t('spørsmål')" labelFor="question">
-                <b-input id="question" v-model="form.question"></b-input>
+              <b-input id="question" v-model="form.question"></b-input>
             </b-field>
 
             <b-field :label="$t('svar')" labelFor="answer">
-                <b-input id="answer" v-model="form.answer"></b-input>
+              <b-input id="answer" v-model="form.answer"></b-input>
             </b-field>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <button type="submit" class="button is-primary" @click.prevent="addFaq()">{{$t('leggTil')}}</button>
-            </div>
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-primary" @click.prevent="addFaq()">{{$t('leggTil')}}</button>
+              </div>
 
-            <template v-if="currentChoice === 'alle'">
-              <b-field>
-                <b-select placeholder="Velg en kategori" v-model="selectionChoice">
-                  <option v-for="item in options" :value="item.subject" :key="item.id">
-                    {{ item.option }}
-                  </option>
-                </b-select>
-              </b-field>
-            </template>
-          </div>
+              <template v-if="currentChoice === 'alle'">
+                <b-field>
+                  <b-select placeholder="Velg en kategori" v-model="selectionChoice">
+                    <option v-for="item in selections" :value="item.subject" :key="item.id">
+                      {{ item.option }}
+                    </option>
+                  </b-select>
+                </b-field>
+              </template>
+            </div>
 
           </section>
 
@@ -47,6 +47,9 @@
           <thead>
             <tr>
               <th scope="col">Nr</th>
+              <template v-if="currentChoice === all">
+                <th scope="col">Kategori</th>
+              </template>
               <th scope="col">{{$t('spørsmål')}}</th>
               <th scope="col">{{$t('svar')}}</th>
               <th></th>
@@ -57,6 +60,7 @@
             <tr class="drag hasDrag" v-for="(faq, index) in faqs" :key="faq._id">
               <template v-if="isEditing !== faq._id">
                 <td>{{ index + 1 }}</td>
+                <template v-if="currentChoice === all">{{ faq.subject }}</template>
                 <td>{{ faq.question }}</td>
                 <td>{{ faq.answer }}</td>
                 <td>
@@ -69,6 +73,7 @@
 
               <template v-else>
                 <td>{{ index + 1 }}</td>
+                <template v-if="currentChoice === all">{{ faq.subject }}</template>
                 <td>
                   <div class="control">
                     <textarea class="textarea" v-model='faq.question'></textarea>
@@ -125,7 +130,8 @@ export default {
         question: '',
         answer: ''
       },
-      isEditing: null
+      isEditing: null,
+      activeTab: 0
     };
   },
   created: async function () {
@@ -135,7 +141,13 @@ export default {
   },
   computed: {
     all: function () {
-      return _.find(this.options, { 'subject': 'alle' }).subject;
+      return _.find(this.options, {
+        'subject': 'alle'
+      }).subject;
+    },
+    // return options without the first element.
+    selections: function () {
+      return _.drop(this.options);
     }
   },
   methods: {
@@ -157,8 +169,18 @@ export default {
       li.classList.add('is-active');
     },
     deleteFaq: async function (faq, index) {
-      await Faq.deleteFaq(faq);
-      this.faqs.splice(index, 1);
+      this.$dialog.confirm({
+        title: 'Sletter FAQ',
+        message: 'Er du sikker på at du vill <b>slette</b> dette spørsmålet? Dette kan ikke hentes tilbake.',
+        confirmText: 'Slett FAQ',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: async () => {
+          this.$toast.open('Slettet FAQ');
+          await Faq.deleteFaq(faq);
+          this.faqs.splice(index, 1);
+        }
+      });
     },
     updateFaq: async function (faq) {
       await Faq.updateFaq(faq);
@@ -171,10 +193,10 @@ export default {
         });
       }
 
-      this.snackbar();
+      this.updateSuccessSnackbar();
     },
-    updateFaqs: async function () {
-      //TODO: finn bedre løsning
+    updateFaqs: async function (faq, index) {
+      // TODO: finn bedre løsning
       if (this.currentChoice === this.all) {
         return;
       }
@@ -192,10 +214,15 @@ export default {
       }
     },
     addFaq: async function () {
-      if (this.currentChoice !== this.all) {
-        this.form.subject = this.currentChoice;
-      } else {
+      if (!this.selectionChoice && this.currentChoice === this.all) {
+        this.chooseCategoryToast();
+        return;
+      }
+
+      if (this.currentChoice === this.all) {
         this.form.subject = this.selectionChoice;
+      } else {
+        this.form.subject = this.currentChoice;
       }
 
       const response = await Faq.postFaq(this.form);
@@ -215,8 +242,16 @@ export default {
         });
       }
     },
-    snackbar () {
-      this.$snackbar.open(`Lagret data suksessfult`);
+    updateSuccessSnackbar () {
+      this.$snackbar.open(`Lagret data suksessfullt`);
+    },
+    chooseCategoryToast () {
+      this.$toast.open({
+        duration: 5000,
+        message: `Har du husket å velge kategori?`,
+        position: 'is-bottom',
+        type: 'is-danger'
+      });
     }
   }
 };

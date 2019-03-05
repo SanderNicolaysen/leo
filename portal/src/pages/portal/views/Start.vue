@@ -62,5 +62,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/sass/start.scss";
+@import "@/assets/sass/start.scss";
 </style>

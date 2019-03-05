@@ -28,9 +28,9 @@ export default {
     }
   },
 
-  async delete (id) {
+  async delete (id, key) {
     try {
-      const response = await Api().delete('/inquiries/' + id);
+      const response = await Api().delete('/inquiries/' + id, { key: key });
       return response.data;
     } catch (error) {
       console.error(error);

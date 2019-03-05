@@ -14,6 +14,13 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/user', (req, res, next) => {
+  if (req.user) {
+    res.status(200).json(req.user);
+  } else {
+    res.sendStatus(404);
+  }
+});
 
 router.post('/register', auth(), async (req, res, next) => {
   try {
@@ -22,7 +29,7 @@ router.post('/register', auth(), async (req, res, next) => {
     next(error);
     return;
   }
-  
+
   res.sendStatus(201);
 });
 

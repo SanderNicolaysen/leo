@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Start from '@/views/Start.vue';
-import Grabticket from '@/views/Grabticket.vue';
-import Forms from '@/views/Forms.vue';
-import Subcategory from '@/views/Subcategory.vue';
+import Start from './views/Start.vue';
+import Grabticket from './views/Grabticket.vue';
+import Forms from './views/Forms.vue';
+import Subcategory from './views/Subcategory.vue';
 import lostFound from './views/lostFound.vue';
 import lostFoundForm from './views/lostFoundForm.vue';
 

@@ -3,8 +3,8 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-grey">Login</h3>
-          <p class="subtitle has-text-grey">Please login to proceed.</p>
+          <h3 class="title has-text-grey">Logg inn</h3>
+          <p class="subtitle has-text-grey">Vennligst logg inn for å fortsette</p>
           <form v-on:submit.prevent="submit">
             <div class="box">
               <div class="field">
@@ -39,13 +39,14 @@ export default {
   },
   methods: {
     submit: async function () {
-      axios.post('/login', { username: this.username, password: this.password })
-        .then((res) => {
-          alert('Logget inn.');
-        })
-        .catch(() => {
-          alert('Feil passord eller brukernavn.');
-        });
+      try {
+        const res = await axios.post('/login', { username: this.username, password: this.password });
+        if (res.status === 200) {
+          this.$router.push({ name: 'dashboard' });
+        }
+      } catch (error) {
+        alert('Feil passord eller brukernavn.');
+      }
     }
   }
 };

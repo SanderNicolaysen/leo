@@ -46,7 +46,7 @@ export default {
       clear: async function () {
         if (this.exists()) {
           this.update.cancel();
-          await Inquiries.delete(getLocal()._id);
+          await Inquiries.delete(getLocal()._id, getLocal().key);
           clearLocal();
         }
       },

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './views/Login.vue';
 import Layout from './views/Layout.vue';
-import Oversikt from './views/Oversikt.vue';
+import Index from './views/Index.vue';
 import Booth from './views/Booth.vue';
 import AdminFaq from './views/AdminFaq.vue';
 
@@ -20,7 +20,7 @@ export default new Router({
       component: Layout,
       redirect: { name: 'dashboard' },
       children: [
-        { path: '/', name: 'dashboard', component: Oversikt },
+        { path: '/', name: 'dashboard', component: Index },
         { path: '/booth', name: 'booth', component: Booth },
         { path: '/admin/faq', name: 'adminFaq', component: AdminFaq }
         /*

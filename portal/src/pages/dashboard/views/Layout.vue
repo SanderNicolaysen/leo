@@ -33,7 +33,7 @@
         <div class="column is-3 ">
           <aside class="menu is-hidden-mobile">
             <p class="menu-label">
-              General
+              Oversikt
             </p>
             <ul class="menu-list">
               <li><router-link :to="{ name: 'dashboard' }">Dashboard</router-link></li>
@@ -43,9 +43,10 @@
               Administrasjon
             </p>
             <ul class="menu-list">
+              <li><router-link :to="{ name: 'adminFaq' }">Rediger FAQ</router-link></li>
               <li><a>Hittegods</a></li>
               <li><a>Timeavtaler</a></li>
-              <li><router-link :to="{ name: 'adminFaq' }">Rediger FAQ</router-link></li>
+              <li><a>Skjemaer</a></li>
             </ul>
           </aside>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar />
-    <div class="container">
+    <div class="">
       <nav class="block">
         <div class="tabs is-centered">
           <ul>

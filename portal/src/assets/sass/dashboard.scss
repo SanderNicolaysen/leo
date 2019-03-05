@@ -1,12 +1,8 @@
-html, body {
-  line-height: 1.5;
-  height: 100%;
-  background: #ECF0F3;
-}
+@import "_variables.scss";
 
 .admin-wrapper {
   nav.navbar {
-    border-top: 4px solid #276cda;
+    border-top: 4px solid $primary;
     margin-bottom: 1rem;
   }
 
@@ -23,17 +19,17 @@ html, body {
     font-weight: 700;
   }
   .menu-list a {
-    color: #0F1D38;
+    color: $black;
     font-size: 14px;
     font-weight: 700;
   }
   .menu-list a:hover {
     background-color: transparent;
-    color: #276cda;
+    color: $primary;
   }
   .menu-list a.router-link-exact-active {
     background-color: transparent;
-    color: #276cda;
+    color: $primary;
     font-weight: 700;
   }
   .card {
@@ -52,9 +48,7 @@ html, body {
     color: #8F99A3;
   }
   .hero.welcome.is-info {
-    background: #36D1DC;
-    background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);
-    background: linear-gradient(to right, #5B86E5, #36D1DC);
+    background: linear-gradient(to right, #001935, #c9dbf2);
   }
   .hero.welcome .title, .hero.welcome .subtitle {
     color: hsl(192, 17%, 99%);

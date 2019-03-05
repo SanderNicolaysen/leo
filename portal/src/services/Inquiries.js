@@ -30,7 +30,7 @@ export default {
 
   async delete (id, key) {
     try {
-      const response = await Api().delete('/inquiries/' + id, { key: key });
+      const response = await Api().delete('/inquiries/' + id, { data: { key: key } });
       return response.data;
     } catch (error) {
       console.error(error);

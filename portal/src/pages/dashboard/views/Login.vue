@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import Auth from '@/services/Auth';
 
 export default {
   data: function () {
@@ -39,13 +39,18 @@ export default {
   },
   methods: {
     submit: async function () {
-      try {
-        const res = await axios.post('/login', { username: this.username, password: this.password });
-        if (res.status === 200) {
-          this.$router.push({ name: 'dashboard' });
-        }
-      } catch (error) {
-        alert('Feil passord eller brukernavn.');
+      const success = await Auth.login(this.username, this.password);
+
+      if (success) {
+        this.$router.push({ name: 'dashboard' });
+        this.$snackbar.open('Pålogging vellykket!');
+      } else {
+        this.$toast.open({
+          duration: 3000,
+          message: `Feil brukernavn eller passord!<br>Prøv igjen.`,
+          position: 'is-bottom',
+          type: 'is-danger'
+        });
       }
     }
   }

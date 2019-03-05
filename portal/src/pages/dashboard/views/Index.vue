@@ -2,10 +2,8 @@
   <div>
     <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
-        <li><a href="../">Bulma</a></li>
-        <li><a href="../">Templates</a></li>
-        <li><a href="../">Examples</a></li>
-        <li class="is-active"><a href="#" aria-current="page">Admin</a></li>
+        <li><a href="/dashboard/#/">Politivakta</a></li>
+        <li class="is-active"><a href="#" aria-current="page">Dashboard</a></li>
       </ul>
     </nav>
     <section class="hero is-info welcome is-small">
@@ -24,26 +22,26 @@
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">439k</p>
-            <p class="subtitle">Users</p>
+            <p class="title">7</p>
+            <p class="subtitle">I kø</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">59k</p>
-            <p class="subtitle">Products</p>
+            <p class="title">2</p>
+            <p class="subtitle">Behandles</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">3.4k</p>
-            <p class="subtitle">Open Orders</p>
+            <p class="title">#408</p>
+            <p class="subtitle">Aktivt kønummer</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">19</p>
-            <p class="subtitle">Exceptions</p>
+            <p class="title">#275</p>
+            <p class="subtitle">Neste kønummer</p>
           </article>
         </div>
       </div>
@@ -135,6 +133,8 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<script>
+export default {
+  props: ['username']
+};
+</script>

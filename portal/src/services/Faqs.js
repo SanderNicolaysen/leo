@@ -1,6 +1,16 @@
 import Api from '@/services/Api';
 
 export default {
+  // Get one faq
+  async getFaq (body) {
+    try {
+      const response = await Api().get(`/faqs/${body.subject}/${body._id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  // Get all faqs from specific subject
   async getFaqs (subject) {
     try {
       const response = await Api().get(`/faqs/${subject}`);
@@ -9,9 +19,10 @@ export default {
       console.error(error);
     }
   },
-  async getFaq (body) {
+  // Get all the faqs
+  async getAllFaqs () {
     try {
-      const response = await Api().get(`/faqs/${body.subject}/${body.id}`);
+      const response = await Api().get(`/faqs`);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -27,7 +38,7 @@ export default {
   },
   async deleteFaq (body) {
     try {
-      const response = await Api().delete(`/faqs/${body.subject}/${body.id}`);
+      const response = await Api().delete(`/faqs/${body.subject}/${body._id}`);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -35,7 +46,7 @@ export default {
   },
   async updateFaq (body) {
     try {
-      const response = await Api().patch(`/faqs/${body.subject}/${body.id}`, body);
+      const response = await Api().patch(`/faqs/${body.subject}/${body._id}`, body);
       return response.data;
     } catch (error) {
       console.error(error);

@@ -5,27 +5,42 @@
       <nav class="block">
         <div class="tabs is-centered">
           <ul>
-            <li v-for="item in options" :key="item.id" v-on:click.prevent="tabChange(item, $event)"><a>{{ item.option }}</a></li>
+            <li v-for="option in options" :key="option.id" v-on:click.prevent="tabChange(option, $event)"><a>{{
+                option.option }}</a></li>
           </ul>
         </div>
       </nav>
 
       <div class="box">
         <h1 class="title has-text-centered">{{ $t('leggTilNyFaq') }}</h1>
-        <form class="block" v-on:submit.prevent="addFaq" method="POST">
-          <div class="field">
+        <form class="block" v-on:post.prevent="addFaq()" method="POST">
+          <section>
+            <b-field :label="$t('spørsmål')" labelFor="question">
+                <b-input id="question" v-model="form.question"></b-input>
+            </b-field>
+
+            <b-field :label="$t('svar')" labelFor="answer">
+                <b-input id="answer" v-model="form.answer"></b-input>
+            </b-field>
+
+          <div class="field is-grouped">
             <div class="control">
-              <input class="input" type="text" :placeholder="$t('spørsmål')" v-model="form.question">
+              <button type="submit" class="button is-primary" @click.prevent="addFaq()">{{$t('leggTil')}}</button>
             </div>
+
+            <template v-if="currentChoice === 'alle'">
+              <b-field>
+                <b-select placeholder="Velg en kategori" v-model="selectionChoice">
+                  <option v-for="item in options" :value="item.subject" :key="item.id">
+                    {{ item.option }}
+                  </option>
+                </b-select>
+              </b-field>
+            </template>
           </div>
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text" :placeholder="$t('svar')" v-model="form.answer">
-            </div>
-          </div>
-          <div class="block">
-            <button type="submit" class="button is-primary" @click.prevent="addFaq">{{$t('leggTil')}}</button>
-          </div>
+
+          </section>
+
         </form>
 
         <table class="table is-hoverable is-fullwidth is-striped">
@@ -39,15 +54,15 @@
           </thead>
           <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDrag'}"
             @change="updateFaqs">
-            <tr class="drag hasDrag" v-for="(item, index) in faqs" :key="item.id">
-              <template v-if="isEditing !== item.id">
+            <tr class="drag hasDrag" v-for="(faq, index) in faqs" :key="faq._id">
+              <template v-if="isEditing !== faq._id">
                 <td>{{ index + 1 }}</td>
-                <td>{{ item.question }}</td>
-                <td>{{ item.answer }}</td>
+                <td>{{ faq.question }}</td>
+                <td>{{ faq.answer }}</td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-primary" @click='edit(item)'>{{$t('rediger')}}</span>
-                    <span class="button is-danger" @click='deleteFaq(item)'>{{$t('slett')}}</span>
+                    <span class="button is-primary" @click='edit(faq)'>{{$t('rediger')}}</span>
+                    <span class="button is-danger" @click='deleteFaq(faq, index)'>{{$t('slett')}}</span>
                   </div>
                 </td>
               </template>
@@ -56,17 +71,17 @@
                 <td>{{ index + 1 }}</td>
                 <td>
                   <div class="control">
-                    <textarea class="textarea" v-model='item.question'></textarea>
+                    <textarea class="textarea" v-model='faq.question'></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="control">
-                    <textarea class="textarea" v-model='item.answer'></textarea>
+                    <textarea class="textarea" v-model='faq.answer'></textarea>
                   </div>
                 </td>
                 <td>
                   <div class="buttons has-addons">
-                    <span class="button is-success" @click='updateFaq(item)'>{{$t('oppdater')}}</span>
+                    <span class="button is-success" @click='updateFaq(faq)'>{{$t('oppdater')}}</span>
                     <span class="button is-danger" @click='exitFaq'>{{$t('tilbake')}}</span>
                   </div>
                 </td>
@@ -81,7 +96,7 @@
 </template>
 
 <script>
-// import Faq from '@/components/Faq'
+import _ from 'lodash';
 
 import Faq from '@/services/Faqs.js';
 import draggable from 'vuedraggable';
@@ -94,15 +109,17 @@ export default {
   data () {
     return {
       options: [
-        { id: 0, option: 'Pass', queryString: 'pass' },
-        { id: 1, option: 'Anmeld tyveri eller skadeverk', queryString: 'tyveri-og-skadeverk' },
-        { id: 2, option: 'Hente beslag', queryString: 'beslag' },
-        { id: 3, option: 'Bot', queryString: 'bot' },
-        { id: 4, option: 'Våpen', queryString: 'våpen' },
-        { id: 5, option: 'Avhør', queryString: 'avhør' }
+        { id: 0, option: 'Alle', subject: 'alle' },
+        { id: 1, option: 'Pass', subject: 'pass' },
+        { id: 2, option: 'Anmeld tyveri eller skadeverk', subject: 'tyveri-og-skadeverk' },
+        { id: 3, option: 'Hente beslag', subject: 'beslag' },
+        { id: 4, option: 'Bot', subject: 'bot' },
+        { id: 5, option: 'Våpen', subject: 'våpen' },
+        { id: 6, option: 'Avhør', subject: 'avhør' }
       ],
       faqs: [],
       currentChoice: null,
+      selectionChoice: null,
       form: {
         subject: '',
         question: '',
@@ -111,11 +128,25 @@ export default {
       isEditing: null
     };
   },
+  created: async function () {
+    const faq = await Faq.getAllFaqs();
+    this.faqs = faq;
+    this.currentChoice = this.all;
+  },
+  computed: {
+    all: function () {
+      return _.find(this.options, { 'subject': 'alle' }).subject;
+    }
+  },
   methods: {
-    tabChange: async function (subject, event) {
-      const faq = await Faq.getFaqs(subject.queryString);
-      this.faqs = faq;
-      this.currentChoice = subject.queryString;
+    tabChange: async function (option, event) {
+      if (option.subject !== this.all) {
+        this.faqs = await Faq.getFaqs(option.subject);
+      } else {
+        this.faqs = await Faq.getAllFaqs();
+      }
+
+      this.currentChoice = option.subject;
 
       // Remove the is-active class on all choices and set the class on the currentChoice
       const ul = event.target.parentElement.parentElement;
@@ -125,15 +156,12 @@ export default {
       }
       li.classList.add('is-active');
     },
-    deleteFaq: async function (item) {
-      await Faq.deleteFaq(item);
-      this.faqs.splice(item.id, 1);
-      this.faqs.map((faq, index) => {
-        faq.id = index;
-      });
+    deleteFaq: async function (faq, index) {
+      await Faq.deleteFaq(faq);
+      this.faqs.splice(index, 1);
     },
-    updateFaq: async function (item) {
-      await Faq.updateFaq(item);
+    updateFaq: async function (faq) {
+      await Faq.updateFaq(faq);
       this.isEditing = null;
 
       const tr = document.querySelectorAll('.drag');
@@ -142,15 +170,18 @@ export default {
           element.classList.add('hasDrag');
         });
       }
+
+      this.snackbar();
     },
     updateFaqs: async function () {
-      this.faqs.map((faq, index) => {
-        faq.id = index;
-      });
+      //TODO: finn bedre løsning
+      if (this.currentChoice === this.all) {
+        return;
+      }
 
       await Faq.updateFaqs(this.faqs);
     },
-    exitFaq: function () {
+    exitFaq: async function () {
       this.isEditing = null;
 
       const tr = document.querySelectorAll('.drag');
@@ -161,7 +192,12 @@ export default {
       }
     },
     addFaq: async function () {
-      this.form.subject = this.currentChoice;
+      if (this.currentChoice !== this.all) {
+        this.form.subject = this.currentChoice;
+      } else {
+        this.form.subject = this.selectionChoice;
+      }
+
       const response = await Faq.postFaq(this.form);
       this.faqs.push(response.faq);
 
@@ -169,8 +205,8 @@ export default {
       this.form.answer = '';
       this.form.question = '';
     },
-    edit: function (item) {
-      this.isEditing = item.id;
+    edit: function (faq) {
+      this.isEditing = faq._id;
 
       const tr = document.querySelectorAll('.drag');
       if (this.isEditing !== null) {
@@ -178,6 +214,9 @@ export default {
           element.classList.remove('hasDrag');
         });
       }
+    },
+    snackbar () {
+      this.$snackbar.open(`Lagret data suksessfult`);
     }
   }
 };

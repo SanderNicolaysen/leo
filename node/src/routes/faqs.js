@@ -2,9 +2,10 @@ import express from 'express';
 const router = express.Router();
 import Faq from '../database/models/faq';
 
-router.get('/:subject', async (req, res, next) => {
+// Get all faqs
+router.get('/', async (req, res, next) => {
   try {
-    const faqs = await Faq.find({subject: req.params.subject}).sort({id: 1}).exec();
+    const faqs = await Faq.find().exec();
     res.status(200).json(faqs);
   } 
   catch(error) {
@@ -12,9 +13,21 @@ router.get('/:subject', async (req, res, next) => {
   }
 });
 
+// Get all faqs from specific subject
+router.get('/:subject', async (req, res, next) => {
+  try {
+    const faqs = await Faq.find({subject: req.params.subject}).exec();
+    res.status(200).json(faqs);
+  } 
+  catch(error) {
+    next(error);
+  }
+});
+
+// Get one faq by subject and objectid
 router.get('/:subject/:id', async  (req, res, next) => {
   try {
-    const faq = await Faq.findOne({ subject: req.params.subject, id: req.params.id }).exec();
+    const faq = await Faq.findOne({ subject: req.params.subject, _id: req.params.id }).exec();
     res.status(200).json(faq);
   }
   catch (error) {
@@ -24,16 +37,13 @@ router.get('/:subject/:id', async  (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const size = await Faq.find({subject: req.body.subject}).countDocuments().exec();
     const new_faq = new Faq({
-      id: size,
       subject: req.body.subject,
       question: req.body.question,
       answer: req.body.answer
     });
     await new_faq.save();
     res.status(201).json({
-      size: size,
       faq: new_faq
     });
   }
@@ -49,7 +59,7 @@ router.patch('/:subject/:id', async (req, res, next) => {
   };
 
   try {
-    const faq = await Faq.update({subject: req.params.subject, id: req.params.id}, { $set: props }).exec();
+    const faq = await Faq.update({subject: req.params.subject, _id: req.params.id}, { $set: props }).exec();
     res.status(200).json(faq);
   }
   catch (error) {
@@ -57,6 +67,7 @@ router.patch('/:subject/:id', async (req, res, next) => {
   } 
 });
 
+// When changing the order
 router.put('/:subject', async (req, res, next) => {
   try {
     // delete everything for specific subject and insert new body
@@ -75,8 +86,10 @@ router.put('/:subject', async (req, res, next) => {
 
 
 router.delete('/:subject/:id', async (req, res, next) => {
+  console.log(req.params);
+
   try {
-    const result = await Faq.deleteMany({subject: req.params.subject, id: req.params.id}).exec();
+    const result = await Faq.deleteMany({subject: req.params.subject, _id: req.params.id}).exec();
     res.status(200).json(result);
   }
   catch (error) { 

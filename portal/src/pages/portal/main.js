@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import i18n from './lang/i18n';
-import InquiryPlugin from './InquiryPlugin';
-import './assets/sass/app.scss';
-import Navbar from './components/NavBar';
+import i18n from '@/lang/i18n';
+import InquiryPlugin from '@/InquiryPlugin';
+import Navbar from '@/components/NavBar';
+import '@/assets/sass/app.scss';
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 

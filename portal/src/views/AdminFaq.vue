@@ -60,7 +60,7 @@
             <tr class="drag hasDrag" v-for="(faq, index) in faqs" :key="faq._id">
               <template v-if="isEditing !== faq._id">
                 <td>{{ index + 1 }}</td>
-                <template v-if="currentChoice === all">{{ faq.subject }}</template>
+                <td v-if="currentChoice === all">{{ currentOption(faq) }}</td>
                 <td>{{ faq.question }}</td>
                 <td>{{ faq.answer }}</td>
                 <td>
@@ -73,7 +73,7 @@
 
               <template v-else>
                 <td>{{ index + 1 }}</td>
-                <template v-if="currentChoice === all">{{ faq.subject }}</template>
+                <td v-if="currentChoice === all">{{ currentOption(faq) }}</td>
                 <td>
                   <div class="control">
                     <textarea class="textarea" v-model='faq.question'></textarea>
@@ -151,6 +151,9 @@ export default {
     }
   },
   methods: {
+    currentOption: function (faq) {
+      return _.find(this.options, { subject: faq.subject }).option;
+    },
     tabChange: async function (option, event) {
       if (option.subject !== this.all) {
         this.faqs = await Faq.getFaqs(option.subject);

@@ -10,10 +10,10 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Hello, Admin.
+            {{ greeting }}
           </h1>
           <h2 class="subtitle">
-            I hope you are having a great day!
+            Her er dagens oversikt.
           </h2>
         </div>
       </div>
@@ -134,7 +134,24 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import auth from '@/services/Auth';
+
 export default {
-  props: ['username']
+  data: function () {
+    return {
+      greeting: ''
+    };
+  },
+  created: async function () {
+    const user = await auth.user();
+
+    const hour = new Date().getHours();
+    if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
+    else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
+    else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
+    else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
+    else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+  }
 };
 </script>

@@ -51,6 +51,9 @@ router.post('/', async (req, res, next) => {
 
   // Create a random key with the inquiry, used for limiting access
   inquiry.key = crypto.randomBytes(32).toString('base64');
+
+  // Assign an ID/queue number to the inquriy
+  await inquiry.assignId();
   
   try {
     await inquiry.save();

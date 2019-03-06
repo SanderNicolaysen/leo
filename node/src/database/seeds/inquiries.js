@@ -6,26 +6,30 @@ module.exports = {
         'first_name': 'Estève',
         'last_name': 'MacCafferky',
         'NIN': 88492322421,
-        'detail1': 'Tyveri',
+        'type': 'Tyveri',
+        'status': 'Behandles',
         'detail2': 'Outdoors'
       }, {
         'inquiry_id': 246,
         'first_name': 'Maëlann',
-        'gender': 'Female',
+        'type': 'Female',
+        'status': 'Skriver',
         'detail2': 'Tools'
       }, {
         'inquiry_id': 936,
         'first_name': 'Pélagie',
         'last_name': 'Paoletto',
         'NIN': 19524481597,
-        'gender': 'Female',
+        'type': 'Female',
+        'status': 'Venter',
         'detail1': 'Ran',
         'detail2': 'Computers'
       }, {
         'inquiry_id': 832,
         'last_name': 'Pieper',
         'NIN': 55393623729,
-        'detail1': 'Bot',
+        'type': 'Bot',
+        'status': 'Venter',
         'detail2': 'Kids'
       }, {
         'inquiry_id': 755,
@@ -33,7 +37,8 @@ module.exports = {
         'last_name': 'Barkas',
         'NIN': 77154364242,
         'gender': 'Male',
-        'detail1': 'Seksuallovbrudd',
+        'type': 'Seksuallovbrudd',
+        'status': 'Venter',
         'detail2': 'Industrial'
       }, {
         'inquiry_id': 937,
@@ -41,47 +46,55 @@ module.exports = {
         'last_name': 'Osmint',
         'NIN': 47385199769,
         'gender': 'Female',
-        'detail1': 'DNA-takning'
+        'type': 'DNA-takning',
+        'status': 'Venter'
       }, {
         'inquiry_id': 548,
         'last_name': 'Milburn',
         'NIN': 70298219287,
         'gender': 'Male',
-        'detail1': 'Nødpass'
+        'type': 'Nødpass',
+        'status': 'Venter'
       }, {
         'inquiry_id': 390,
         'first_name': 'Aloïs',
         'last_name': "O'Glassane",
         'gender': 'Male',
-        'detail1': 'Vision-oriented empowering process improvement',
+        'type': 'Vision-oriented empowering process improvement',
+        'status': 'Venter',
         'detail2': 'Music'
       }, {
         'inquiry_id': 132,
         'first_name': 'Méghane',
         'last_name': 'Blindmann',
-        'detail1': 'Multi-tiered stable circuit'
+        'type': 'Multi-tiered stable circuit',
+        'status': 'Venter'
       }, {
         'inquiry_id': 459,
         'first_name': 'Gisèle',
         'last_name': 'Esherwood',
         'gender': 'Female',
-        'detail1': 'Monitored high-level definition'
+        'type': 'Monitored high-level definition',
+        'status': 'Venter'
       }, {
         'inquiry_id': 430,
         'last_name': 'Campkin',
         'NIN': 17605893164,
         'detail1': 'Integrated discrete protocol',
-        'detail2': 'Music'
+        'detail2': 'Music',
+        'status': 'Venter'
       }, {
         'inquiry_id': 913,
         'first_name': 'Célestine',
         'last_name': 'Beech',
-        'detail1': 'Mandatory client-driven collaboration'
+        'detail1': 'Mandatory client-driven collaboration',
+        'status': 'Venter'
       }, {
         'inquiry_id': 837,
         'first_name': 'Stévina',
         'last_name': 'Dolohunty',
         'gender': 'Female',
+        'status': 'Venter',
         'detail1': 'Customer-focused actuating interface'
       }, {
         'inquiry_id': 603,
@@ -94,12 +107,14 @@ module.exports = {
         'first_name': 'Adélie',
         'last_name': 'Flatt',
         'NIN': 85282824140,
+        'status': 'Venter',
         'detail1': 'Open-source client-driven capability'
       }, {
         'inquiry_id': 490,
         'first_name': 'Anaëlle',
         'last_name': 'Langmead',
         'gender': 'Female',
+        'status': 'Venter',
         'detail1': 'Pre-emptive exuding success',
         'detail2': 'Electronics'
       }, {
@@ -107,6 +122,7 @@ module.exports = {
         'first_name': 'Clélia',
         'last_name': 'Folliott',
         'gender': 'Male',
+        'status': 'Venter',
         'detail1': 'Inverse dynamic moratorium',
         'detail2': 'Books'
       }, {
@@ -115,10 +131,12 @@ module.exports = {
         'last_name': 'Hauger',
         'NIN': 94706125391,
         'gender': 'Male',
+        'status': 'Venter',
         'detail1': 'Customizable discrete product'
       }, {
         'inquiry_id': 371,
         'first_name': 'Illustrée',
+        'status': 'Venter',
         'NIN': 87863019813
       }, {
         'inquiry_id': 988,
@@ -126,6 +144,7 @@ module.exports = {
         'last_name': 'Askham',
         'NIN': 92982110111,
         'gender': 'Male',
+        'status': 'Venter',
         'detail1': 'Realigned hybrid artificial intelligence',
         'detail2': 'Shoes'
       }

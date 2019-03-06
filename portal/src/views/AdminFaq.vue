@@ -5,7 +5,7 @@
       <nav class="block">
         <div class="tabs is-centered">
           <ul>
-            <li v-for="option in options" :key="option.id" v-on:click.prevent="tabChange(option, $event)"><a>{{
+            <li v-for="option in options" :key="option.id" v-on:click.prevent="tabChange(option, $event)" :class="{ 'is-active': option.active }"><a>{{
                 option.option }}</a></li>
           </ul>
         </div>
@@ -114,13 +114,13 @@ export default {
   data () {
     return {
       options: [
-        { id: 0, option: 'Alle', subject: 'alle' },
-        { id: 1, option: 'Pass', subject: 'pass' },
-        { id: 2, option: 'Anmeld tyveri eller skadeverk', subject: 'tyveri-og-skadeverk' },
-        { id: 3, option: 'Hente beslag', subject: 'beslag' },
-        { id: 4, option: 'Bot', subject: 'bot' },
-        { id: 5, option: 'Våpen', subject: 'våpen' },
-        { id: 6, option: 'Avhør', subject: 'avhør' }
+        { id: 0, option: 'Alle', subject: 'alle', active: true },
+        { id: 1, option: 'Pass', subject: 'pass', active: false },
+        { id: 2, option: 'Anmeld tyveri eller skadeverk', subject: 'tyveri-og-skadeverk', active: false },
+        { id: 3, option: 'Hente beslag', subject: 'beslag', active: false },
+        { id: 4, option: 'Bot', subject: 'bot', active: false },
+        { id: 5, option: 'Våpen', subject: 'våpen', active: false },
+        { id: 6, option: 'Avhør', subject: 'avhør', active: false }
       ],
       faqs: [],
       currentChoice: null,
@@ -160,13 +160,8 @@ export default {
 
       this.currentChoice = option.subject;
 
-      // Remove the is-active class on all choices and set the class on the currentChoice
-      const ul = event.target.parentElement.parentElement;
-      const li = event.target.parentElement;
-      for (let i = 0; i < ul.children.length; i++) {
-        ul.children[i].classList.remove('is-active');
-      }
-      li.classList.add('is-active');
+      _.find(this.options, { active: true }).active = false;
+      _.find(this.options, { subject: this.currentChoice }).active = true;
     },
     deleteFaq: async function (faq, index) {
       this.$dialog.confirm({
@@ -258,5 +253,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

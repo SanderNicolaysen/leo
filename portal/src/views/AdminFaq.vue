@@ -40,7 +40,6 @@
             </div>
 
           </section>
-
         </form>
 
         <table class="table is-hoverable is-fullwidth is-striped">
@@ -55,9 +54,9 @@
               <th></th>
             </tr>
           </thead>
-          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDrag'}"
+          <draggable v-model="faqs" :element="'tbody'" :list="faqs" :options="{animation:200, draggable: '.hasDragClass'}"
             @change="updateFaqs">
-            <tr class="drag hasDrag" v-for="(faq, index) in faqs" :key="faq._id">
+            <tr :class="{ hasDragClass: hasDrag}" v-for="(faq, index) in faqs" :key="faq._id">
               <template v-if="isEditing !== faq._id">
                 <td>{{ index + 1 }}</td>
                 <td v-if="currentChoice === all">{{ currentOption(faq) }}</td>
@@ -131,7 +130,8 @@ export default {
         answer: ''
       },
       isEditing: null,
-      activeTab: 0
+      activeTab: 0,
+      hasDrag: false
     };
   },
   created: async function () {
@@ -165,6 +165,12 @@ export default {
 
       _.find(this.options, { active: true }).active = false;
       _.find(this.options, { subject: this.currentChoice }).active = true;
+
+      if (this.currentChoice === this.all) {
+        this.hasDrag = false;
+      } else {
+        this.hasDrag = true;
+      }
     },
     deleteFaq: async function (faq, index) {
       this.$dialog.confirm({
@@ -183,14 +189,9 @@ export default {
     updateFaq: async function (faq) {
       await Faq.updateFaq(faq);
       this.isEditing = null;
-
-      const tr = document.querySelectorAll('.drag');
-      if (this.isEditing === null) {
-        tr.forEach(element => {
-          element.classList.add('hasDrag');
-        });
+      if (this.currentChoice !== this.all) {
+        this.hasDrag = true;
       }
-
       this.updateSuccessSnackbar();
     },
     updateFaqs: async function (faq, index) {
@@ -203,12 +204,8 @@ export default {
     },
     exitFaq: async function () {
       this.isEditing = null;
-
-      const tr = document.querySelectorAll('.drag');
-      if (this.isEditing === null) {
-        tr.forEach(element => {
-          element.classList.add('hasDrag');
-        });
+      if (this.currentChoice !== this.all) {
+        this.hasDrag = true;
       }
     },
     addFaq: async function () {
@@ -232,13 +229,7 @@ export default {
     },
     edit: function (faq) {
       this.isEditing = faq._id;
-
-      const tr = document.querySelectorAll('.drag');
-      if (this.isEditing !== null) {
-        tr.forEach(element => {
-          element.classList.remove('hasDrag');
-        });
-      }
+      this.hasDrag = false;
     },
     updateSuccessSnackbar () {
       this.$snackbar.open(`Lagret data suksessfullt`);

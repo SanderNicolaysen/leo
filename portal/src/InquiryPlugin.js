@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { debounce, merge } from 'lodash';
 import Inquiries from '@/services/Inquiries';
 
 function getLocal () {
@@ -13,9 +13,20 @@ function setLocal (inquiry) {
   localStorage.setItem('inquiry', JSON.stringify(inquiry));
 }
 
+function updateLocal (data) {
+  const inquiry = getLocal();
+  merge(inquiry, data);
+  localStorage.setItem('inquiry', JSON.stringify(inquiry));
+}
+
 function clearLocal () {
   localStorage.removeItem('inquiry');
 }
+
+const debouncedUpdate = debounce(async function () {
+  const data = getLocal();
+  await Inquiries.update(getLocal()._id, data);
+}, 5000);
 
 export default {
   install: function (Vue, options) {
@@ -26,26 +37,29 @@ export default {
           return;
         }
 
-        this.update.cancel();
+        debouncedUpdate.cancel();
         const inquiry = await Inquiries.startInquiry(type);
+        inquiry.status = 'Skriver';
         setLocal(inquiry);
       },
 
-      update: debounce(async function (data) {
-        data.key = getLocal().key;
-        await Inquiries.update(getLocal()._id, data);
-      }, 5000),
+      update: async function (data) {
+        data.status = 'Skriver';
+        updateLocal(data);
+        debouncedUpdate(data);
+      },
 
       complete: function () {
         if (this.exists()) {
-          this.update.flush();
+          updateLocal({ status: 'Venter' });
+          debouncedUpdate.flush();
           clearLocal();
         }
       },
 
       clear: async function () {
         if (this.exists()) {
-          this.update.cancel();
+          debouncedUpdate.cancel();
           await Inquiries.delete(getLocal()._id, getLocal().key);
           clearLocal();
         }

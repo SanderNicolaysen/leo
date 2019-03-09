@@ -90,6 +90,9 @@ export default {
   },
   created: async function () {
     this.inquiries = await Inquiries.getInquiries();
+
+    // Only show unfinished inquiries
+    this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
   },
   methods: {
     next: function () {

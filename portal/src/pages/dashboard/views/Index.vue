@@ -22,13 +22,13 @@
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">7</p>
+            <p class="title">{{ queueNumber }}</p>
             <p class="subtitle">I kø</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">2</p>
+            <p class="title">{{ queueInprogress }}</p>
             <p class="subtitle">Behandles</p>
           </article>
         </div>
@@ -136,22 +136,30 @@
 <script>
 import _ from 'lodash';
 import auth from '@/services/Auth';
+import dashboardApi from '@/services/DashboardApi';
 
 export default {
   data: function () {
     return {
-      greeting: ''
+      greeting: '',
+      queueNumber: '',
+      queueInprogress: ''
     };
   },
   created: async function () {
-    const user = await auth.user();
+    auth.user().then((user) => {
+      const hour = new Date().getHours();
+      if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
+      else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
+      else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
+      else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
+      else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+    });
 
-    const hour = new Date().getHours();
-    if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
-    else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
-    else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
-    else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
-    else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+    dashboardApi.stats().then((stats) => {
+      this.queueNumber = stats.queue;
+      this.queueInprogress = stats.inprogress;
+    });
   }
 };
 </script>

@@ -30,21 +30,19 @@
         </tr>
         <tr v-if="inquiryAttr('form')">
           <td>Skjema</td>
-          <td>
-            <FormView :form="inquiry.form"/>
-          </td>
+          <td><FormView :form="inquiry.form"/></td>
         </tr>
       </table>
     </div>
     <div class="card-footer">
       <div class="card-footer-item">
-        <a class="is-size-5">Slett</a>
+        <a v-on:click="del()" class="is-size-5">Slett</a>
       </div>
       <div class="card-footer-item">
-        <a v-on:click="toggleButton()" class="is-size-5">Kall inn</a>
+        <a v-on:click="summon()" class="is-size-5">Kall inn</a>
       </div>
       <div class="card-footer-item">
-        <a v-on:click="toggleButton()" class="is-size-5">Neste</a>
+        <a v-on:click="next()" class="is-size-5">Neste</a>
       </div>
     </div>
   </div>
@@ -89,15 +87,40 @@ export default {
     };
   },
   created: async function () {
-    this.inquiries = await Inquiries.getInquiries();
-
-    // Only show unfinished inquiries
-    this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+    this.load();
   },
   methods: {
     next: function () {
       this.inquiry = _.find(this.inquiries, (o) => { return o.status !== 'Behandles'; });
     },
+
+    del: async function () {
+      this.$dialog.confirm({
+        title: 'Sletter henvendelse #' + this.inquiry.inquiry_id,
+        message: 'Bekreft sletting',
+        confirmText: 'Slett',
+        cancelText: 'Avbryt',
+        type: 'is-danger',
+        onConfirm: async () => {
+          await Inquiries.delete(this.inquiry._id, this.inquiry.key);
+          this.$toast.open('Slettet FAQ');
+          this.inquiry = null;
+          this.load();
+        }
+      });
+    },
+
+    summon: function () {
+      this.$snackbar.open('Kaller inn kønummer #' + this.inquiry.inquiry_id);
+    },
+
+    load: async function () {
+      this.inquiries = await Inquiries.getInquiries();
+
+      // Only show unfinished inquiries
+      this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+    },
+
     inquiryAttr (attr) {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : '';
     }

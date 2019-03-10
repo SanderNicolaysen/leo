@@ -39,19 +39,17 @@ export default {
 
         debouncedUpdate.cancel();
         const inquiry = await Inquiries.startInquiry(type);
-        inquiry.status = 'Skriver';
         setLocal(inquiry);
       },
 
       update: async function (data) {
-        data.status = 'Skriver';
         updateLocal(data);
-        debouncedUpdate(data);
+        debouncedUpdate();
       },
 
       complete: function () {
         if (this.exists()) {
-          updateLocal({ status: 'Venter' });
+          this.update({ status: 'Venter' });
           debouncedUpdate.flush();
           clearLocal();
         }

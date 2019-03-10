@@ -12,7 +12,8 @@ const InquirySchema = new Schema({
   created: { type : Date, default: Date.now },
   status: {
     type: String,
-    enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig']
+    enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],
+    default: 'Skriver'
   }
 });
 

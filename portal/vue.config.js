@@ -20,6 +20,11 @@ module.exports = {
       entry: 'src/pages/dashboard/main.js',
       template: 'public/index.html',
       filename: 'dashboard/index.html'
+    },
+    queueNumberDisplay: {
+      entry: 'src/pages/queueNumberDisplay/main.js',
+      template: 'public/index.html',
+      filename: 'queueNumberDisplay/index.html'
     }
   }
 };

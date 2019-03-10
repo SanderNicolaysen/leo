@@ -7,8 +7,13 @@ import MongoStore from 'connect-mongo';
 import path from 'path';
 import logger from 'morgan';
 import db from './database/db';
-
 import passport from './config/passport.config';
+
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+exports.io = io;
 
 var dbConnection = db.setUpDB().then(() => {
   return db.connection();
@@ -16,7 +21,6 @@ var dbConnection = db.setUpDB().then(() => {
 
 const store = MongoStore(session);
 
-const app = express();
 app.use(express.static(path.join(__dirname, '/public/')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,7 +38,7 @@ app.use('/api/forms', require('./routes/forms'));
 app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/', require('./routes/auth'));
 
-app.listen('8081');
+http.listen('8081');
 
 console.log('Listening on port 8081');
 

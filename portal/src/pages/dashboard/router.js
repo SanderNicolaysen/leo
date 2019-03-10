@@ -5,6 +5,7 @@ import Layout from './views/Layout.vue';
 import Index from './views/Index.vue';
 import Booth from './views/Booth.vue';
 import AdminFaq from './views/AdminFaq.vue';
+import Appointments from './views/Appointments.vue';
 
 Vue.use(Router);
 
@@ -22,7 +23,8 @@ export default new Router({
       children: [
         { path: '/', name: 'dashboard', component: Index },
         { path: '/booth', name: 'booth', component: Booth },
-        { path: '/admin/faq', name: 'adminFaq', component: AdminFaq }
+        { path: '/admin/faq', name: 'adminFaq', component: AdminFaq },
+        { path: '/appointments', name: 'appointments', component: Appointments }
         /*
         { path: '/example-path', name: 'example', component: Example }
         */

@@ -28,6 +28,7 @@ app.use('/api/dashboard', auth(), require('./routes/dashboard'));
 app.use('/api/inquiries', require('./routes/inquiries'));
 app.use('/api/faqs', require('./routes/faqs'));
 app.use('/api/forms', require('./routes/forms'));
+app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/', require('./routes/auth'));
 
 app.listen('8081');

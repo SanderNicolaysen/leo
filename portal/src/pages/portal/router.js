@@ -6,6 +6,7 @@ import Forms from './views/Forms.vue';
 import Subcategory from './views/Subcategory.vue';
 import lostFound from './views/lostFound.vue';
 import lostFoundForm from './views/lostFoundForm.vue';
+import UserAppointment from './views/UserAppointment.vue';
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/lost-found/form/:name',
       name: 'lostFoundForm',
       component: lostFoundForm
+    },
+    {
+      path: '/userAppointment',
+      name: 'userAppointments',
+      component: UserAppointment
     }
     /*,
     {

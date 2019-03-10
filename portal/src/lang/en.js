@@ -39,5 +39,13 @@ export default {
   rediger: 'Edit',
   slett: 'Delete',
   oppdater: 'Update',
-  tilbake: 'Return'
+  tilbake: 'Return',
+
+  // Appointments.vue
+  vertsNavn: 'Host\'s name',
+  brukersNavn: 'Users\'s name',
+  brukersPersonnummer: 'User\'s national identity number',
+
+  // UserAppointment.vue
+  avtale: 'appointment'
 };

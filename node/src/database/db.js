@@ -5,6 +5,7 @@ import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
 import hentHittegods from './seeds/forms/hentHittegods';
 import leverHittegods from './seeds/forms/leverHittegods';
 // import inquiries from './seeds/inquiries';
+import timeavtale from './seeds/forms/avtale';
 
 // Models
 import Faq from './models/faq';
@@ -35,6 +36,7 @@ module.exports = {
     Form.create(forenkletAnmeldelse, onCreate);
     Form.create(hentHittegods, onCreate);
     Form.create(leverHittegods, onCreate);
+    Form.create(timeavtale, onCreate);
 
     // Inquiry.insertMany(inquiries.inquiries, onInsert);
 

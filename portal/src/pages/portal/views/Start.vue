@@ -27,7 +27,9 @@
 
       <div class="columns">
         <div class="column">
-          <Box :title="$t('meldeplikt')" :text="$t('meldepliktTekst')" icon="<img src='/icons/round-access_time.svg'/>" />
+          <router-link to="/userAppointment">
+            <Box :title="$t('meldeplikt')" :text="$t('meldepliktTekst')" icon="<img src='/icons/round-access_time.svg'/>" />
+          </router-link>
         </div>
         <div class="column">
           <Box :title="$t('ferdigskrevneSaker')" :text="$t('ferdigskrevneSakerTekst')" icon="<img src='/icons/baseline-list_alt.svg'/>" />

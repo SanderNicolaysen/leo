@@ -1,6 +1,16 @@
 import Api from '@/services/Api';
 
 export default {
+
+  async nextInquiry () {
+    try {
+      const response = await Api().get('/inquiries/next');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   async getInquiries () {
     try {
       const response = await Api().get('/inquiries');

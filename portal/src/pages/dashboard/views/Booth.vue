@@ -72,6 +72,7 @@ import FormView from '@/components/FormView.vue';
 import StatusIndicator from '@/components/StatusIndicator.vue';
 import Inquiries from '@/services/Inquiries.js';
 import _ from 'lodash';
+import io from 'socket.io-client/dist/socket.io';
 
 export default {
   name: 'booth',
@@ -83,15 +84,21 @@ export default {
   data: function () {
     return {
       inquiries: [],
-      inquiry: null
+      inquiry: null,
+      socketqueueNumberDisplay: null,
+      socketBooth: null
     };
   },
   created: async function () {
     this.load();
+    this.socketqueueNumberDisplay = io.connect('http://localhost:8081/queueNumberDisplay');
+    this.socketBooth = io.connect('http://localhost:8081/booth');
   },
   methods: {
-    next: function () {
+    next: async function () {
       this.inquiry = _.find(this.inquiries, (o) => { return o.status !== 'Behandles'; });
+      //this.inquiry = await Inquiries.nextInquiry();
+      console.log(this.inquiry);
     },
 
     del: async function () {
@@ -112,10 +119,13 @@ export default {
 
     summon: function () {
       this.$snackbar.open('Kaller inn kønummer #' + this.inquiry.inquiry_id);
+      this.inquiry.status = 'Behandles'
+      this.socketqueueNumberDisplay.emit('kall inn', this.inquiry.inquiry_id);
     },
 
     load: async function () {
       this.inquiries = await Inquiries.getInquiries();
+      console.log(this.inquiries);
 
       // Only show unfinished inquiries
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });

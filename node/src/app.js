@@ -12,8 +12,9 @@ import passport from './config/passport.config';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-
-exports.io = io;
+const socket = require('./socket.js');
+socket.booth(io);
+socket.queueNumberDisplay(io);
 
 var dbConnection = db.setUpDB().then(() => {
   return db.connection();

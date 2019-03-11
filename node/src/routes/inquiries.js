@@ -4,17 +4,8 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import auth from '../middleware/auth';
 import _ from 'lodash';
-import { io } from '../app';
 
 const router = express.Router();
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
 
 // Fetch next inquiry
 router.get('/next', auth(), async (req, res, next) => {

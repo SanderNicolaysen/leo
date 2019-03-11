@@ -45,7 +45,7 @@
             <ul class="menu-list">
               <li><router-link :to="{ name: 'adminFaq' }">Rediger FAQ</router-link></li>
               <li><a>Hittegods</a></li>
-              <li><a>Timeavtaler</a></li>
+              <li><router-link :to="{ name: 'appointments' }">Timeavtaler</router-link></li>
               <li><a>Skjemaer</a></li>
             </ul>
           </aside>

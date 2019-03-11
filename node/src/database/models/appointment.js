@@ -5,7 +5,7 @@ const AppointmentSchema = new Schema({
   type: String,
   hostName: String,
   userName: String,
-  userNIN: Number
+  userNIN: String
 });
 
 const Appointment = mongoose.model("Appointment", AppointmentSchema);

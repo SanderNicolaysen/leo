@@ -14,18 +14,8 @@ module.exports = {
     // TYVERI OG SKADEVERK
     {
       subject: 'tyveri-og-skadeverk',
-      question: 'Det ikke ble brukt vold eller trussel',
-      answer: 'Svar 1' 
-    },
-    {
-      subject: 'tyveri-og-skadeverk',
-      question: 'Du er norsk statsborger over 18 år',
-      answer: 'Svar 2' 
-    },
-    {
-      subject: 'tyveri-og-skadeverk',
-      question: 'Du kjenner ikke navnet på gjerningspersonen',
-      answer: 'Svar 3' 
+      question: 'Kan jeg gjøre dette hjemme?',
+      answer: 'Ja, dersom det ikke ble brukt vold og du er norsk statsborger over 18'
     }
   ]
 };

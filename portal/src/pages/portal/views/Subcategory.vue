@@ -22,16 +22,16 @@
 
       <div class="columns">
         <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Mobiltelefon' /></router-link>
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Veske eller lommebok' /></router-link>
         </div>
         <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Sykkel' /></router-link>
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Førerkort' /></router-link>
         </div>
         <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='ID-tyveri' /></router-link>
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Bilskilt' /></router-link>
         </div>
         <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Skade på eiendom' /></router-link>
+          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Datakriminalitet' /></router-link>
         </div>
       </div>
 

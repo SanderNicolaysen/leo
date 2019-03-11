@@ -41,7 +41,7 @@ export default {
   },
   created: async function () {
     // Start a new inquiry
-    this.$inquiry.start('Avtale');
+    if (!this.$inquiry.exists()) { this.$inquiry.start('Avtale'); }
 
     const faq = await Faqs.getFaqs('avtale');
     this.faqs = faq;

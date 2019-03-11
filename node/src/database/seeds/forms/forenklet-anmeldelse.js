@@ -7,6 +7,7 @@ const page1 = {
     {
       id: 0,
       label: 'Fornærmede (ETTERNAVN, Fornavn. Evt. Firmanavn)',
+      info: 'Navnet ditt eller navnet på den du melder for',
       type: 'text',
       value: '',
       sizeClass: 'is-half'
@@ -69,15 +70,8 @@ const page1 = {
 const page2 = {
   id: 1,
   title: 'Anmelde tyveri eller skadeverk',
-  subtitle: 'Fyll ut anmeldelse',
+  subtitle: 'Fyll ut dine personlia. Dersom du ikke melder på vegne av noen andre kan du hoppe over denne siden.',
   elements: [
-    {
-      id: 0,
-      label: 'Jeg melder på vegne av en annen',
-      type: 'checkbox',
-      value: '',
-      sizeClass: 'is-full'
-    },
     {
       id: 1,
       label: 'Melder (ETTERNAVN, Fornavn)',
@@ -143,7 +137,7 @@ const page2 = {
 const page3 = {
   id: 2,
   title: 'Anmelde tyveri eller skadeverk',
-  subtitle: 'Fyll ut anmeldelse',
+  subtitle: '',
   elements: [
     {
       id: 0,

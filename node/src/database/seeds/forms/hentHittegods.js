@@ -2,11 +2,11 @@ const page1 = {
   id: 0,
   title: 'Hittegods og beslag',
   subtitle: 'Henting av hittegods, og henting av beslag',
-  info: 'Vennligst skriv inn navnet på gjenstanden. Det hadde vært flott. veldig bra',
+  info: 'Vennligst få med nok detaljer slik at det blir enklere for ansatte å finne gjenstanden. <br>Husk å få med eventuelt merke og modellnavn ',
   elements: [
     {
       id: 0,
-      label: 'Hvilken gjenstand skal du hente?',
+      label: 'Hva skal du levere?',
       info: 'Skiv inn navnet på gjenstanden',
       type: 'text',
       value: '',
@@ -21,44 +21,7 @@ const page2 = {
   id: 1,
   title: 'Hittegods og beslag',
   subtitle: 'Henting av hittegods, og henting av beslag',
-  info: '',
-  elements: [
-    {
-      id: 0,
-      info: 'Hvis du skriver inn fargen på gjenstanden så ville det vært flott',
-      label: 'Hvilken farge er gjenstanden?',
-      type: 'text',
-      value: '',
-      sizeClass: 'is-full'
-    }
-  ],
-  nextPage: 2,
-  prevPage: 0
-};
-
-const page3 = {
-  id: 2,
-  title: 'Hittegods og beslag',
-  subtitle: 'Henting av hittegods, og henting av beslag',
-  info: '',
-  elements: [
-    {
-      id: 0,
-      label: 'Hvilken modell er det?',
-      type: 'text',
-      value: '',
-      sizeClass: 'is-full'
-    }
-  ],
-  nextPage: 3,
-  prevPage: 1
-};
-
-const page4 = {
-  id: 3,
-  title: 'Hittegods og beslag',
-  subtitle: 'Henting av hittegods, og henting av beslag',
-  info: '',
+  info: 'Fyll ut din kontaktinformasjon.',
   elements: [
     {
       id: 0,
@@ -90,10 +53,10 @@ const page4 = {
     }
   ],
   nextPage: null,
-  prevPage: 2
+  prevPage: 0
 };
 
 export default {
   name: 'hentHittegods',
-  pages: [page1, page2, page3, page4]
+  pages: [page1, page2]
 };

@@ -6,6 +6,7 @@ import Index from './views/Index.vue';
 import Booth from './views/Booth.vue';
 import AdminFaq from './views/AdminFaq.vue';
 import Appointments from './views/Appointments.vue';
+import FormsEditor from './views/FormsEditor.vue';
 
 Vue.use(Router);
 
@@ -24,7 +25,8 @@ export default new Router({
         { path: '/', name: 'dashboard', component: Index },
         { path: '/booth', name: 'booth', component: Booth },
         { path: '/admin/faq', name: 'adminFaq', component: AdminFaq },
-        { path: '/appointments', name: 'appointments', component: Appointments }
+        { path: '/appointments', name: 'appointments', component: Appointments },
+        { path: '/skjemaer/', name: 'formseditor', component: FormsEditor }
         /*
         { path: '/example-path', name: 'example', component: Example }
         */

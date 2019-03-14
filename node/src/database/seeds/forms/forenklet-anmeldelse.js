@@ -10,57 +10,58 @@ const page1 = {
       info: 'Navnet ditt eller navnet på den du melder for',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 1,
       label: 'Statsborgerskap',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 2,
       label: 'Personnummer/Org.nr',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 3,
       label: 'Kjønn',
       type: 'radio',
       value: '',
-      choices: ['Mann', 'Kvinne'],
-      sizeClass: 'is-one-fifth'
+      choices: ['Mann', 'Kvinne', 'Annet'],
+      info: 'Velg kjønn...',
+      sizeClass: 'is-2'
     },
     {
       id: 4,
       label: 'Telefonnummer',
       type: 'text',
       value: '',
-      sizeClass: 'is-quarter'
+      sizeClass: 'is-4'
     },
     {
       id: 5,
       label: 'Adresse',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 6,
       label: 'Post nr.',
       type: 'text',
       value: '',
-      sizeClass: 'is-one-fifth'
+      sizeClass: 'is-2'
     },
     {
       id: 7,
       label: 'Post sted',
       type: 'text',
       value: '',
-      sizeClass: 'is-quarter'
+      sizeClass: 'is-4'
     }
   ],
   nextPage: 1,
@@ -77,21 +78,21 @@ const page2 = {
       label: 'Melder (ETTERNAVN, Fornavn)',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 2,
       label: 'Statsborgerskap',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 3,
       label: 'Personnummer/Org.nr',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 4,
@@ -99,35 +100,35 @@ const page2 = {
       type: 'radio',
       value: '',
       choices: ['Mann', 'Kvinne'],
-      sizeClass: 'is-one-fifth'
+      sizeClass: 'is-2'
     },
     {
       id: 5,
       label: 'Telefonnummer',
       type: 'text',
       value: '',
-      sizeClass: 'is-quarter'
+      sizeClass: 'is-4'
     },
     {
       id: 6,
       label: 'Adresse',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 7,
       label: 'Post nr.',
       type: 'text',
       value: '',
-      sizeClass: 'is-one-fifth'
+      sizeClass: 'is-2'
     },
     {
       id: 8,
       label: 'Post sted',
       type: 'text',
       value: '',
-      sizeClass: 'is-quarter'
+      sizeClass: 'is-4'
     }
   ],
   nextPage: 2,
@@ -145,7 +146,7 @@ const page3 = {
       info: 'Hva har skjedd? (Ved lommetyveri - hvor hadde du gjenstanden?)',
       type: 'textarea',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     }
   ],
   nextPage: null,
@@ -153,6 +154,8 @@ const page3 = {
 };
 
 export default {
-  name: 'forenklet-anmeldelse',
+  name: 'Forenklet anmeldelse',
+  normalizedName: 'forenklet-anmeldelse',
+  layout: 'normal',
   pages: [page1, page2, page3]
 };

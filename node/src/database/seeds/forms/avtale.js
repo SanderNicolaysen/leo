@@ -9,14 +9,14 @@ const page1 = {
       label: 'Etternavn',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     },
     {
       id: 1,
       label: 'Personnummer',
       type: 'text',
       value: '',
-      sizeClass: 'is-half'
+      sizeClass: 'is-6'
     }
   ],
   nextPage: null,
@@ -24,6 +24,8 @@ const page1 = {
 };
 
 export default {
-  name: 'timeavtale',
+  name: 'Timeavtale',
+  normalizedName: 'timeavtale',
+  layout: 'normal',
   pages: [page1]
 };

@@ -39,8 +39,7 @@
         <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
       </div>
 
-      <Faq :items="faqs" title="Visste du at" text="Noen anmeldelser kan utføres via politiets nettsider hjemmefra, slik at du slipper å møte opp på politivakta. <br>
-                               Anmeldelse kan utføres hjemme dersom"/>
+      <Faq :items="faqs"/>
     </div>
   </div>
 </template>

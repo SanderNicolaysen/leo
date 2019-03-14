@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { _kebabCase } from 'lodash';
 const Schema = mongoose.Schema;
 
 const ElementSchema = new Schema({
@@ -23,8 +24,18 @@ const PageSchema = new Schema({
 
 const FormSchema = new Schema({
   name: String,
+  normalizedName: String,
+  layout: {
+    type: String,
+    enum: ['normal', 'split']
+  },
   pages: [PageSchema]
 });
+
+FormSchema.methods.setName = function (name) {
+  this.name = name;
+  this.normalizedName = _kebabCase(name);
+};
 
 const Form = mongoose.model("Form", FormSchema);
 module.exports = Form;

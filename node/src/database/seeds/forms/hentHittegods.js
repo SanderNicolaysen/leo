@@ -10,7 +10,7 @@ const page1 = {
       info: 'Skiv inn navnet på gjenstanden',
       type: 'text',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     }
   ],
   nextPage: 1,
@@ -28,28 +28,28 @@ const page2 = {
       label: 'Fornavn',
       type: 'text',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     },
     {
       id: 1,
       label: 'Etternavn',
       type: 'text',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     },
     {
       id: 2,
       label: 'Telefonnummer',
       type: 'tel',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     },
     {
       id: 3,
       label: 'Personnummer',
       type: 'text',
       value: '',
-      sizeClass: 'is-full'
+      sizeClass: 'is-12'
     }
   ],
   nextPage: null,
@@ -57,6 +57,8 @@ const page2 = {
 };
 
 export default {
-  name: 'hentHittegods',
+  name: 'Hent hittegods',
+  normalizedName: 'hent-hittegods',
+  layout: 'split',
   pages: [page1, page2]
 };

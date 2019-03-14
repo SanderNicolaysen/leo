@@ -7,13 +7,13 @@
 
       <div class="columns">
         <div class="column">
-          <router-link to="/lost-found/form/hentHittegods">
+          <router-link to="/skjema/hent-hittegods">
             <Box :title="$t('hentBeslagHittegods')" :text="$t('hentBeslagHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
           </router-link>
         </div>
 
         <div class="column">
-          <router-link to="/lost-found/form/leverHittegods">
+          <router-link to="/skjema/lever-hittegods">
             <Box :title="$t('leverHittegods')" :text="$t('leverHittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
           </router-link>
         </div>

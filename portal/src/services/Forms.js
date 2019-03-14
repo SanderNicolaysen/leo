@@ -10,5 +10,22 @@ export default {
     } catch (error) {
       console.error(error);
     }
+  },
+
+  async put (form) {
+    try {
+      await Api().put('/forms/' + form.normalizedName, form);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  async list () {
+    try {
+      const response = await Api().get('/forms/list');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 };

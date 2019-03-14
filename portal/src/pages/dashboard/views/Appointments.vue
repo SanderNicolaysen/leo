@@ -77,7 +77,10 @@ export default {
   methods: {
     addAppointment: async function () {
       const response = await Appointments.postAppointment(this.form);
-      this.appointments.push(response);
+      this.pairs.push({
+        'appointment': response,
+        'inquiry': null
+      });
 
       // Remove text from input field
       this.form = { hostName: '', userName: '', userNIN: '' };

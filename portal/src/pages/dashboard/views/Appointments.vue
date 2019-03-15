@@ -1,6 +1,6 @@
 <template>
-<div>
-  <div class="column is-fullwidth">
+<div class="">
+  <div class="">
     <div class="box">
       <h3 class="title">Registrer ny avtale</h3>
       <form method="POST" class="block">
@@ -25,11 +25,16 @@
       </form>
     </div>
   </div>
+  <br>
   <div class="">
-    <div class="columns is-fullwidth" v-for="pair in pairs" :key="pair.appointment._id">
-      <AppointmentBox class="column is-two-fifths" v-bind:appointment="pair.appointment" />
+    <div class="columns" v-for="pair in pairs" :key="pair.id">
+      <div class="column is-two-fifths">
+        <AppointmentBox v-if="typeof pair.appointment !== 'undefined'" v-bind:appointment="pair.appointment" />
+      </div>
       <div class="column is-one-fifth title has-text-centered"> &harr; </div>
-      <InquiryBox class="column" v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry" v-bind:active="true"/>
+      <div class="column is-two-fifths">
+        <InquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry" v-bind:active="true"/>
+      </div>
     </div>
   </div>
 </div>
@@ -60,33 +65,57 @@ export default {
     };
   },
   created: async function () {
-    let self = this;
-    this.appointments = await Appointments.getAppointments();
-    this.inquiries = await Inquiries.getInquiries();
-    for (let appointment in this.appointments) {
-      let inquiry = this.inquiries.find(function (x) {
-        if (x.form === undefined) { return false; }
-        return x.form.pages[0].elements[1].value === self.appointments[appointment].userNIN;
-      });
-      this.pairs.push({
-        'appointment': this.appointments[appointment],
-        'inquiry': inquiry
-      });
-    }
+    this.updatePairs();
   },
   methods: {
     addAppointment: async function () {
       const response = await Appointments.postAppointment(this.form);
-      this.pairs.push({
-        'appointment': response,
-        'inquiry': null
-      });
+      this.appointments.push(response);
 
       // Remove text from input field
       this.form = { hostName: '', userName: '', userNIN: '' };
+
+      this.updatePairs();
     },
-    findLinks: function () {
-      console.log('finding links');
+    updatePairs: async function () {
+      // Get all appointments
+      this.appointments = await Appointments.getAppointments();
+      // Get all inquiries of appointment-type
+      this.inquiries = (await Inquiries.getInquiries()).filter(function (inquiry) {
+        return (
+          (inquiry.type === 'meldeplikt') ||
+          (inquiry.type === 'avhør') ||
+          (inquiry.type === 'avtale')
+        );
+      });
+      // Reset pairs
+      this.pairs = [];
+      // Add all appointments to pairs, including matching inquiries where applicable.
+      for (let a in this.appointments) {
+        let inquiry;
+        for (let i in this.inquiries) {
+          if (this.appointments[a].userNIN === this.inquiries[i].form.pages[0].elements[1].value) {
+            inquiry = this.inquiries[i];
+            // Delete matched inquiry from inquiries
+            delete this.inquiries[i];
+            break;
+          }
+        }
+        this.pairs.push({
+          'id': this.appointments[a]._id,
+          'appointment': this.appointments[a],
+          'inquiry': inquiry
+        });
+      }
+      // Add all remaining (unmatched) inquiries to pairs
+      let self = this;
+      this.inquiries.forEach(function (inquiry) {
+        self.pairs.push({
+          'id': inquiry._id,
+          'appointment': undefined,
+          'inquiry': inquiry
+        });
+      });
     }
   }
 };

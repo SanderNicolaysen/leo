@@ -1,11 +1,22 @@
 <template>
-  <div class="box">
-    <div class="columns">
-      <div class="column">
-        <p class="is-size-5"> {{ appointment.userNIN }} </p>
-      </div>
-      <div class="column is-one-half is-size-6 has-text-right">
-        #{{ appointment._id }}
+  <div class="card">
+    <div class="card-header">
+      <p class="card-header-title">
+        Avtale
+      </p>
+    </div>
+    <div class="card-content">
+      <div class="content">
+        <table class="table is-fullwidth">
+          <tr>
+            <td>Etterforsker:</td>
+            <td>{{appointment.hostName}}</td>
+          </tr>
+          <tr>
+            <td>Bruker:</td>
+            <td>{{appointment.userName}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

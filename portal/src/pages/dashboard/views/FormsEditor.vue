@@ -76,7 +76,8 @@ export default {
     },
 
     save: async function () {
-      Form.put(this.form);
+      await Form.put(this.form);
+      this.initial = JSON.stringify(this.form);
     }
   }
 };

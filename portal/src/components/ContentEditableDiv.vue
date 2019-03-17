@@ -23,6 +23,13 @@ export default {
       hover: false
     };
   },
+  watch: {
+    value: function (newValue, oldValue) {
+      if (this.edit === false) {
+        this.$refs.div.innerHTML = newValue;
+      }
+    }
+  },
   mounted: function () {
     if (this.value === undefined) this.$refs.div.innerHTML = '';
     else this.$refs.div.innerHTML = this.value;

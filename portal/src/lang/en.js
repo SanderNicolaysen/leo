@@ -44,7 +44,8 @@ export default {
   // Appointments.vue
   vertsNavn: 'Host\'s name',
   brukersNavn: 'Users\'s name',
-  brukersPersonnummer: 'User\'s national identity number',
+  brukersFødsel: 'User\'s Date of Birth',
+  saksnummer: 'Case Number',
 
   // UserAppointment.vue
   avtale: 'appointment'

@@ -2,21 +2,28 @@ const page1 = {
   id: 0,
   title: 'Avtale',
   subtitle: 'Fyll ut dine detaljer',
-  info: 'Vi bruker dette til å møte deg så snart som mulig',
+  info: 'Vi bruker dette til å møte deg så snart som mulig.\nIngen felt er obligatoriske, men fyll så mange du kan.',
   elements: [
     {
       id: 0,
-      label: 'Etternavn',
+      label: 'Navn',
       type: 'text',
       value: '',
       sizeClass: 'is-6'
     },
     {
       id: 1,
-      label: 'Personnummer',
+      label: 'Fødselsdato (DDMMÅÅ)',
       type: 'text',
       value: '',
-      sizeClass: 'is-6'
+      sizeClass: 'is-half'
+    },
+    {
+      id: 2,
+      label: 'Saksnummer',
+      type: 'text',
+      value: '',
+      sizeClass: 'is-full'
     }
   ],
   nextPage: null,

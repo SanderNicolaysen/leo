@@ -16,6 +16,14 @@
             <td>Bruker:</td>
             <td>{{appointment.userName}}</td>
           </tr>
+          <tr>
+            <td>Fødselsdato:</td>
+            <td>{{appointment.userBirth}}</td>
+          </tr>
+          <tr>
+            <td>Saksnummer:</td>
+            <td>{{appointment.caseNumber}}</td>
+          </tr>
         </table>
       </div>
     </div>

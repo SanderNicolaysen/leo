@@ -16,7 +16,12 @@
         </div>
         <div class="field">
           <div class="control">
-            <input type="tel" class="input" :placeholder="$t('brukersPersonnummer')" v-model="form.userNIN">
+            <input type="tel" class="input" :placeholder="$t('brukersFødsel')" v-model="form.userBirth">
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input type="tel" class="input" :placeholder="$t('saksnummer')" v-model="form.caseNumber">
           </div>
         </div>
         <div class="block">
@@ -60,7 +65,8 @@ export default {
       form: {
         hostName: '',
         userName: '',
-        userNIN: ''
+        userBirth: '',
+        caseNumber: ''
       }
     };
   },
@@ -73,7 +79,7 @@ export default {
       this.appointments.push(response);
 
       // Remove text from input field
-      this.form = { hostName: '', userName: '', userNIN: '' };
+      this.form = { hostName: '', userName: '', userBirth: '' };
 
       this.updatePairs();
     },
@@ -94,7 +100,7 @@ export default {
       for (let a in this.appointments) {
         let inquiry;
         for (let i in this.inquiries) {
-          if (this.appointments[a].userNIN === this.inquiries[i].form.pages[0].elements[1].value) {
+          if (this.appointments[a].userBirth === this.inquiries[i].form.pages[0].elements[1].value || this.appointments[a].caseNumber === this.inquiries[i].form.pages[0].elements[2].value) {
             inquiry = this.inquiries[i];
             // Delete matched inquiry from inquiries
             delete this.inquiries[i];

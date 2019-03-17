@@ -8,7 +8,8 @@ router.post('/', async (req, res, next) => {
       type: req.body.type,
       hostName: req.body.hostName,
       userName: req.body.userName,
-      userNIN: req.body.userNIN
+      userBirth: req.body.userBirth,
+      caseNumber: req.body.caseNumber
     });
     await new_appointment.save();
     res.status(201).json(new_appointment);

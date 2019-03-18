@@ -15,8 +15,10 @@ export default {
   async put (form) {
     try {
       await Api().put('/forms/' + form.normalizedName, form);
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   },
 

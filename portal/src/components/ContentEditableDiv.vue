@@ -42,13 +42,21 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import '@/assets/sass/_variables.scss';
+
 .content-editable-div {
+  position: relative;
   min-height: 1em;
   cursor: text;
 }
 
-.content-editable-div .hover, .content-editable-div .has-focus {
-  box-shadow: inset 0 0 10px #000000;
+.content-editable-div.hover {
+  box-shadow: inset 0 0 100px #cccccc;
+}
+
+.content-editable-div.has-focus {
+  box-shadow: inset 0 0 1000px 1000px #ccddee;
+  color: $black;
 }
 </style>

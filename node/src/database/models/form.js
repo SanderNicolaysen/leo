@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { _kebabCase } from 'lodash';
+import { kebabCase } from 'lodash';
 const Schema = mongoose.Schema;
 
 const ElementSchema = new Schema({
@@ -34,7 +34,7 @@ const FormSchema = new Schema({
 
 FormSchema.methods.setName = function (name) {
   this.name = name;
-  this.normalizedName = _kebabCase(name);
+  this.normalizedName = kebabCase(name);
 };
 
 const Form = mongoose.model("Form", FormSchema);

@@ -1,6 +1,13 @@
 <template>
   <div>
     <div class="page-editor">
+      <button class="delete-page button is-danger is-rounded" @click="$emit('destroy')">
+        <span class="icon">
+          <img src="/icons/baseline-delete.svg" alt="X" />
+        </span>
+        <span>Slett side</span>
+      </button>
+
       <h1 class="title">
         <ContentEditableDiv v-model="page.title" />
       </h1>
@@ -18,7 +25,7 @@
       </article>
 
       <div class="columns is-multiline">
-        <InputComposer v-for="(element, index) in page.elements" :key="JSON.stringify(element)" :element="element"
+        <FlexiInputEditOverlay v-for="(element, index) in page.elements" :key="JSON.stringify(element)" :element="element"
           v-on:destroy="remove(index)"
           v-on:edit="editByIndex = index"
           v-on:grow="growElement(index)"
@@ -70,13 +77,13 @@
 
 <script>
 import PageEditorMixin from '@/components/mixins/PageEditor';
-import InputComposer from '@/components/InputComposer.vue';
+import FlexiInputEditOverlay from '@/components/FlexiInputEditOverlay.vue';
 import FlexiInputEditor from '@/components/FlexiInputEditor.vue';
 import ContentEditableDiv from '@/components/ContentEditableDiv.vue';
 
 export default {
   components: {
-    InputComposer,
+    FlexiInputEditOverlay,
     FlexiInputEditor,
     ContentEditableDiv
   },
@@ -88,6 +95,7 @@ export default {
 @import '@/assets/sass/_variables.scss';
 
 .page-editor {
+  position: relative;
   border: 1px solid $dark-blue;
   padding: 1em;
   margin-top: 1em;
@@ -97,5 +105,22 @@ export default {
   height: 100%;
   padding: 15px 0;
   border: 1px solid $grey;
+}
+
+.page-editor .delete-page {
+  position: absolute;
+  z-index: 1000;
+  right: 15px;
+  top: 10px;
+  display: none;
+}
+
+.page-editor:hover .delete-page {
+  display: inline-flex;
+}
+
+.page-editor .delete-page:hover {
+  background-color: $danger;
+  color: $white;
 }
 </style>

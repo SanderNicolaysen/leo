@@ -5,7 +5,7 @@ import i18n from '@/lang/i18n';
 import InquiryPlugin from '@/InquiryPlugin';
 import Navbar from '@/components/NavBar';
 import Buefy from 'buefy';
-import '@/assets/sass/app.scss';
+import '@/assets/sass/portal.scss';
 
 Vue.config.productionTip = false;
 

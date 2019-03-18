@@ -89,9 +89,7 @@ export default {
       // Get all inquiries of appointment-type
       this.inquiries = (await Inquiries.getInquiries()).filter(function (inquiry) {
         return (
-          (inquiry.type === 'meldeplikt') ||
-          (inquiry.type === 'avhør') ||
-          (inquiry.type === 'avtale')
+          (inquiry.type.split('.')[0] === 'avtale')
         );
       });
       // Reset pairs

@@ -1,23 +1,46 @@
 <template>
   <div>
-    <navbar />
-    <div class="container">
-      <h1 class="title has-text-centered is-uppercase">{{ $t('avtale') }}</h1>
-
-      <div class="columns">
-        <div class="column" v-on:click="continueAs('meldeplikt')">
-          <Box title='Meldeplikt' />
+    <div class="hero is-fullheight-with-navbar">
+      <navbar />
+      <div class="hero-body">
+        <div class="container">
+        <h1 class="title has-text-centered is-uppercase">{{ $t('avtale') }}</h1>
+        <div class="columns is-centered is-multiline">
+          <div class="column is-one-third" v-if="appointment.type === undefined">
+            <div class="columns">
+              <div class="column" v-on:click="appointment.type = 'annet'">
+                <Box title='Annet' />
+              </div>
+              <div class="column" v-on:click="appointment.type = 'avhør'">
+                <Box title='Avhør' />
+              </div>
+            </div>
+          </div>
+          <div class="column is-one-third" v-if="!(appointment.type === undefined)" >
+            <label class="label">{{ $t('etternavn')}}</label>
+            <input v-bind="appointment.surname" class="input" type="text">
+            <label class="label">{{ $t('fødselsdato')}}</label>
+            <input v-bind="appointment.birth" class="input" type="text">
+            <label v-if="appointment.type === 'avhør'" class="label">{{ $t('saksnummer')}}</label>
+            <input v-if="appointment.type === 'avhør'" v-bind="appointment.caseNumber" class="input" type="text">
+            <div class="columns is-centered">
+              <div class="column is-one third has-text-right">
+                <br>
+                <button v-on:click="appointment.type = undefined" class="button is-large">{{ $t('tilbake') }}</button>
+              </div>
+              <div class="column is-one third has-text-left">
+                <br>
+                <button v-on:click="console.log('submitted')" class="button is-large is-primary">{{ $t('fullfør') }}</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="column" v-on:click="continueAs('avhør')">
-          <Box title='Avhør' />
+        <div class="block has-text-centered">
+          <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
         </div>
+        <Faq :item="faqs"/>
       </div>
-
-      <div class="block has-text-centered">
-        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
       </div>
-
-      <Faq :item="faqs"/>
     </div>
   </div>
 </template>
@@ -36,7 +59,13 @@ export default {
   data () {
     return {
       faqs: [],
-      title: ''
+      title: '',
+      appointment: {
+        type: undefined,
+        surname: '',
+        birth: '',
+        caseNumber: ''
+      }
     };
   },
   created: async function () {

@@ -48,5 +48,7 @@ export default {
   saksnummer: 'Case Number',
 
   // UserAppointment.vue
-  avtale: 'appointment'
+  avtale: 'appointment',
+  etternavn: 'etternavn'
+
 };

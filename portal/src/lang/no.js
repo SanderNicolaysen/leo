@@ -48,5 +48,8 @@ export default {
   saksnummer: 'Saksnummer',
 
   // UserAppointment.vue
-  avtale: 'avtale'
+  avtale: 'Avtale',
+  etternavn: 'Etternavn',
+  fødselsdato: 'Fødselsdato',
+  fullfør: 'Fullfør'
 };

@@ -36,9 +36,15 @@
       <div class="column is-two-fifths">
         <AppointmentBox v-if="typeof pair.appointment !== 'undefined'" v-bind:appointment="pair.appointment" />
       </div>
-      <div class="column is-one-fifth title has-text-centered"> &harr; </div>
+      <div class="column is-one-fifth title has-text-centered">
+        <div class="level" style="height: 100%">
+          <div class="level-item">
+            <span class="title is-1">&harr;</span>
+          </div>
+        </div>
+      </div>
       <div class="column is-two-fifths">
-        <InquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry" v-bind:active="true"/>
+        <AppointmentInquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry"/>
       </div>
     </div>
   </div>
@@ -47,7 +53,7 @@
 
 <script>
 import AppointmentBox from '@/components/AppointmentBox.vue';
-import InquiryBox from '@/components/InquiryBox.vue';
+import AppointmentInquiryBox from '@/components/AppointmentInquiryBox.vue';
 import Appointments from '@/services/Appointments.js';
 import Inquiries from '@/services/Inquiries';
 
@@ -55,7 +61,7 @@ export default {
   name: 'appointments',
   components: {
     AppointmentBox,
-    InquiryBox
+    AppointmentInquiryBox
   },
   data: function () {
     return {
@@ -87,18 +93,16 @@ export default {
       // Get all appointments
       this.appointments = await Appointments.getAppointments();
       // Get all inquiries of appointment-type
-      this.inquiries = (await Inquiries.getInquiries()).filter(function (inquiry) {
-        return (
-          (inquiry.type.split('.')[0] === 'avtale')
-        );
-      });
+      this.inquiries = (await Inquiries.getInquiries()).filter(i => { return i.type === 'Avtale'; });
       // Reset pairs
       this.pairs = [];
       // Add all appointments to pairs, including matching inquiries where applicable.
       for (let a in this.appointments) {
         let inquiry;
         for (let i in this.inquiries) {
-          if (this.appointments[a].userBirth === this.inquiries[i].form.pages[0].elements[1].value || this.appointments[a].caseNumber === this.inquiries[i].form.pages[0].elements[2].value) {
+          // Skip if appointment is undefined
+          if (this.inquiries[i].appointment === undefined) { break; }
+          if (this.appointments[a].userBirth === this.inquiries[i].appointment.birth || this.appointments[a].caseNumber === this.inquiries[i].appointment.caseNumber) {
             inquiry = this.inquiries[i];
             // Delete matched inquiry from inquiries
             delete this.inquiries[i];

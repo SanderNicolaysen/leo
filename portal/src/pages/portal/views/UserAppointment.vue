@@ -18,11 +18,11 @@
           </div>
           <div class="column is-one-third" v-if="!(appointment.type === undefined)" >
             <label class="label">{{ $t('etternavn')}}</label>
-            <input v-bind="appointment.surname" class="input" type="text">
+            <input v-model="appointment.surname" class="input" type="text">
             <label class="label">{{ $t('fødselsdato')}}</label>
-            <input v-bind="appointment.birth" class="input" type="text">
+            <input v-model="appointment.birth" class="input" type="text">
             <label v-if="appointment.type === 'avhør'" class="label">{{ $t('saksnummer')}}</label>
-            <input v-if="appointment.type === 'avhør'" v-bind="appointment.caseNumber" class="input" type="text">
+            <input v-if="appointment.type === 'avhør'" v-model="appointment.caseNumber" class="input" type="text">
             <div class="columns is-centered">
               <div class="column is-one third has-text-right">
                 <br>
@@ -30,7 +30,7 @@
               </div>
               <div class="column is-one third has-text-left">
                 <br>
-                <button v-on:click="console.log('submitted')" class="button is-large is-primary">{{ $t('fullfør') }}</button>
+                <button v-on:click="submit()" class="button is-large is-primary">{{ $t('fullfør') }}</button>
               </div>
             </div>
           </div>
@@ -76,9 +76,9 @@ export default {
     this.faqs = faq;
   },
   methods: {
-    continueAs: function (avtaleType) {
-      this.$inquiry.update({ type: avtaleType });
-      this.$router.push({ path: '/skjema/timeavtale' });
+    submit: function () {
+      this.$inquiry.update({ appointment: this.appointment });
+      this.$router.push({ path: 'grabticket' });
     }
   }
 };

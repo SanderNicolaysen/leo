@@ -3,6 +3,13 @@ import mongoose from 'mongoose';
 import TypeMultiplier from './typeMultiplier';
 const Schema = mongoose.Schema;
 
+const appointment = new Schema({
+  type: String,
+  surname: String,
+  birth: String,
+  caseNumber: String
+});
+
 const InquirySchema = new Schema({
   inquiry_id: Number,
   NIN: Number,
@@ -14,7 +21,8 @@ const InquirySchema = new Schema({
     type: String,
     enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],
     default: 'Skriver'
-  }
+  },
+  appointment: appointment
 });
 
 InquirySchema.methods.getPoints = async function () {

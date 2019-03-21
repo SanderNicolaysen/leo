@@ -43,16 +43,25 @@
       <input class="input" type="tel" v-model="element.value">
     </div>
 
+    <!-- Input type: Postnr/Poststed -->
+    <div class="control" v-else-if="element.type === 'postal'">
+      <input-postal v-model="element.value" />
+    </div>
+
     <p class="help is-primary" v-if="exists(element.info)">{{ element.info }}</p>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
+import InputPostal from '@/components/InputPostal.vue';
 
 export default {
   name: 'FlexiInput',
   props: ['element'],
+  components: {
+    InputPostal
+  },
   methods: {
     exists: function (prop) {
       return !_.isUndefined(prop) && prop !== '';

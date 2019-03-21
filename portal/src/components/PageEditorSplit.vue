@@ -37,6 +37,7 @@
                               <span class="truncate" v-else-if="type==='textarea'">Tekstområde</span>
                               <span class="truncate" v-else-if="type==='radio'">Radioknapper</span>
                               <span class="truncate" v-else-if="type==='select'">Nedtrekksmeny</span>
+                              <span class="truncate" v-else-if="type==='postal'">Postnr/sted</span>
                               <span class="truncate" v-else>Velg type</span>
                               <span class="icon"><img src="@/assets/icons/menu-down.svg" /></span>
                             </button>
@@ -45,6 +46,7 @@
                             <b-dropdown-item :value="'textarea'"><h3>Tekstområde</h3><small>Tekstfelt som kan inneholde flere linjer med tekst</small></b-dropdown-item>
                             <b-dropdown-item :value="'radio'"><h3>Radioknapper</h3><small>Brukeren får flere valg å velge fra</small></b-dropdown-item>
                             <b-dropdown-item :value="'select'"><h3>Nedtrekksmeny</h3><small>Brukeren får flere valg å velge fra i nedtrekksmeny</small></b-dropdown-item>
+                            <b-dropdown-item :value="'postal'"><h3>Postnr/sted</h3><small>Et felt for postnr. som automatisk fyller ut poststed</small></b-dropdown-item>
                           </b-dropdown>
                         </div>
                         <div class="control">

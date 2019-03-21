@@ -51,17 +51,10 @@ const page1 = {
     },
     {
       id: 6,
-      label: 'Post nr.',
-      type: 'text',
+      label: 'Postnr.',
+      type: 'postal',
       value: '',
-      sizeClass: 'is-2'
-    },
-    {
-      id: 7,
-      label: 'Post sted',
-      type: 'text',
-      value: '',
-      sizeClass: 'is-4'
+      sizeClass: 'is-6'
     }
   ],
   nextPage: 1,
@@ -118,17 +111,10 @@ const page2 = {
     },
     {
       id: 7,
-      label: 'Post nr.',
-      type: 'text',
+      label: 'Postnr.',
+      type: 'postal',
       value: '',
-      sizeClass: 'is-2'
-    },
-    {
-      id: 8,
-      label: 'Post sted',
-      type: 'text',
-      value: '',
-      sizeClass: 'is-4'
+      sizeClass: 'is-6'
     }
   ],
   nextPage: 2,

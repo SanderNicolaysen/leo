@@ -17,6 +17,7 @@ export default {
       else if (this.type === 'textarea') element.label = 'Tekstområde';
       else if (this.type === 'radio') element.label = 'Radioknapper';
       else if (this.type === 'select') element.label = 'Nedtrekksmeny';
+      else if (this.type === 'postal') element.label = 'Postnr.';
 
       if (this.type === 'radio' || this.type === 'select') {
         element.choices = ['Valg 1', 'Valg 2'];

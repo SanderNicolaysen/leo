@@ -38,7 +38,7 @@ export default {
   },
   mounted: async function () {
     const pn = await axios.get('/Postnummerregister-utf8.txt');
-    this.postMap = new Map(pn.data.split('\r\n').map(line => {
+    this.postMap = new Map(pn.data.split('\n').map(line => {
       const [postnummer, poststed] = line.split('\t');
       return [postnummer, poststed];
     }));

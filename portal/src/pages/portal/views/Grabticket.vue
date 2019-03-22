@@ -60,8 +60,6 @@ export default {
 
     // And then delete any locally stored inquiry
     this.$inquiry.complete();
-
-    setTimeout(() => { this.$router.push({ name: 'start' }); }, 5000);
   }
 };
 </script>

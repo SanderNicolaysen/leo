@@ -55,8 +55,8 @@
     <div class="hero-foot">
       <div class="container has-text-centered">
         <div class="buttons is-inline-block">
-          <button class="button is-large is-uppercase" @click="previous">Tilbake</button>
-          <button class="button is-large is-uppercase is-link is-outlined" @click="next">{{ page.nextPage !== null ? 'Neste' : 'Fullfør' }}</button>
+          <button class="button is-large is-uppercase" @click="previous($event)">Tilbake</button>
+          <button class="button is-large is-uppercase is-primary" @click="next($event);">{{ page.nextPage !== null ? 'Neste' : 'Fullfør' }}</button>
         </div>
         <div>
           <router-link :to="{ name: 'grabticket' }" v-if="page.nextPage !== null">Eller, avslutt og trekk kølapp</router-link>
@@ -103,15 +103,17 @@ export default {
     }
   },
   methods: {
-    next: function () {
+    next: function (event) {
       if (this.page.nextPage != null) {
         this.pageId = this.page.nextPage;
         this.progress += this.progressSlope;
       } else {
         this.$router.push({ name: 'grabticket' });
       }
+
+      setTimeout(() => event.target.blur(), 500);
     },
-    previous: function () {
+    previous: function (event) {
       if (this.page.prevPage != null) {
         this.pageId = this.page.prevPage;
         this.progress -= this.progressSlope;
@@ -119,6 +121,8 @@ export default {
         // Go back
         this.$router.go(-1);
       }
+
+      setTimeout(() => event.target.blur(), 500);
     },
     exists: function (prop) {
       return !_.isUndefined(prop) && prop !== '';
@@ -133,7 +137,3 @@ export default {
   }
 };
 </script>
-
-<style lang="sass" scoped>
-
-</style>

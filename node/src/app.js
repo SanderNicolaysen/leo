@@ -1,3 +1,6 @@
+// Required for async/await, and other ES2015+ features
+import '@babel/polyfill';
+
 import express from 'express';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -14,7 +17,7 @@ var dbConnection = db.setUpDB().then(() => {
 const store = MongoStore(session);
 
 const app = express();
-app.use(express.static(path.join(__dirname, '/../public/')));
+app.use(express.static(path.join(__dirname, '/public/')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'prosjekt leo', resave: false, saveUninitialized: false, store: new store({ dbPromise: dbConnection }) }));

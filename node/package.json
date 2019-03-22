@@ -9,6 +9,7 @@
     "lint": "eslint ./src/** --format codeframe --fix"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
     "connect-mongo": "^2.0.3",
     "debug": "~2.6.9",
     "express": "^4.16.4",

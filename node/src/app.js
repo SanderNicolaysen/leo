@@ -13,8 +13,6 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const socket = require('./socket.js');
-socket.booth(io);
-socket.queueNumberDisplay(io);
 
 var dbConnection = db.setUpDB().then(() => {
   return db.connection();
@@ -32,14 +30,20 @@ app.use(logger('dev'));
 
 // Use auth() as middleware for routes that require a logged in user
 import auth from './middleware/auth';
+import rtInquiry from './middleware/rtInquiry';
+
+// handler for the /user/:id path, which prints the user ID
 app.use('/api/dashboard', auth(), require('./routes/dashboard'));
-app.use('/api/inquiries', require('./routes/inquiries'));
+app.use('/api/inquiries', require('./routes/inquiries'), rtInquiry(io));
 app.use('/api/faqs', require('./routes/faqs'));
 app.use('/api/forms', require('./routes/forms'));
 app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/', require('./routes/auth'));
 
 http.listen('8081');
+
+socket.update(io);
+socket.updateQueueNumberDisplay(io);
 
 console.log('Listening on port 8081');
 

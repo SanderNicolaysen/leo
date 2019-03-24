@@ -23,7 +23,7 @@ module.exports = {
     if (ret !== mongoose) {
       console.error("connection error");
     }
-    console.log("Connection Succeeded");
+    console.log("Connection to database succeeded");
 
     // Delete the current database
     mongoose.connection.db.dropDatabase();

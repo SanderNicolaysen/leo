@@ -58,6 +58,7 @@ router.post('/', async (req, res, next) => {
   try {
     await inquiry.save();
     res.status(201).json(inquiry);
+    next();
   } catch (error) {
     next(error);
   }
@@ -89,6 +90,7 @@ router.patch('/:id', async (req, res, next) => {
     await inquiry.save();
 
     res.status(200).json(inquiry);
+    next();
   } catch (error) {
     next(error);
   }
@@ -112,6 +114,7 @@ router.delete('/:id', async (req, res, next) => {
 
     await inquiry.delete();
     res.sendStatus(200);
+    next();
   } catch (error) {
     next(error);
   }

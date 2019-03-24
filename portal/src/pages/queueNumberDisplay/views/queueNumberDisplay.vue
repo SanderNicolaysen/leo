@@ -15,11 +15,14 @@ export default {
   },
   created () {
     this.socket = io.connect('http://localhost:8081/queueNumberDisplay');
+    this.socket.on('connect', () => {
+      console.log('connected to QND with id: ', this.socket.id);
+    }
+    );
   },
   mounted () {
-    this.socket.on('kall inn', function (msg) {
-    this.queueNumber = msg;
-    console.log(msg);
+    this.socket.on('display', function (qndNumber) {
+      this.queueNumber = qndNumber;
     }.bind(this));
   }
 };

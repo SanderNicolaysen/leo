@@ -85,20 +85,50 @@ export default {
     return {
       inquiries: [],
       inquiry: null,
-      socketqueueNumberDisplay: null,
-      socketBooth: null
+      queueNumberDisplaySocket: null,
+      boothSocket: null,
+      user: null
     };
   },
   created: async function () {
     this.load();
-    this.socketqueueNumberDisplay = io.connect('http://localhost:8081/queueNumberDisplay');
-    this.socketBooth = io.connect('http://localhost:8081/booth');
+
+    this.queueNumberDisplaySocket = io.connect('http://localhost:8081/queueNumberDisplay');
+    this.boothSocket = io.connect('http://localhost:8081/booth');
+
+    this.updateReceiver();
+    this.deleteReceiver();
   },
   methods: {
+    // Update all other clients after pressing the summon or next button
+    updateReceiver: function () {
+      this.boothSocket.on('update', function (response) {
+        this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === response._id; })] = response;
+        this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+
+        if (this.inquiry && this.inquiry._id === response._id) {
+          this.inquiry = null;
+        }
+      }.bind(this));
+    },
+    deleteReceiver: function () {
+      this.boothSocket.on('delete', function (response) {
+        this.inquiries = _.filter(this.inquiries, (o) => { return o._id !== response._id; });
+      }.bind(this));
+    },
     next: async function () {
-      this.inquiry = _.find(this.inquiries, (o) => { return o.status !== 'Behandles'; });
-      //this.inquiry = await Inquiries.nextInquiry();
-      console.log(this.inquiry);
+      if (this.inquiry) {
+        this.inquiry.status = 'Ferdig';
+        this.boothSocket.emit('update', this.inquiry);
+        this.inquiries = _.filter(this.inquiries, (o) => { return o._id !== this.inquiry._id; });
+      }
+
+      let checkInquiries = _.find(this.inquiries, (o) => { return o.status !== 'Behandles' && o.status !== 'Ferdig'; });
+      if (checkInquiries) {
+        this.inquiry = checkInquiries;
+      } else {
+        this.inquiry = null;
+      }
     },
 
     del: async function () {
@@ -109,24 +139,30 @@ export default {
         cancelText: 'Avbryt',
         type: 'is-danger',
         onConfirm: async () => {
-          await Inquiries.delete(this.inquiry._id, this.inquiry.key);
+          this.boothSocket.emit('delete', this.inquiry);
           this.$toast.open('Slettet FAQ');
           this.inquiry = null;
-          this.load();
         }
       });
     },
 
-    summon: function () {
+    summon: async function () {
       this.$snackbar.open('Kaller inn kønummer #' + this.inquiry.inquiry_id);
-      this.inquiry.status = 'Behandles'
-      this.socketqueueNumberDisplay.emit('kall inn', this.inquiry.inquiry_id);
+
+      // If you try to summon user while the user is typing inform the user with a modal
+      if (this.inquiry.status === 'Skriver') {
+        this.boothSocket.emit('inform user', this.inquiry.inquiry_id);
+      }
+
+      this.inquiry.status = 'Behandles';
+      this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === this.inquiry._id; })] = this.inquiry;
+
+      this.boothSocket.emit('update', this.inquiry);
+      this.queueNumberDisplaySocket.emit('summon', this.inquiry.inquiry_id);
     },
 
     load: async function () {
       this.inquiries = await Inquiries.getInquiries();
-      console.log(this.inquiries);
-
       // Only show unfinished inquiries
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
     },
@@ -134,6 +170,16 @@ export default {
     inquiryAttr (attr) {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : '';
     }
+  },
+  mounted: function () {
+    this.boothSocket.on('get', function (response) {
+      this.inquiries = response;
+      this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+
+      if (this.inquiry) {
+        this.inquiry = this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === this.inquiry._id; })];
+      }
+    }.bind(this));
   }
 };
 </script>

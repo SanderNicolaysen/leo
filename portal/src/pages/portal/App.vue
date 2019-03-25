@@ -26,10 +26,12 @@ export default {
     };
   },
   created: function () {
-    this.boothSocket = io.connect('http://localhost:8081/booth');
+    this.boothSocket = io.connect('/booth');
     this.boothSocket.on('inform user', function (id) {
-      this.showModal = true;
-      this.id = id;
+      if (id === this.$inquiry.get().inquiry_id) {
+        this.showModal = true;
+        this.id = id;
+      }
     }.bind(this));
   }
 };

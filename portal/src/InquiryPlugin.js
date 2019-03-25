@@ -65,6 +65,10 @@ export default {
 
       exists: function () {
         return !!getLocal();
+      },
+
+      get: function () {
+        return getLocal();
       }
     };
   }

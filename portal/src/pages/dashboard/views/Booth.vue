@@ -93,8 +93,8 @@ export default {
   created: async function () {
     this.load();
 
-    this.queueNumberDisplaySocket = io.connect('http://localhost:8081/queueNumberDisplay');
-    this.boothSocket = io.connect('http://localhost:8081/booth');
+    this.queueNumberDisplaySocket = io.connect('/queueNumberDisplay');
+    this.boothSocket = io.connect('/booth');
 
     this.updateReceiver();
     this.deleteReceiver();

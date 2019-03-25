@@ -10,8 +10,11 @@ export default {
   anmeldeTyveri: 'Report theft or damage',
   anmeldeTyveriTekst: 'Theft of bicycle, wallet, bag, mobile phone, or vandalism/damage.',
 
-  hittegods: 'Lost and found, seized items',
-  hittegodsTekst: 'Collect and deliver lost and found items, or collect seized items',
+  henteLevere: 'Retrieve/Deliver',
+  henteLevereTekst: 'Retrieve and deliver',
+
+  garantiskjema: 'Insurance form',
+  garantiskjemaTekst: 'InsuranceFormText',
 
   hentBeslagHittegods: 'Retrieve seizure',
   hentBeslagHittegodsTekst: 'Collect lost and found items, or collect seized items',

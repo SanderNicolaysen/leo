@@ -10,8 +10,11 @@ export default {
   anmeldeTyveri: 'Anmelde tyveri eller skadeverk',
   anmeldeTyveriTekst: 'Tyveri av sykkel, lommebok, veske, mobiltelefon, hærverk og skader.',
 
-  hittegods: 'Hittegods og beslag',
-  hittegodsTekst: 'Henting og levering av hittegods, og henting av beslag',
+  henteLevere: 'Hente/Levere',
+  henteLevereTekst: 'Henting og levering',
+
+  garantiskjema: 'UDI Garantiskjema',
+  garantiskjemaTekst: 'GarantiskjemaTekst',
 
   hentBeslagHittegods: 'Hent Beslag/Hittegods',
   hentBeslagHittegodsTekst: 'Henting av hittegods, og henting av beslag',

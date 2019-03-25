@@ -17,6 +17,9 @@ const InquirySchema = new Schema({
   form: mongoose.model('Form').schema,
   key: String,
   created: { type : Date, default: Date.now },
+  fname: String,
+  lname: String,
+  dob: Date,
   status: {
     type: String,
     enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],

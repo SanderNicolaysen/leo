@@ -28,6 +28,18 @@
           <td>Prioritet</td>
           <td>{{ inquiryAttr('priority') }}</td>
         </tr>
+        <tr>
+          <td>Fødselsdato</td>
+          <td>{{ inquiryAttr('dob') }}</td>
+        </tr>
+        <tr>
+          <td>Fornavn</td>
+          <td>{{ inquiryAttr('fname') }}</td>
+        </tr>
+        <tr>
+          <td>Etternavn</td>
+          <td>{{ inquiryAttr('lname') }}</td>
+        </tr>
         <tr v-if="inquiryAttr('form')">
           <td>Skjema</td>
           <td><FormView :form="inquiry.form"/></td>

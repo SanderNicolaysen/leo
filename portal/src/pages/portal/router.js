@@ -6,6 +6,9 @@ import Forms from './views/Forms.vue';
 import Subcategory from './views/Subcategory.vue';
 import lostFound from './views/lostFound.vue';
 import UserAppointment from './views/UserAppointment.vue';
+import Pass from './views/Pass.vue';
+import HenteLevere from './views/HenteLevere.vue';
+import Garantiskjema from './views/Garantiskjema.vue';
 
 Vue.use(Router);
 
@@ -40,6 +43,21 @@ export default new Router({
       path: '/userAppointment',
       name: 'userAppointments',
       component: UserAppointment
+    },
+    {
+      path: '/pass/:initialPage',
+      name: 'pass',
+      component: Pass
+    },
+    {
+      path: '/henteLevere/:initialPage',
+      name: 'henteLevere',
+      component: HenteLevere
+    },
+    {
+      path: '/garantiskjema/:initialPage',
+      name: 'garantiskjema',
+      component: Garantiskjema
     }
     /*,
     {

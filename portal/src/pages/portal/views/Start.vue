@@ -5,36 +5,38 @@
       <div class="container">
         <div class="columns">
           <div class="column">
+            <router-link to="/pass/First">
+              <Box :title="$t('pass')" :text="$t('passTekst')" icon="<img src='/icons/sharp-person.svg'/>" />
+            </router-link>
+          </div>
+          <div class="column">
             <router-link to="/subcategory">
               <Box :title="$t('anmeldeTyveri')" :text="$t('anmeldeTyveriTekst')" icon="<img src='/icons/pickpocketing.svg'/>" />
             </router-link>
           </div>
 
           <div class="column">
-            <router-link to="/userAppointment">
-              <Box :title="$t('meldeplikt')" :text="$t('meldepliktTekst')" icon="<img src='/icons/round-access_time.svg'/>" />
+            <router-link to="/henteLevere/First">
+              <Box :title="$t('henteLevere')" :text="$t('henteLevereTekst')" icon="<img src='/icons/round-business_center.svg'/>" />
             </router-link>
-          </div>
-
-          <div class="column">
-            <router-link to="/lost-found"><Box :title="$t('hittegods')" :text="$t('hittegodsTekst')" icon="<img src='/icons/round-business_center.svg'/>" /></router-link>
           </div>
         </div>
 
         <div class="columns">
           <div class="column">
-            <Box :title="$t('ferdigskrevneSaker')" :text="$t('ferdigskrevneSakerTekst')" icon="<img src='/icons/baseline-list_alt.svg'/>" />
+            <router-link to="/userAppointment">
+              <Box :title="$t('meldeplikt')" :text="$t('meldepliktTekst')" icon="<img src='/icons/round-access_time.svg'/>" />
+            </router-link>
           </div>
-
-          <div class="column">
-            <Box :title="$t('pass')" :text="$t('passTekst')" icon="<img src='/icons/sharp-person.svg'/>" />
-          </div>
-
           <div class="column">
             <Box :title="$t('annet')" :text="$t('annetTekst')" icon="<img src='/icons/round-help_outline.svg'/>" />
           </div>
+          <div class="column">
+            <router-link to="/garantiskjema/First">
+              <Box :title="$t('garantiskjema')" :text="$t('garantiskjemaTekst')" icon="<img src='/icons/round-help_outline.svg'/>" />
+            </router-link>
+          </div>
         </div>
-
         <div class="block has-text-centered">
           <button v-on:click="$router.push({ name: 'grabticket' })" class="button is-success is-size-2 is-uppercase">{{ $t('trekkKølapp') }}</button>
         </div>

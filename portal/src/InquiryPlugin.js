@@ -36,10 +36,14 @@ export default {
           console.error('Can\'t start new inquiry before current is cleared.');
           return;
         }
-
         debouncedUpdate.cancel();
         const inquiry = await Inquiries.startInquiry(type);
         setLocal(inquiry);
+
+        Vue.prototype.$snackbar.open({
+          message: 'Du har nå fått plass i køen. Vennligst fyll ut så mye du klarer.',
+          duration: 9000
+        });
       },
 
       update: async function (data) {

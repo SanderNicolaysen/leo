@@ -3,6 +3,9 @@
     <navbar />
     <div class="hero-body">
       <div class="container">
+        <h4 class="title has-text-centered is-4">
+          Vennligst velg en kategori slik at vi kan hjelpe deg raskere:
+        </h4>
         <div class="columns">
           <div class="column">
             <router-link to="/pass/First">
@@ -37,10 +40,13 @@
             </router-link>
           </div>
         </div>
-        <div class="block has-text-centered">
-          <button v-on:click="$router.push({ name: 'grabticket' })" class="button is-success is-size-2 is-uppercase">{{ $t('trekkKølapp') }}</button>
         </div>
       </div>
+      <div class="hero-footer has-text-centered">
+        <h4 class="title is-4">
+          Eller:
+        </h4>
+        <button v-on:click="$router.push({ name: 'grabticket' })" class="button is-link is-size-3">{{ $t('trekkKølapp') }}</button>
     </div>
   </div>
 </template>

@@ -105,8 +105,13 @@ export default {
   created: async function () {
     this.load();
 
-    this.queueNumberDisplaySocket = io.connect('/queueNumberDisplay');
-    this.boothSocket = io.connect('/booth');
+    if (process.env.NODE_ENV === 'development') {
+      this.queueNumberDisplaySocket = io.connect('http://localhost:8081/queueNumberDisplay');
+      this.boothSocket = io.connect('http://localhost:8081/booth');
+    } else {
+      this.queueNumberDisplaySocket = io.connect('/queueNumberDisplay');
+      this.boothSocket = io.connect('/booth');
+    }
 
     this.updateReceiver();
     this.deleteReceiver();

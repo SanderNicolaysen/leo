@@ -1,77 +1,62 @@
 <template>
-  <div>
-    <div class="hero is-fullheight-with-navbar">
-      <navbar/>
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title has-text-centered is-uppercase">{{ $t('avtale') }}</h1>
-          <div class="columns is-centered is-multiline">
-            <div class="column is-one-third" v-if="appointment.type === undefined">
-              <div class="columns">
-                <div class="column" v-on:click="appointment.type = 'annet'">
-                  <Box title="Annet"/>
-                </div>
-                <div class="column" v-on:click="appointment.type = 'avhør'">
-                  <Box title="Avhør"/>
-                </div>
-              </div>
-            </div>
-            <div class="column is-one-third" v-if="!(appointment.type === undefined)">
-              <label class="label">{{ $t('etternavn')}}</label>
-              <input v-model="appointment.surname" class="input" type="text">
-              <label class="label">{{ $t('fødselsdato')}}</label>
-              <b-datepicker
-                :placeholder="$t('fødselsdato')"
-                icon="calendar-today"
-                :first-day-of-week="1"
-                v-model="date"
-              ></b-datepicker>
-              <label v-if="appointment.type === 'avhør'" class="label">{{ $t('saksnummer')}}</label>
-              <input
-                v-if="appointment.type === 'avhør'"
-                v-model="appointment.caseNumber"
-                class="input"
-                type="text"
-              >
-              <div class="columns is-centered">
-                <div class="column is-one third has-text-right">
-                  <br>
-                  <button
-                    v-on:click="appointment.type = undefined"
-                    class="button is-large"
-                  >{{ $t('tilbake') }}</button>
-                </div>
-                <div class="column is-one third has-text-left">
-                  <br>
-                  <button
-                    v-on:click="submit()"
-                    class="button is-large is-primary"
-                  >{{ $t('fullfør') }}</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="block has-text-centered">
-            <router-link to="/grabticket">
-              <button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button>
-            </router-link>
-          </div>
-          <Faq :item="faqs"/>
-        </div>
+  <div class="hero is-fullheight-with-navbar">
+    <navbar />
+    <div class="hero-body">
+      <div class="container">
+        <TreeSelector initialPage="1">
+
+          <TreeItem pageName="1">
+            <h2 class="title is-3">Velg kategori</h2>
+
+            <TreeInput type="boxes">
+              <TreeInput :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
+              <TreeInput :link="{ loc: 'annet' }" class="is-2" label="Annet" type="box" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="avhor">
+            <h1 class="title is-3">Vennligst fyll ut</h1>
+
+            <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
+            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="text" />
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="annet">
+            <h1 class="title is-3">Vennligst fyll ut</h1>
+
+            <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
+            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="text" />
+            <TreeInput updateKey="casenumber" :label="$t('saksnummer')" type="text" />
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+        </TreeSelector>
+      </div>
+    </div>
+    <div class="hero-footer">
+      <div class="container">
+        <Faq :items="faqs" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Box from '@/components/Box.vue';
 import Faq from '@/components/Faq.vue';
 
 import Faqs from '@/services/Faqs.js';
 
 export default {
   components: {
-    Box,
     Faq
   },
   data () {
@@ -95,24 +80,6 @@ export default {
 
     const faq = await Faqs.getFaqs('avtale');
     this.faqs = faq;
-    this.date = null;
-  },
-  methods: {
-    submit: function () {
-      this.date = null;
-      this.$inquiry.update({ appointment: this.appointment });
-      this.$router.push({ path: 'grabticket' });
-    }
-  },
-  watch: {
-    date: function () {
-      if (this.date !== null) {
-        this.appointment.birth = this.date.toDateString();
-      }
-    }
   }
 };
 </script>
-
-<style>
-</style>

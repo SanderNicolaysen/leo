@@ -1,20 +1,20 @@
 export default {
   trekkKølapp: 'Press for ticket',
-  gjørNoenSteg: 'Or, do some simple steps so that we can help you faster!',
-  velgTypeHenvendelse: 'Start by choosing one of the following inquiry-types',
+  'please-choose-category': 'Please choose a category so we can better help you:',
+  'eller': 'or',
   ofteStilteSpørsmål: 'Frequently asked questions',
 
   pass: 'Passport',
   passTekst: 'Renew or apply for passport, or emergency passport, outside the Passport Office\'s opening hours.',
 
-  anmeldeTyveri: 'Report theft or damage',
-  anmeldeTyveriTekst: 'Theft of bicycle, wallet, bag, mobile phone, or vandalism/damage.',
+  anmelde: 'Report theft or damage',
+  anmeldeTekst: 'Theft of bicycle, wallet, bag, mobile phone, or vandalism/damage.',
 
-  henteLevere: 'Retrieve/Deliver',
-  henteLevereTekst: 'Retrieve and deliver',
+  hentelevere: 'Retrieve/Deliver',
+  hentelevereTekst: 'Retrieve or deliver items, forms, etc.',
 
-  garantiskjema: 'Insurance form',
-  garantiskjemaTekst: 'InsuranceFormText',
+  garantiskjema: 'UDI guarantee for visitor\'s',
+  garantiskjemaTekst: 'Get your UDI guarantee stamped.',
 
   hentBeslagHittegods: 'Retrieve seizure',
   hentBeslagHittegodsTekst: 'Collect lost and found items, or collect seized items',
@@ -22,11 +22,8 @@ export default {
   leverHittegods: 'Deliver seizure',
   leverHittegodsTekst: 'Deliver lost and found items, or collect seized items',
 
-  meldeplikt: 'Scheduled appointment',
-  meldepliktTekst: 'Duty to report, or scheduled interviews.',
-
-  ferdigskrevneSaker: 'Ferdigskrevne saker',
-  ferdigskrevneSakerTekst: 'Levering av ferdigskrevne saker som bare skal kvalitetssikres.',
+  timeavtale: 'Scheduled appointment',
+  timeavtaleTekst: 'Scheduled interviews, duty to report, etc.',
 
   annet: 'Other',
   annetTekst: 'Tap here for any other inquiries.',

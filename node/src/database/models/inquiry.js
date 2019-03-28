@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 import TypeMultiplier from './typeMultiplier';
 const Schema = mongoose.Schema;
 
-const appointment = new Schema({
-  type: String,
-  surname: String,
-  birth: String,
-  caseNumber: String
-});
+// const appointment = new Schema({
+//   type: String,
+//   surname: String,
+//   birth: String,
+//   caseNumber: String
+// });
 
 const InquirySchema = new Schema({
   inquiry_id: Number,
@@ -19,13 +19,13 @@ const InquirySchema = new Schema({
   created: { type : Date, default: Date.now },
   fname: String,
   lname: String,
-  dob: Date,
+  dob: String,
   status: {
     type: String,
     enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],
     default: 'Skriver'
   },
-  appointment: appointment
+  casenumber: String
 });
 
 InquirySchema.methods.getPoints = async function () {

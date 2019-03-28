@@ -1,50 +1,52 @@
 <template>
-  <div>
+  <div class="hero is-fullheight-with-navbar">
     <navbar />
-    <div class="container">
-      <h1 class="title has-text-centered is-uppercase">{{ $t('pass') }}</h1>
-
+    <div class="hero-body">
+      <div class="container">
       <TreeSelector :initialPage="this.$route.params.page">
-        <TreeItem pageName="First">
+        <TreeItem pageName="1">
           <TreeInput :between="{from: 8, to: 16}" :hideException="{day: 2, from: 8, to: 10}" type="section">
-            <TreeInput label="Du er på feil sted!" type="title"></TreeInput>
+            <p class="title is-size-4">Alle passhenvendelser skal til passkontoret, gå tilbake ut døra og til venstre.</p>
             <TreeInput type="buttons">
-              <TreeInput :link="{ ext: 'start' }" label="OK" class="is-link" type="button"></TreeInput>
+              <TreeInput :link="{ ext: 'start' }" label="OK" class="is-primary" type="button" />
             </TreeInput>
           </TreeInput>
+
           <TreeInput :between="{from: 16, to: 23}" :showException="{day:2, from: 8, to: 10}" type="section">
-            <TreeInput label="Hva skal du?" type="title"></TreeInput>
+            <TreeInput label="Hva skal du?" type="title" />
             <TreeInput type="boxes">
-              <TreeInput inquiryType="HenteFerdigPass" :link="{ loc: 'Second' }" label="Hente ferdig pass" placeholder="PassTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-              <TreeInput inquiryType="SkaffeNødpass" :link="{ ext: 'grabticket' }" label="Skaffe nødpass" placeholder="PassTekst2" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
+              <TreeInput inquiryType="Hente ferdig pass" :link="{ loc: '2' }" label="Hente ferdig pass" type="box" class="is-3" @click.native="startInquiry()" />
+              <TreeInput inquiryType="Nødpass" :link="{ ext: 'grabticket' }" label="Få nødpass" type="box" class="is-3" />
             </TreeInput>
             <TreeInput type="buttons">
-              <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             </TreeInput>
           </TreeInput>
         </TreeItem>
-        <TreeItem pageName="Second">
-          <TreeInput updateKey="dob" label="Fødselsdato" placeholder="Trykk for å velge.." type="date"></TreeInput>
+
+        <TreeItem pageName="2">
+          <TreeInput updateKey="dob" label="Fødselsdato" placeholder="DDMMYY" type="text" />
           <TreeInput type="buttons">
-            <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            <TreeInput :link="{ loc: 'Third' }" label="Neste" class="is-link" type="button"></TreeInput>
+            <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            <TreeInput :link="{ loc: '3' }" label="Neste" class="is-primary" type="button" />
           </TreeInput>
         </TreeItem>
-        <TreeItem pageName="Third">
-          <TreeInput updateKey="fname" label="Fornavn" placeholder="Fornavn" type="text"></TreeInput>
-          <TreeInput updateKey="lname" label="Etternavn" placeholder="Etternavn" type="text"></TreeInput>
+
+        <TreeItem pageName="3">
+          <TreeInput updateKey="fname" label="Fornavn" type="text" />
+          <TreeInput updateKey="lname" label="Etternavn" type="text" />
           <TreeInput type="buttons">
-            <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            <TreeInput :link="{ ext: 'grabticket' }" label="Neste" class="is-link" type="button"></TreeInput>
+            <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            <TreeInput :link="{ ext: 'grabticket' }" label="Neste" class="is-primary" type="button" />
           </TreeInput>
         </TreeItem>
+
       </TreeSelector>
-
-      <Faq :items="faqs"/>
-
-      <br>
-      <div class="block has-text-centered">
-        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
+      </div>
+    </div>
+    <div class="hero-footer">
+      <div class="container">
+        <Faq :items="faqs" />
       </div>
     </div>
   </div>
@@ -52,18 +54,12 @@
 
 <script>
 import Faq from '@/components/Faq.vue';
-import TreeSelector from '@/components/TreeSelector.vue';
-import TreeItem from '@/components/TreeItem.vue';
-import TreeInput from '@/components/TreeInput.vue';
 
 import Faqs from '@/services/Faqs.js';
 
 export default {
   components: {
-    Faq,
-    TreeSelector,
-    TreeItem,
-    TreeInput
+    Faq
   },
   data () {
     return {
@@ -71,11 +67,16 @@ export default {
     };
   },
   created: async function () {
-    // Start a new inquiry
-    if (!this.$inquiry.exists()) { this.$inquiry.start('Pass'); }
-
     const faq = await Faqs.getFaqs('pass');
     this.faqs = faq;
+  },
+  methods: {
+    startInquiry () {
+      if (this.$inquiry.exists()) return;
+
+      // Start a new inquiry
+      this.$inquiry.start('Pass');
+    }
   }
 };
 </script>

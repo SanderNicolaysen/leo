@@ -26,7 +26,12 @@ export default {
     };
   },
   created: function () {
-    this.boothSocket = io.connect('http://localhost:8081/booth');
+    if (process.env.NODE_ENV === 'development') {
+      this.boothSocket = io.connect('http://localhost:8081/booth');
+    } else {
+      this.boothSocket = io.connect('/booth');
+    }
+
     this.boothSocket.on('inform user', function (id) {
       if (id === this.$inquiry.get().inquiry_id) {
         this.showModal = true;

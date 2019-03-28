@@ -3,8 +3,7 @@ import Router from 'vue-router';
 import Start from './views/Start.vue';
 import Grabticket from './views/Grabticket.vue';
 import Forms from './views/Forms.vue';
-import Subcategory from './views/Subcategory.vue';
-import lostFound from './views/lostFound.vue';
+import Report from './views/Report.vue';
 import UserAppointment from './views/UserAppointment.vue';
 import Pass from './views/Pass.vue';
 import HenteLevere from './views/HenteLevere.vue';
@@ -20,7 +19,7 @@ export default new Router({
       component: Start
     },
     {
-      path: '/grabticket',
+      path: '/trekk-kolapp',
       name: 'grabticket',
       component: Grabticket
     },
@@ -32,15 +31,10 @@ export default new Router({
     {
       path: '/anmelde/:page',
       name: 'anmelde',
-      component: Subcategory
+      component: Report
     },
     {
-      path: '/lost-found',
-      name: 'lostFound',
-      component: lostFound
-    },
-    {
-      path: '/userAppointment',
+      path: '/timeavtale/:page',
       name: 'userAppointments',
       component: UserAppointment
     },
@@ -50,7 +44,7 @@ export default new Router({
       component: Pass
     },
     {
-      path: '/henteLevere/:page',
+      path: '/hente-levere/:page',
       name: 'henteLevere',
       component: HenteLevere
     },

@@ -1,73 +1,76 @@
 <template>
-  <div>
+  <div class="hero is-fullheight-with-navbar">
     <navbar />
-    <div class="container">
-      <h1 class="title has-text-centered is-uppercase">{{ $t('henteLevere') }}</h1>
-
-    <TreeSelector :initialPage="this.$route.params.page">
-        <TreeItem pageName="First">
+    <div class="hero-body">
+      <div class="container">
+        <TreeSelector :initialPage="this.$route.params.page">
+          <TreeItem pageName="1">
             <TreeInput label="Hva skal du?" type="title"></TreeInput>
             <TreeInput type="boxes">
-                <TreeInput :link="{ loc: 'Second' }" label="Hente" placeholder="HenteTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :link="{ loc: 'Seventh' }" label="Levere" placeholder="LevereTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
+              <TreeInput :link="{ loc: '2' }" class="is-2" label="Hente" type="box" />
+              <TreeInput :link="{ loc: '7' }" class="is-2" label="Levere" type="box" />
             </TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-        <TreeItem pageName="Second">
-            <TreeInput label="Hva skal du hente?" type="title"></TreeInput>
-            <TreeInput type="boxes">
-                <TreeInput :link="{ ext: 'pass', extInitial: 'First' }" label="Pass" placeholder="PassTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :link="{ loc: 'Third' }" inquiryType="HenteBeslag" label="Beslag" placeholder="BeslagTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :link="{ ext: 'garantiskjema', extInitial: 'Second' }" inquiryType="HenteGarantiskjema" label="Garantiskjema" placeholder="GarantiskjemaTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :link="{ loc: 'Fifth' }" inquiryType="HenteAnnet" label="Annet" placeholder="AnnetTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-            </TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-        <TreeItem pageName="Third">
-            <TreeInput label="Vet du saksnummer?" type="title"></TreeInput>
-            <TreeInput type="boxes">
-                <TreeInput :link="{ loc: 'Fourth' }" label="Ja" placeholder="JaTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :link="{ loc: 'Fifth' }" label="Nei" placeholder="NeiTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-            </TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-        <TreeItem pageName="Fourth">
-            <TreeInput label="Politivakta leverer ikke ut beslag; Kontakt etterforsker." type="title"></TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ ext: 'start' }" label="OK" class="is-link" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-        <TreeItem pageName="Fifth">
-            <TreeInput updateKey="dob" label="Fødselsdato" placeholder="Trykk for å velge.." type="date"></TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-                <TreeInput :link="{ ext: 'grabticket' }" label="Neste" class="is-link" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-        <TreeItem pageName="Seventh">
-            <TreeInput label="Hva skal du levere?" type="title"></TreeInput>
-            <TreeInput type="boxes">
-                <TreeInput :between="{from: 8, to: 10}" inquiryType="LevereGarantiskjema" :link="{ ext: 'grabticket' }" label="Garantiskjema" placeholder="GarantiskjemaTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput :between="{from: 10, to: 23}" :link="{ ext: 'garantiskjema', extInitial: 'Third' }" label="Garantiskjema" placeholder="GarantiskjemaTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-                <TreeInput inquiryType="LevereAnnet" :link="{ loc: 'Fifth' }" label="Annet" placeholder="AnnetTekst" src="'/icons/sharp-person.svg'" type="box"></TreeInput>
-            </TreeInput>
-            <TreeInput type="buttons">
-                <TreeInput :link="{ prev: true }" label="Tilbake" class="is-danger" type="button"></TreeInput>
-            </TreeInput>
-        </TreeItem>
-    </TreeSelector>
+          </TreeItem>
 
-      <Faq :items="faqs"/>
+          <TreeItem pageName="2">
+            <TreeInput label="Hva skal du hente?" type="title" />
+            <TreeInput type="boxes">
+              <TreeInput :link="{ ext: 'pass', extInitial: '1' }" label="Pass" type="box" />
+              <TreeInput :link="{ loc: '3' }" inquiryType="Hente Beslag" label="Beslag" type="box" />
+              <TreeInput :link="{ ext: 'garantiskjema', extInitial: 'hente' }" inquiryType="Hente Garantiskjema" label="Garantiskjema" type="box" />
+              <TreeInput :link="{ loc: '5' }" inquiryType="Hente Annet" label="Annet" type="box" />
+            </TreeInput>
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
+          </TreeItem>
 
-      <br>
-      <div class="block has-text-centered">
-        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
+          <TreeItem pageName="3">
+            <TreeInput label="Vet du saksnummer?" type="title" />
+            <TreeInput type="boxes">
+              <TreeInput :link="{ loc: '4' }" label="Ja" type="box" class="is-2" />
+              <TreeInput :link="{ loc: '5' }" label="Nei" type="box" class="is-2"  />
+            </TreeInput>
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="4">
+            <TreeInput label="Politivakta leverer ikke ut beslag; Kontakt etterforsker." type="title" />
+            <TreeInput type="buttons">
+              <TreeInput :link="{ ext: 'start' }" label="OK" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="5">
+            <TreeInput label="Vennligst fyll ut" type="title" />
+
+            <TreeInput updateKey="dob" label="Fødselsdato" placeholder="DDMMYY" type="text" />
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="7">
+            <TreeInput label="Hva skal du levere?" type="title" />
+            <TreeInput type="boxes">
+              <TreeInput :between="{from: 8, to: 10}" inquiryType="Levere Garantiskjema" :link="{ ext: 'grabticket' }" label="Garantiskjema" type="box" class="is-2" />
+              <TreeInput :between="{from: 10, to: 23}" :link="{ ext: 'garantiskjema', extInitial: 'leverer-ikke' }" label="Garantiskjema" type="box" class="is-2" />
+              <TreeInput inquiryType="Levere Annet" :link="{ loc: '5' }" label="Annet" type="box" class="is-2" />
+            </TreeInput>
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
+          </TreeItem>
+
+        </TreeSelector>
+      </div>
+    </div>
+    <div class="hero-footer">
+      <div class="container">
+        <Faq :items="faqs" />
       </div>
     </div>
   </div>
@@ -75,18 +78,12 @@
 
 <script>
 import Faq from '@/components/Faq.vue';
-import TreeSelector from '@/components/TreeSelector.vue';
-import TreeItem from '@/components/TreeItem.vue';
-import TreeInput from '@/components/TreeInput.vue';
 
 import Faqs from '@/services/Faqs.js';
 
 export default {
   components: {
-    Faq,
-    TreeSelector,
-    TreeItem,
-    TreeInput
+    Faq
   },
   data () {
     return {

@@ -1,20 +1,20 @@
 export default {
   trekkKølapp: 'Trekk kølapp',
-  gjørNoenSteg: 'Eller, gjør noen enkle steg slik at vi kan hjelpe deg raskere!',
-  velgTypeHenvendelse: 'Start med å velge en type henvendelse under',
+  'please-choose-category': 'Vennligst velg en kategori slik at vi kan hjelpe deg raskere:',
+  'eller': 'eller',
   ofteStilteSpørsmål: 'Ofte stilte spørsmål',
 
   pass: 'Pass',
   passTekst: 'Fornye eller søke om nytt pass, eller nødpass, utenfor passkontorets åpningstider.',
 
-  anmeldeTyveri: 'Anmelde tyveri eller skadeverk',
-  anmeldeTyveriTekst: 'Tyveri av sykkel, lommebok, veske, mobiltelefon, hærverk og skader.',
+  anmelde: 'Anmelde',
+  anmeldeTekst: 'Anmelde et forhold. Tyveri av sykkel, lommebok, veske, mobiltelefon, hærverk og skader.',
 
-  henteLevere: 'Hente/Levere',
-  henteLevereTekst: 'Henting og levering',
+  hentelevere: 'Hente og Levere',
+  hentelevereTekst: 'Henting og levering av beslag, hittegods, pass, garantiskjema.',
 
   garantiskjema: 'UDI Garantiskjema',
-  garantiskjemaTekst: 'GarantiskjemaTekst',
+  garantiskjemaTekst: 'Levér og få stemplet UDI garantiskjema for besøkende.',
 
   hentBeslagHittegods: 'Hent Beslag/Hittegods',
   hentBeslagHittegodsTekst: 'Henting av hittegods, og henting av beslag',
@@ -22,11 +22,8 @@ export default {
   leverHittegods: 'Lever Hittegods',
   leverHittegodsTekst: 'Levering av hittegods',
 
-  meldeplikt: 'Avtalt time',
-  meldepliktTekst: 'Meldeplikt, avhør. Registrer din ankomst.',
-
-  ferdigskrevneSaker: 'Ferdigskrevne saker',
-  ferdigskrevneSakerTekst: 'Levering av ferdigskrevne saker som bare skal kvalitetssikres.',
+  timeavtale: 'Avtalt time',
+  timeavtaleTekst: 'Avhør, meldeplikt. Registrer din ankomst.',
 
   annet: 'Annet',
   annetTekst: 'Trykk her for andre henvendelser.',

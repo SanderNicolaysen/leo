@@ -1,43 +1,40 @@
 <template>
-    <div v-if="visible && (type === 'text' || type === 'date')" class="field">
-      <label class="label">{{ label }}</label>
-      <div class="control">
-          <input v-if="type === 'text'"
-            class="input"
-            type="text"
-            :placeholder="placeholder"
-            @change="updateInquiry">
-          <datepicker v-else-if="type === 'date'"
-              :placeholder="placeholder"
-              :format="DatePickerFormat"
-              :disabledDates="disabledDates"
-              :initialView="'year'"
-              @selected="updateInquiry">
-          </datepicker>
-      </div>
+  <div v-if="visible && (type === 'text' || type === 'date')" class="field has-text-left" style="max-width: 350px; margin: auto;  ">
+    <label class="label">{{ label }}</label>
+    <div class="control">
+      <input v-if="type === 'text'" class="input" type="text" :placeholder="placeholder" @change="updateInquiry($event)">
+
+      <datepicker v-else-if="type === 'date'"
+        :placeholder="placeholder"
+        :format="DatePickerFormat"
+        :disabledDates="disabledDates"
+        :initialView="'year'"
+        @selected="updateInquiry($event)">
+      </datepicker>
     </div>
-    <div v-else-if="visible && type === 'buttons'" class="has-text-centered">
-      <div class="buttons are-large is-inline-block">
-        <br>
-        <slot></slot>
-      </div>
-    </div>
-    <button v-else-if="visible && type === 'button'" @click="changePage" class="button">{{ label }}</button>
-    <div v-else-if="visible && type === 'title'"
-      class="section has-text-centered">
-        <h1 class="title is-3">{{ label }}</h1>
-    </div>
-    <div v-else-if="visible && type === 'boxes'" class="container">
-      <div class="columns is-centered">
-        <slot></slot>
-      </div>
-    </div>
-    <div v-else-if="visible && type === 'box'" @click="changePage" class="column">
-      <Box :title="label" :text="placeholder" :icon="src ? '<img src=' + src + '/>' : ''" />
-    </div>
-    <div v-else-if="visible && type === 'section'">
+  </div>
+  <div v-else-if="visible && type === 'buttons'" class="has-text-centered">
+    <div class="buttons are-large is-inline-block">
+      <br>
       <slot></slot>
     </div>
+  </div>
+  <button v-else-if="visible && type === 'button'" @click="changePage" class="button">{{ label }}</button>
+  <div v-else-if="visible && type === 'title'"
+    class="section has-text-centered">
+      <h1 class="title is-3">{{ label }}</h1>
+  </div>
+  <div v-else-if="visible && type === 'boxes'">
+    <div class="columns is-multiline is-centered">
+      <slot></slot>
+    </div>
+  </div>
+  <div v-else-if="visible && type === 'box'" @click="changePage" class="column">
+    <Box :title="label" :text="placeholder" :icon="src ? '<img src=' + src + '/>' : ''" />
+  </div>
+  <div v-else-if="visible && type === 'section'">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

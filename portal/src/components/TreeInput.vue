@@ -28,12 +28,12 @@
         <h1 class="title is-3">{{ label }}</h1>
     </div>
     <div v-else-if="visible && type === 'boxes'" class="container">
-      <div class="columns">
+      <div class="columns is-centered">
         <slot></slot>
       </div>
     </div>
     <div v-else-if="visible && type === 'box'" @click="changePage" class="column">
-      <Box :title="label" :text="placeholder" :icon="'<img src=' + src + '/>'" />
+      <Box :title="label" :text="placeholder" :icon="src ? '<img src=' + src + '/>' : ''" />
     </div>
     <div v-else-if="visible && type === 'section'">
       <slot></slot>
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     changePage () {
-      this.$parent.$emit('changePage', this.link);
+      if (this.link) this.$parent.$emit('changePage', this.link);
 
       // If an inquiryType-prop has been passed, update the type in current inquiry
       if (this.inquiryType != null) {

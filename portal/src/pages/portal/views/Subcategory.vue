@@ -1,64 +1,81 @@
 <template>
-  <div>
+  <div class="hero is-fullheight-with-navbar">
     <navbar />
-    <div class="container">
-      <h1 class="title has-text-centered is-uppercase">{{ $t('anmeldeTyveri') }}</h1>
+    <div class="hero-body">
+      <div class="container">
+        {{ form }}
+        <TreeSelector initialPage="1">
 
-      <div class="columns">
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Mobiltelefon' /></router-link>
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Sykkel' /></router-link>
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='ID-tyveri' /></router-link>
+          <TreeItem pageName="1">
+            <h2 class="title is-3">Skal du anmelde på vegne av ...</h2>
+            <TreeInput type="boxes">
+              <TreeInput :link="{ loc: '2' }" label="Meg selv" type="box" @click.native="behalfOf = 'me'" />
+              <TreeInput :link="{ loc: '2' }" label="Et firma/en organisasjon" type="box" @click.native="behalfOf = 'org'" />
+              <TreeInput :link="{ loc: '2' }" label="Andre" type="box" @click.native="behalfOf = 'other'" />
+            </TreeInput>
+          </TreeItem>
 
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Skade på eiendom' /></router-link>
-        </div>
+          <TreeItem pageName="2">
+            <h1 class="title is-3">Vet du hvem gjerningspersonen er, <br> eller kan identifisere gjerningspersonen?</h1>
+
+            <TreeInput type="boxes">
+              <TreeInput :link="{ loc: '3' }" label="Ja" type="box" class="is-3" @click.native="identifyOffender = true" />
+              <TreeInput :link="{ loc: '3' }" label="Nei" type="box" class="is-3" @click.native="identifyOffender = false" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="3">
+            <h1 class="title is-3">Velg kategori</h1>
+
+            <TreeInput type="boxes">
+              <TreeInput :link="{ loc: '4' }" label="Tyveri" type="box" class="is-3" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Annet" type="box" class="is-3" />
+            </TreeInput>
+          </TreeItem>
+
+          <TreeItem pageName="4">
+            <h1 class="title is-3">Jeg skal anmelde tyveri av ...</h1>
+
+            <TreeInput type="boxes">
+              <TreeInput label="Mobiltelefon" type="box" class="is-3" @click.native="item = 'phone'" />
+              <TreeInput label="Bil" type="box" class="is-3" @click.native="item = 'car'" />
+              <TreeInput label="Sykkel" type="box" class="is-3" @click.native="item = 'bicycle'" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Annet" type="box" class="is-3" />
+            </TreeInput>
+          </TreeItem>
+
+        </TreeSelector>
       </div>
-
-      <div class="columns">
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Veske eller lommebok' /></router-link>
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Førerkort' /></router-link>
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Bilskilt' /></router-link>
-        </div>
-        <div class="column">
-          <router-link to="/skjema/forenklet-anmeldelse"><Box title='Datakriminalitet' /></router-link>
-        </div>
+    </div>
+    <div class="hero-footer">
+      <div class="container">
+        <Faq :items="faqs" />
       </div>
-
-      <div class="block has-text-centered">
-        <router-link to="/grabticket"><button class="button is-success is-size-4 is-uppercase">{{ $t('trekkKølapp') }}</button></router-link>
-      </div>
-
-      <Faq :items="faqs"/>
     </div>
   </div>
 </template>
 
 <script>
-import Box from '@/components/Box.vue';
 import Faq from '@/components/Faq.vue';
+import TreeSelector from '@/components/TreeSelector.vue';
+import TreeItem from '@/components/TreeItem.vue';
+import TreeInput from '@/components/TreeInput.vue';
 
 import Faqs from '@/services/Faqs.js';
 
 export default {
   components: {
-    Box,
-    Faq
+    Faq,
+    TreeSelector,
+    TreeItem,
+    TreeInput
   },
   data () {
     return {
       faqs: [],
-      title: ''
+      behalfOf: null,
+      identifyOffender: null,
+      item: null
     };
   },
   created: async function () {
@@ -67,6 +84,17 @@ export default {
 
     const faq = await Faqs.getFaqs('tyveri-og-skadeverk');
     this.faqs = faq;
+  },
+  computed: {
+    form: function () {
+      switch ([ this.behalfOf, this.identifyOffender, this.item ].join(' ')) {
+        case 'me true phone':
+        case 'me false phone': return 'anmelde-mobil';
+        case 'me true car': return 'anmelde-bil';
+        case 'me true bicycle': return 'anmelde-sykkel';
+        default: return null;
+      }
+    }
   }
 };
 </script>

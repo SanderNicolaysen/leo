@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-selector">
+  <div class="tree-selector has-text-centered">
     <slot></slot>
     <br>
   </div> <!-- ./tree-selector -->
@@ -33,19 +33,19 @@ export default {
           this.$router.push({ name: link.ext });
         } else if (link.extInitial != null) {
           // Go to a named view with a provided name of an initial page to see
-          this.$router.push({ name: link.ext, params: { initialPage: link.extInitial } });
+          this.$router.push({ name: link.ext, params: { page: link.extInitial } });
         }
       } else if (link.loc != null) {
         // Change current 'local' page
         this.currentPage = link.loc;
         // Update URL
-        this.$router.push({ name: this.$router.currentRoute.name, params: { initialPage: link.loc } });
+        this.$router.push({ name: this.$router.currentRoute.name, params: { page: link.loc } });
       }
     }
   },
   watch: {
     '$route' (to, from) {
-      this.currentPage = to.params.initialPage;
+      this.currentPage = to.params.page;
     }
   }
 };

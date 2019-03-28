@@ -30,8 +30,8 @@ export default new Router({
       component: Forms
     },
     {
-      path: '/subcategory',
-      name: 'subcategory',
+      path: '/anmelde/:page',
+      name: 'anmelde',
       component: Subcategory
     },
     {
@@ -45,17 +45,17 @@ export default new Router({
       component: UserAppointment
     },
     {
-      path: '/pass/:initialPage',
+      path: '/pass/:page',
       name: 'pass',
       component: Pass
     },
     {
-      path: '/henteLevere/:initialPage',
+      path: '/henteLevere/:page',
       name: 'henteLevere',
       component: HenteLevere
     },
     {
-      path: '/garantiskjema/:initialPage',
+      path: '/garantiskjema/:page',
       name: 'garantiskjema',
       component: Garantiskjema
     }

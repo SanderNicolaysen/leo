@@ -13,7 +13,7 @@
             </router-link>
           </div>
           <div class="column">
-            <router-link to="/subcategory">
+            <router-link to="/anmelde/1">
               <Box :title="$t('anmeldeTyveri')" :text="$t('anmeldeTyveriTekst')" icon="<img src='/icons/pickpocketing.svg'/>" />
             </router-link>
           </div>

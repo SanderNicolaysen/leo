@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="title has-text-centered is-uppercase">{{ $t('garantiskjema') }}</h1>
 
-        <TreeSelector :initialPage="this.$route.params.initialPage">
+        <TreeSelector :initialPage="this.$route.params.page">
             <TreeItem pageName="First">
                 <TreeInput label="Hva skal du?" type="title"></TreeInput>
                 <TreeInput type="boxes">

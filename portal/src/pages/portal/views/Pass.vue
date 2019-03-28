@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="title has-text-centered is-uppercase">{{ $t('pass') }}</h1>
 
-      <TreeSelector :initialPage="this.$route.params.initialPage">
+      <TreeSelector :initialPage="this.$route.params.page">
         <TreeItem pageName="First">
           <TreeInput :between="{from: 8, to: 16}" :hideException="{day: 2, from: 8, to: 10}" type="section">
             <TreeInput label="Du er på feil sted!" type="title"></TreeInput>

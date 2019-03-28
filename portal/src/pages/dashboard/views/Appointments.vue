@@ -16,7 +16,12 @@
         </div>
         <div class="field">
           <div class="control">
-              <input type="tel" class="input" :placeholder="$t('brukersFødsel')" v-model="form.userBirth">
+            <b-datepicker
+              :placeholder="$t('brukersFødsel')"
+              icon="calendar-today"
+              :first-day-of-week=1
+              v-model="date">
+          </b-datepicker>
           </div>
         </div>
         <div class="field">
@@ -69,6 +74,7 @@ export default {
       appointments: [],
       inquiries: [],
       pairs: [],
+      date: new Date(),
       form: {
         hostName: '',
         userName: '',
@@ -79,6 +85,14 @@ export default {
   },
   created: async function () {
     this.updatePairs();
+    this.date = null;
+  },
+  watch: {
+    date: function (current, old) {
+      if (this.date !== null) {
+        this.form.userBirth = this.date.toDateString();
+      }
+    }
   },
   methods: {
     addAppointment: async function () {
@@ -89,6 +103,7 @@ export default {
       this.form = { hostName: '', userName: '', userBirth: '' };
 
       this.updatePairs();
+      this.date = null;
     },
     updatePairs: async function () {
       // Get all appointments

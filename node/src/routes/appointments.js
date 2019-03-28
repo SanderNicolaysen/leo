@@ -29,4 +29,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id).exec();
+    if (appointment === null) {
+      res.sendStatus(404);
+      return;
+    }
+
+    await appointment.delete();
+    res.sendStatus(200);
+  }
+  catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

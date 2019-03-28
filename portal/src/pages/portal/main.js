@@ -4,6 +4,7 @@ import router from './router';
 import i18n from '@/lang/i18n';
 import InquiryPlugin from '@/InquiryPlugin';
 import Navbar from '@/components/NavBar';
+import './../../../node_modules/@mdi/font/scss/materialdesignicons.scss';
 import Buefy from 'buefy';
 import '@/assets/sass/portal.scss';
 

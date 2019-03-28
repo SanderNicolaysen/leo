@@ -4,13 +4,15 @@ import typeMultipliers from './seeds/typeMultipliers';
 import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
 import hentHittegods from './seeds/forms/hentHittegods';
 import leverHittegods from './seeds/forms/leverHittegods';
-// import inquiries from './seeds/inquiries';
+import fornermede from './seeds/forms/fornermede';
+import personopplysninger from './seeds/forms/personopplysninger';
+import hendelse from './seeds/forms/hendelse';
+import bil from './seeds/forms/bil';
 import timeavtale from './seeds/forms/avtale';
 
 // Models
 import Faq from './models/faq';
 import TypeMultiplier from './models/typeMultiplier';
-// import Inquiry from './models/inquiry';
 import Form from './models/form';
 import User from './models/user';
 
@@ -37,6 +39,10 @@ module.exports = {
     Form.create(hentHittegods, onCreate);
     Form.create(leverHittegods, onCreate);
     Form.create(timeavtale, onCreate);
+    Form.create(fornermede, onCreate);
+    Form.create(personopplysninger, onCreate);
+    Form.create(hendelse, onCreate);
+    Form.create(bil, onCreate);
 
     // Inquiry.insertMany(inquiries.inquiries, onInsert);
 

@@ -13,17 +13,17 @@ module.exports = {
   pages: {
     portal: {
       entry: 'src/pages/portal/main.js',
-      template: 'public/index.html',
+      template: 'public/app.html',
       filename: 'portal/index.html'
     },
     dashboard: {
       entry: 'src/pages/dashboard/main.js',
-      template: 'public/index.html',
+      template: 'public/app.html',
       filename: 'dashboard/index.html'
     },
     queueNumberDisplay: {
       entry: 'src/pages/queueNumberDisplay/main.js',
-      template: 'public/index.html',
+      template: 'public/app.html',
       filename: 'queueNumberDisplay/index.html'
     }
   }

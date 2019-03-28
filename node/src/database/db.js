@@ -9,6 +9,9 @@ import personopplysninger from './seeds/forms/personopplysninger';
 import hendelse from './seeds/forms/hendelse';
 import bil from './seeds/forms/bil';
 import timeavtale from './seeds/forms/avtale';
+import sykkel from './seeds/forms/sykkel';
+import firma from './seeds/forms/firma';
+import telefon from './seeds/forms/telefon';
 
 // Models
 import Faq from './models/faq';
@@ -43,6 +46,9 @@ module.exports = {
     Form.create(personopplysninger, onCreate);
     Form.create(hendelse, onCreate);
     Form.create(bil, onCreate);
+    Form.create(sykkel, onCreate);
+    Form.create(firma, onCreate);
+    Form.create(telefon, onCreate);
 
     // Inquiry.insertMany(inquiries.inquiries, onInsert);
 

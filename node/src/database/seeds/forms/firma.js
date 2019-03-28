@@ -1,35 +1,22 @@
 const page0 = {
   id: 0,
-  title: 'Fornermede',
-  subtitle: 'Fyll ut fornermedes personopplysninger',
-  info: 'FYLL INN OPPLYSNINGER FOR PERSONEN DU MELDER PÅ VEGNE AV',
+  title: 'Firma',
+  subtitle: 'Fyll ut firmaets opplysninger',
+  info: '',
   elements: [{
     choices: [],
     id: 0,
     type: "text",
     sizeClass: "is-12",
-    label: "Fullt Navn",
-    info: "Nordmann, Ola"
+    label: "Firmanavn",
+    info: ""
   }, {
     choices: [],
     id: 1,
     type: "text",
-    sizeClass: "is-4",
-    label: "Fødselsnummer",
-    info: "11 siffer"
-  }, {
-    choices: [],
-    id: 2,
-    type: "text",
-    sizeClass: "is-6",
-    label: "Statsborgerskap",
+    sizeClass: "is-12",
+    label: "Organisasjonsnummer",
     info: ""
-  }, {
-    choices: ["Kvinne", "Mann"],
-    id: 3,
-    type: "radio",
-    sizeClass: "is-2",
-    label: "Kjønn"
   }],
   nextPage: 1,
   prevPage: null
@@ -37,8 +24,8 @@ const page0 = {
 
 const page1 = {
   id: 1,
-  title: "Fornermede",
-  subtitle: "Fyll ut fornermedes kontaktinformasjon",
+  title: "Firma",
+  subtitle: "Fyll ut firmaets kontaktinformasjon",
   info: "",
   elements: [{
     choices: [],
@@ -52,14 +39,14 @@ const page1 = {
     type: "text",
     sizeClass: "is-6",
     label: "E-post",
-    info: "kari.nordmann@leverandor.no"
+    info: "kari@bedrift.no"
   }, {
     choices: [],
     id: 6,
     type: "text",
     sizeClass: "is-6",
     label: "Adresse",
-    info: "Gatenavn Gatenummer Leilighetsnummer"
+    info: "Gatenavn Gatenummer"
   }, {
     choices: [],
     id: 7,
@@ -74,8 +61,8 @@ const page1 = {
 
 
 export default {
-  name: 'Fornermede',
-  normalizedName: 'fornermede',
+  name: 'Firma',
+  normalizedName: 'firma',
   layout: 'normal',
   pages: [page0, page1]
 };

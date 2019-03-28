@@ -4,6 +4,7 @@
       <p class="card-header-title">
         Avtale
       </p>
+      <button class="delete" aria-label="delete" @click="handleClick(appointment)"></button>
     </div>
     <div class="card-content">
       <div class="content">
@@ -32,6 +33,11 @@
 
 <script>
 export default {
-  props: ['appointment']
+  props: ['appointment'],
+  methods: {
+    handleClick: function (appointment) {
+      this.$emit('delete', appointment);
+    }
+  }
 };
 </script>

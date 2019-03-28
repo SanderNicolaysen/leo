@@ -16,7 +16,7 @@
         </div>
         <div class="field">
           <div class="control">
-            <input type="tel" class="input" :placeholder="$t('brukersFødsel')" v-model="form.userBirth">
+              <input type="tel" class="input" :placeholder="$t('brukersFødsel')" v-model="form.userBirth">
           </div>
         </div>
         <div class="field">
@@ -34,7 +34,7 @@
   <div class="">
     <div class="columns" v-for="pair in pairs" :key="pair.id">
       <div class="column is-two-fifths">
-        <AppointmentBox v-if="typeof pair.appointment !== 'undefined'" v-bind:appointment="pair.appointment" />
+        <AppointmentBox v-if="typeof pair.appointment !== 'undefined'" v-bind:appointment="pair.appointment" @delete="deleteAppointment"/>
       </div>
       <div class="column is-one-fifth title has-text-centered">
         <div class="level" style="height: 100%">
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="column is-two-fifths">
-        <AppointmentInquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry"/>
+        <AppointmentInquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry" @delete="deleteAppointment"/>
       </div>
     </div>
   </div>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import AppointmentBox from '@/components/AppointmentBox.vue';
 import AppointmentInquiryBox from '@/components/AppointmentInquiryBox.vue';
 import Appointments from '@/services/Appointments.js';
@@ -93,36 +94,52 @@ export default {
       // Get all appointments
       this.appointments = await Appointments.getAppointments();
       // Get all inquiries of appointment-type
-      this.inquiries = (await Inquiries.getInquiries()).filter(i => { return i.type === 'Avtale'; });
+      this.inquiries = (await Inquiries.getInquiries()).filter(i => { return i.type === 'Avtale' && i.status !== 'Ferdig'; });
       // Reset pairs
       this.pairs = [];
       // Add all appointments to pairs, including matching inquiries where applicable.
-      for (let a in this.appointments) {
-        let inquiry;
-        for (let i in this.inquiries) {
-          // Skip if appointment is undefined
-          if (this.inquiries[i].appointment === undefined) { break; }
-          if (this.appointments[a].userBirth === this.inquiries[i].appointment.birth || this.appointments[a].caseNumber === this.inquiries[i].appointment.caseNumber) {
-            inquiry = this.inquiries[i];
-            // Delete matched inquiry from inquiries
-            delete this.inquiries[i];
-            break;
-          }
-        }
+      _.forEach(this.appointments, a => {
+        const inquiry = _.find(this.inquiries, i => {
+          if (i.appointment === undefined || i.status === 'Ferdig') return false;
+          return (a.userBirth === i.appointment.birth && a.userBirth && i.appointment.birth) || (a.caseNumber === i.appointment.caseNumber && a.caseNumber && i.appointment.caseNumber);
+        });
         this.pairs.push({
-          'id': this.appointments[a]._id,
-          'appointment': this.appointments[a],
+          'id': a._id,
+          'appointment': a,
           'inquiry': inquiry
         });
-      }
+        if (inquiry) {
+          this.inquiries.splice(this.inquiries.indexOf(inquiry), 1);
+        }
+      });
       // Add all remaining (unmatched) inquiries to pairs
       let self = this;
-      this.inquiries.forEach(function (inquiry) {
+      this.inquiries.forEach(inquiry => {
         self.pairs.push({
           'id': inquiry._id,
           'appointment': undefined,
           'inquiry': inquiry
         });
+      });
+    },
+    deleteAppointment: async function (data) {
+      this.$dialog.confirm({
+        title: 'Slett',
+        message: 'Er du sikker på at du vill <b>slette</b> henvendelsen/avtalen? Dette kan ikke angres.',
+        confirmText: 'Slett',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: async () => {
+          if (data.hasOwnProperty('hostName')) {
+            await Appointments.delete(data._id);
+            _.remove(this.appointments, n => { return n._id === data._id; });
+            this.updatePairs();
+          } else {
+            data.status = 'Ferdig';
+            await Inquiries.update(data._id, data);
+            this.updatePairs();
+          }
+        }
       });
     }
   }

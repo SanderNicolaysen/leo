@@ -40,10 +40,12 @@
           <td>Etternavn</td>
           <td>{{ inquiryAttr('lname') }}</td>
         </tr>
-        <tr v-if="inquiryAttr('form')">
-          <td>Skjema</td>
-          <td><FormView :form="inquiry.form"/></td>
-        </tr>
+        <template v-if="inquiryAttr('forms')">
+          <tr v-for="form in inquiry.forms" :key="form._id">
+            <td>{{ form.name }}</td>
+            <td><FormView :form="form"/></td>
+          </tr>
+        </template>
       </table>
     </div>
     <div class="card-footer">

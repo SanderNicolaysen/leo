@@ -13,8 +13,8 @@ const Schema = mongoose.Schema;
 const InquirySchema = new Schema({
   inquiry_id: Number,
   NIN: Number,
-  type: String,
-  form: mongoose.model('Form').schema,
+  type: String, 
+  forms: [mongoose.model('Form').schema],
   key: String,
   created: { type : Date, default: Date.now },
   fname: String,

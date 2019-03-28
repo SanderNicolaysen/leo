@@ -56,7 +56,7 @@
       <div class="container has-text-centered">
         <div class="buttons is-inline-block">
           <button class="button is-large is-uppercase" @click="previous($event)">Tilbake</button>
-          <button class="button is-large is-uppercase is-primary" @click="next($event);">{{ page.nextPage !== null ? 'Neste' : 'Fullfør' }}</button>
+          <button class="button is-large is-uppercase is-primary" @click="next($event);">{{ progress + progressSlope >= 100 ? 'Fullfør' : 'Neste' }}</button>
         </div>
         <div>
           <router-link :to="{ name: 'grabticket' }" v-if="page.nextPage !== null">Eller, avslutt og trekk kølapp</router-link>
@@ -70,8 +70,6 @@
 import _ from 'lodash';
 import FlexiInput from '@/components/FlexiInput.vue';
 
-import Forms from '@/services/Forms.js';
-
 export default {
   name: 'forms',
   components: {
@@ -79,6 +77,7 @@ export default {
   },
   data: function () {
     return {
+      forms: null,
       form: null,
       pageId: null,
       progress: null,
@@ -94,46 +93,65 @@ export default {
     }
   },
   watch: {
-    form: {
+    forms: {
       handler: function (value) {
         // Update the form property of an ongoing inquiry
-        this.$inquiry.update({ form: value });
+        this.$inquiry.update({ forms: value });
       },
       deep: true
     }
   },
   methods: {
     next: function (event) {
-      if (this.page.nextPage != null) {
+      this.progress += this.progressSlope;
+      setTimeout(() => event.target.blur(), 500);
+
+      if (this.page.nextPage !== null) {
         this.pageId = this.page.nextPage;
-        this.progress += this.progressSlope;
-      } else {
-        this.$router.push({ name: 'grabticket' });
+        return;
       }
 
-      setTimeout(() => event.target.blur(), 500);
+      const index = this.forms.findIndex(f => f.normalizedName === this.form.normalizedName);
+      if (index === this.forms.length - 1) {
+        this.$router.push({ name: 'grabticket' });
+        return;
+      }
+
+      this.form = this.forms[index + 1];
+      this.pageId = 0;
+      this.$router.push({ name: 'forms', params: { name: this.form.normalizedName } });
     },
     previous: function (event) {
-      if (this.page.prevPage != null) {
+      this.progress -= this.progressSlope;
+      setTimeout(() => event.target.blur(), 500);
+
+      if (this.page.prevPage !== null) {
         this.pageId = this.page.prevPage;
-        this.progress -= this.progressSlope;
-      } else {
-        // Go back
-        this.$router.go(-1);
+        return;
       }
 
-      setTimeout(() => event.target.blur(), 500);
+      const index = this.forms.findIndex(f => f.normalizedName === this.form.normalizedName);
+      if (index === 0) {
+        this.$router.go(-1);
+        return;
+      }
+
+      this.form = this.forms[index - 1];
+      this.pageId = this.form.pages[this.form.pages.length - 1].id;
+      this.$router.push({ name: 'forms', params: { name: this.form.normalizedName } });
     },
     exists: function (prop) {
       return !_.isUndefined(prop) && prop !== '';
     }
   },
   created: async function () {
-    this.form = await Forms.find(this.$route.params.name);
-    this.pageId = 0;
+    this.forms = this.$inquiry.get().forms;
 
+    this.form = _.find(this.forms, f => { return f.normalizedName === this.$route.params.name; });
+    this.pageId = 0;
+    console.log(_.sumBy(this.forms, f => f.pages.length));
     this.progress = 0;
-    this.progressSlope = 100 / this.form.pages.length;
+    this.progressSlope = 100 / _.sumBy(this.forms, f => f.pages.length);
   }
 };
 </script>

@@ -18,8 +18,8 @@
             <p class="title is-4">Vet du hvem gjerningspersonen er, <br> eller kan identifisere gjerningspersonen?</p>
 
             <TreeInput type="boxes">
-              <TreeInput :link="{ loc: '3' }" label="Ja" type="box" class="is-3" @click.native="identifyOffender = true" />
-              <TreeInput :link="{ loc: '3' }" label="Nei" type="box" class="is-3" @click.native="identifyOffender = false" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Ja" type="box" class="is-3" />
+              <TreeInput :link="{ loc: '3' }" label="Nei" type="box" class="is-3" />
             </TreeInput>
           </TreeItem>
 
@@ -36,9 +36,9 @@
             <p class="title is-4">Jeg skal anmelde tyveri av ...</p>
 
             <TreeInput type="boxes">
-              <TreeInput label="Mobiltelefon" type="box" class="is-3" @click.native="item = 'phone'" />
-              <TreeInput label="Bil" type="box" class="is-3" @click.native="item = 'car'" />
-              <TreeInput label="Sykkel" type="box" class="is-3" @click.native="item = 'bicycle'" />
+              <TreeInput label="Mobiltelefon" type="box" class="is-3" @click.native="item = 'telefon'" />
+              <TreeInput label="Bil" type="box" class="is-3" @click.native="item = 'bil'" />
+              <TreeInput label="Sykkel" type="box" class="is-3" @click.native="item = 'sykkel'" />
               <TreeInput :link="{ ext: 'grabticket' }" label="Annet" type="box" class="is-3" />
             </TreeInput>
           </TreeItem>
@@ -67,7 +67,6 @@ export default {
     return {
       faqs: [],
       behalfOf: null,
-      identifyOffender: null,
       item: null
     };
   },
@@ -78,15 +77,26 @@ export default {
     const faq = await Faqs.getFaqs('tyveri-og-skadeverk');
     this.faqs = faq;
   },
-  computed: {
-    form: function () {
-      switch ([ this.behalfOf, this.identifyOffender, this.item ].join(' ')) {
-        case 'me true phone':
-        case 'me false phone': return 'anmelde-mobil';
-        case 'me true car': return 'anmelde-bil';
-        case 'me true bicycle': return 'anmelde-sykkel';
-        default: return null;
-      }
+  methods: {
+    async gotoForm () {
+      let forms = [];
+
+      forms.push('personopplysninger');
+
+      if (this.behalfOf === 'org') forms.push('firma');
+      if (this.behalfOf === 'other') forms.push('fornermede');
+
+      forms.push(this.item);
+      console.log(forms);
+
+      await this.$inquiry.setForms(forms.join(','));
+
+      this.$router.push({ name: 'forms', params: { name: forms[0] } });
+    }
+  },
+  watch: {
+    item: function () {
+      this.gotoForm();
     }
   }
 };

@@ -1,5 +1,6 @@
 import express from 'express';
 import Inquiry from '../database/models/inquiry';
+import Form from '../database/models/form';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
 import auth from '../middleware/auth';
@@ -65,7 +66,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // Update inquiry
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id/update', async (req, res, next) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.sendStatus(400);
     return;
@@ -84,6 +85,7 @@ router.patch('/:id', async (req, res, next) => {
       return;
     }
 
+    delete req.body.__v;
     for (const prop in req.body) {
       inquiry[prop] = req.body[prop];
     }
@@ -114,6 +116,44 @@ router.delete('/:id', async (req, res, next) => {
 
     await inquiry.delete();
     res.sendStatus(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * Takes a comma-seperated string of form names, and adds the forms to the inquiry
+ */
+router.patch('/:id/forms', async (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.sendStatus(400);
+    return;
+  }
+
+  try {
+    const inquiry = await Inquiry.findById(req.params.id).exec();
+    if (inquiry === null) {
+      res.sendStatus(404);
+      return;
+    }
+
+    // Authorize
+    if (inquiry.key !== req.body.key) {
+      res.sendStatus(401);
+      return;
+    }
+
+    // Find the forms
+    const formNames = req.body.forms.split(',');
+    const forms = await Form.find({ normalizedName: { $in: formNames }}).exec();
+
+    // Sort the forms in the order they were requested
+    inquiry.forms = forms.sort((a, b) => formNames.indexOf(a.normalizedName) > formNames.indexOf(b.normalizedName));
+
+    await inquiry.save();
+
+    res.status(200).json(inquiry);
     next();
   } catch (error) {
     next(error);

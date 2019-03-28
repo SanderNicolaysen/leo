@@ -12,9 +12,9 @@
             <td>Personummer:</td>
             <td>{{ safeAttribute('NIN', fallback='ukjent') }}</td>
           </tr>
-          <tr v-if="safeAttribute('form')">
+          <tr v-if="safeAttribute('forms')">
             <td>Skjema:</td>
-            <td>{{ inquiry.form.name }}, <a @click="showForm(inquiry.form)">vis mer</a></td>
+            <td><a @click="showForms(inquiry.forms)">Klikk for å forhåndsvise</a></td>
           </tr>
         </table>
       </div>
@@ -50,11 +50,11 @@ export default {
     safeAttribute (attr, fallback) {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : (fallback || '');
     },
-    showForm (form) {
+    showForms (forms) {
       this.$modal.open({
         parent: this,
         component: FormModal,
-        props: { 'form': form }
+        props: { 'forms': forms }
       });
     }
   }

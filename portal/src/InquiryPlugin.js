@@ -26,7 +26,7 @@ function clearLocal () {
 const debouncedUpdate = debounce(async function () {
   const data = getLocal();
   await Inquiries.update(getLocal()._id, data);
-}, 5000);
+}, 500, { maxWait: 5000 });
 
 export default {
   install: function (Vue, options) {
@@ -73,6 +73,11 @@ export default {
 
       get: function () {
         return getLocal();
+      },
+
+      setForms: async function (forms) {
+        const inquiry = await Inquiries.setForms(getLocal()._id, getLocal().key, forms);
+        updateLocal(inquiry);
       }
     };
   }

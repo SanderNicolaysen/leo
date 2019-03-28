@@ -31,7 +31,7 @@ export default {
 
   async update (id, data) {
     try {
-      const response = await Api().patch('/inquiries/' + id, data);
+      const response = await Api().patch('/inquiries/' + id + '/update', data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -41,6 +41,15 @@ export default {
   async delete (id, key) {
     try {
       const response = await Api().delete('/inquiries/' + id, { data: { key: key } });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  async setForms (id, key, forms) {
+    try {
+      const response = await Api().patch('/inquiries/' + id + '/forms', { key: key, forms: forms });
       return response.data;
     } catch (error) {
       console.error(error);

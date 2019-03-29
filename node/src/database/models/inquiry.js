@@ -25,7 +25,7 @@ const InquirySchema = new Schema({
     enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],
     default: 'Skriver'
   },
-  casenumber: String
+  caseNumber: String
 });
 
 InquirySchema.methods.getPoints = async function () {

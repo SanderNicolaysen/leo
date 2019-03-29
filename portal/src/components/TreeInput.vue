@@ -4,13 +4,12 @@
     <div class="control">
       <input v-if="type === 'text'" class="input" type="text" :placeholder="placeholder" @change="updateInquiry($event)">
 
-      <datepicker v-else-if="type === 'date'"
+      <b-datepicker v-else-if="type === 'date'"
         :placeholder="placeholder"
-        :format="DatePickerFormat"
-        :disabledDates="disabledDates"
-        :initialView="'year'"
-        @selected="updateInquiry($event)">
-      </datepicker>
+        icon="calendar-today"
+        :first-day-of-week="1"
+        @input="updateInquiry($event)"
+      ></b-datepicker>
     </div>
   </div>
   <div v-else-if="visible && type === 'buttons'" class="has-text-centered">
@@ -38,7 +37,6 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
 import Box from './Box.vue';
 
 export default {
@@ -55,17 +53,7 @@ export default {
     'hideException',
     'showException'
   ],
-  data () {
-    return {
-      DatePickerFormat: 'dd/MM/yyyy',
-      disabledDates: {
-        to: new Date(1900, 0, 1),
-        from: new Date()
-      }
-    };
-  },
   components: {
-    Datepicker,
     Box
   },
   methods: {
@@ -81,7 +69,7 @@ export default {
       if (event != null) {
         // Update current inquiry-dob
         if (event instanceof Date) {
-          this.$inquiry.update({ [this.updateKey]: event });
+          this.$inquiry.update({ [this.updateKey]: event.toLocaleDateString('no-NO') });
         } else if (event.type === 'change') { // Update current inquiry-fname or lname
           this.$inquiry.update({ [this.updateKey]: event.target.value });
         }

@@ -9,12 +9,20 @@
       <div class="content">
         <table class="table is-fullwidth">
           <tr>
-            <td>Personummer:</td>
-            <td>{{ safeAttribute('NIN', fallback='ukjent') }}</td>
+            <td>FDato/Personnr:</td>
+            <td>{{ safeAttribute('NIN', fallback=safeAttribute('dob')) }}</td>
           </tr>
-          <tr v-if="safeAttribute('forms')">
+          <tr v-if="safeAttribute('forms') && inquiry.forms.length > 0">
             <td>Skjema:</td>
             <td><a @click="showForms(inquiry.forms)">Klikk for å forhåndsvise</a></td>
+          </tr>
+          <tr v-if="safeAttribute('lname')">
+            <td>Etternavn:</td>
+            <td>{{ safeAttribute('lname') }}</td>
+          </tr>
+          <tr v-if="safeAttribute('caseNumber')">
+            <td>Saksnummer:</td>
+            <td>{{ safeAttribute('caseNumber') }}</td>
           </tr>
         </table>
       </div>

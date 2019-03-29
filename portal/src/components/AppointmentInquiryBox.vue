@@ -15,11 +15,11 @@
           </tr>
           <tr>
             <td>Bruker:</td>
-            <td>{{appointment('surname')}}</td>
+            <td>{{appointment('lname')}}</td>
           </tr>
           <tr>
             <td>Fødselsdato:</td>
-            <td>{{appointment('birth')}}</td>
+            <td>{{appointment('dob')}}</td>
           </tr>
           <tr>
             <td>Saksnummer:</td>
@@ -39,7 +39,7 @@ export default {
       this.$emit('delete', inquiry);
     },
     appointment (attr) {
-      return (typeof this.inquiry.appointment !== 'undefined') ? this.inquiry.appointment[attr] : '';
+      return (typeof this.inquiry[attr] !== 'undefined') ? this.inquiry[attr] : '';
     }
   }
 };

@@ -90,7 +90,7 @@ export default {
   watch: {
     date: function (current, old) {
       if (this.date !== null) {
-        this.form.userBirth = this.date.toDateString();
+        this.form.userBirth = this.date.toLocaleDateString('no-NO');
       }
     }
   },
@@ -115,8 +115,8 @@ export default {
       // Add all appointments to pairs, including matching inquiries where applicable.
       _.forEach(this.appointments, a => {
         const inquiry = _.find(this.inquiries, i => {
-          if (i.appointment === undefined || i.status === 'Ferdig') return false;
-          return (a.userBirth === i.appointment.birth && a.userBirth && i.appointment.birth) || (a.caseNumber === i.appointment.caseNumber && a.caseNumber && i.appointment.caseNumber);
+          if (i.status === 'Ferdig') return false;
+          return (a.userBirth === i.dob && a.userBirth && i.dob) || (a.caseNumber === i.caseNumber && a.caseNumber && i.caseNumber);
         });
         this.pairs.push({
           'id': a._id,

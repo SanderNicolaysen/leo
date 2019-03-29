@@ -9,7 +9,7 @@
             <h2 class="title is-3">Velg kategori</h2>
 
             <TreeInput type="boxes">
-              <TreeInput :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
+              <TreeInput inquiryType="Avhør" :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
               <TreeInput :link="{ loc: 'annet' }" class="is-2" label="Annet" type="box" />
             </TreeInput>
           </TreeItem>
@@ -18,7 +18,7 @@
             <h1 class="title is-3">Vennligst fyll ut</h1>
 
             <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
-            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="text" />
+            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
 
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
@@ -30,8 +30,8 @@
             <h1 class="title is-3">Vennligst fyll ut</h1>
 
             <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
-            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="text" />
-            <TreeInput updateKey="casenumber" :label="$t('saksnummer')" type="text" />
+            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
+            <TreeInput updateKey="caseNumber" :label="$t('saksnummer')" type="text" />
 
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />

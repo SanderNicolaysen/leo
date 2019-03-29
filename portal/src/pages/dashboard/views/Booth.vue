@@ -40,7 +40,7 @@
           <td>Etternavn</td>
           <td>{{ inquiryAttr('lname') }}</td>
         </tr>
-        <template v-if="inquiryAttr('forms')">
+        <template v-if="inquiryAttr('forms') && forms.length > 0">
           <tr v-for="form in inquiry.forms" :key="form._id">
             <td>{{ form.name }}</td>
             <td><FormView :form="form"/></td>

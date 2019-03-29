@@ -1,7 +1,8 @@
 <template>
-  <section class="section is-paddingless">
-    <div class="section-border">
-      <h1 class="title has-text-centered underline">{{ $t('ofteStilteSpørsmål') }}</h1>
+<div class="card" v-if="items.length > 0">
+  <div class="card-content">
+    <h1 class="subtitle">{{ $t('ofteStilteSpørsmål') }}</h1>
+    <div class="content">
       <b-collapse class="card" aria-id="faq" v-for="choice in items" :key="choice.id" :open="false">
         <div slot="trigger" slot-scope="props" class="card-header" role="button" aria-controls="faq">
           <p class="card-header-title">
@@ -18,8 +19,9 @@
           </div>
         </div>
       </b-collapse>
-   </div>
-  </section>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -36,21 +38,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.section {
-  padding: 0px;
-}
-
-.section-border {
-  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  background-color: lavender;
-}
-
-.underline {
-  text-decoration: underline;
-  text-decoration-color: #3490BD;
-}
-
-</style>

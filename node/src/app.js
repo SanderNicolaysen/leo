@@ -30,7 +30,7 @@ app.use(logger('dev'));
 
 // Use auth() as middleware for routes that require a logged in user
 import auth from './middleware/auth';
-import rtInquiry from './middleware/rtInquiry';
+import rtInquiry from './middleware/rtinquiry';
 
 // handler for the /user/:id path, which prints the user ID
 app.use('/api/dashboard', auth(), require('./routes/dashboard'));

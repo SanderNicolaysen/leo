@@ -199,6 +199,10 @@ export default {
         this.inquiry = this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === this.inquiry._id; })];
       }
     }.bind(this));
+  },
+  destroyed: function () {
+    this.boothSocket.disconnect();
+    this.queueNumberDisplaySocket.disconnect();
   }
 };
 </script>

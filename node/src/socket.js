@@ -1,11 +1,25 @@
 import Inquiry from './database/models/inquiry';
 import mongoose from 'mongoose';
 
+const auth = (socket) => { return socket.request.session && socket.request.session.passport && socket.request.session.passport.user; };
+
 export function update(io) {
   let booth = io.of('/booth');
 
   booth.on('connection', function(socket) {
     console.log(`${socket.id} connected`);
+
+    socket.on('disconnect', () => console.log(`${socket.id} disconnected`));
+
+    // Stop here if the socket doesn't contain a valid session (authenticated user)
+    if (!auth(socket)) {
+      return;
+    }
+
+    socket.on('inform user', function(inquiry_id) {
+      booth.emit('inform user', inquiry_id);
+    });
+    
 
     socket.on('update', function(data) {
       updateInquiry(data, booth, socket);
@@ -14,12 +28,6 @@ export function update(io) {
     socket.on('delete', function(data) {
       deleteInquiry(data, booth); 
     });
-
-    socket.on('inform user', function(inquiry_id) {
-      booth.emit('inform user', inquiry_id);
-    });
-    
-    socket.on('disconnect', () => console.log(`${socket.id} disconnected`));
   });
 }
 
@@ -81,11 +89,15 @@ export function updateQueueNumberDisplay(io) {
   io.of('/queueNumberDisplay').on('connection', function(socket) {
     console.log(`${socket.id} connected`);
     
+    // When client disconnects from server
+    socket.on('disconnect', () => console.log(`${socket.id} disconnected`));
+    
+    if (!auth(socket)) {
+      return;
+    }
+
     socket.on('summon', function (qndNumber) {
       io.of('queueNumberDisplay').emit('display', qndNumber);
     });
-    
-    // When client disconnects from server
-    socket.on('disconnect', () => console.log(`${socket.id} disconnected`));
   });
 }

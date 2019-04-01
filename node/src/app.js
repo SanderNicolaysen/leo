@@ -19,11 +19,12 @@ var dbConnection = db.setUpDB().then(() => {
 });
 
 const store = MongoStore(session);
+const sessionMiddleware = session({ secret: 'prosjekt leo', resave: false, saveUninitialized: false, store: new store({ dbPromise: dbConnection }) });
 
 app.use(express.static(path.join(__dirname, '/public/')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'prosjekt leo', resave: false, saveUninitialized: false, store: new store({ dbPromise: dbConnection }) }));
+app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
@@ -41,6 +42,10 @@ app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/', require('./routes/auth'));
 
 http.listen('8081');
+
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, {}, next);
+});
 
 socket.update(io);
 socket.updateQueueNumberDisplay(io);

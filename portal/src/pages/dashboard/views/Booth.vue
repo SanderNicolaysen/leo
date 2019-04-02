@@ -1,7 +1,7 @@
 <template>
 <div class="section">
   <div class="is-pulled-right">
-    <b-dropdown v-model="boothNum" aria-role="list">
+    <b-dropdown v-if="boothNum != null" v-model="boothNum" aria-role="list">
       <button class="button is-link" type="button" slot="trigger">
         <template v-if="boothNum === 1">
           <span>Skranke 1</span>
@@ -9,7 +9,7 @@
         <template v-else-if="boothNum === 2">
           <span>Skranke 2</span>
         </template>
-          <template v-else-if="boothNum === 3">
+        <template v-else-if="boothNum === 3">
           <span>Skranke 3</span>
         </template>
         <b-icon icon="menu-down"></b-icon>
@@ -105,9 +105,44 @@
       <div class="message-header">
         <p>Ingen henvendelse valgt</p>
       </div>
-      <div class="message-body">
-        <p>Trykk neste eller velg henvedelse under for å starte.</p>
+      <div v-if="boothNum != null" class="message-body">
+        <p>Trykk neste eller velg henvendelse under for å starte.</p>
         <button class="button is-large" @click="next">Neste</button>
+      </div>
+      <div v-else class="message-body">
+        <p>Velg skranke under for å starte.</p>
+        <b-dropdown v-model="boothNum" aria-role="list">
+          <button class="button is-link" type="button" slot="trigger">
+              <template>
+                <span>Velg skranke</span>
+              </template>
+            <b-icon icon="menu-down"></b-icon>
+          </button>
+
+          <b-dropdown-item :value="1" aria-role="listitem">
+            <div class="media">
+              <div class="media-content">
+                <span>Skranke 1</span>
+              </div>
+            </div>
+          </b-dropdown-item>
+
+          <b-dropdown-item :value="2" aria-role="listitem">
+            <div class="media">
+              <div class="media-content">
+                <span>Skranke 2</span>
+              </div>
+            </div>
+          </b-dropdown-item>
+
+          <b-dropdown-item :value="3" aria-role="listitem">
+            <div class="media">
+              <div class="media-content">
+                <span>Skranke 3</span>
+              </div>
+            </div>
+          </b-dropdown-item>
+        </b-dropdown>
       </div>
     </article>
   </div>

@@ -1,5 +1,45 @@
 <template>
 <div class="section">
+  <div class="is-pulled-right">
+    <b-dropdown v-model="boothNum" aria-role="list">
+      <button class="button is-link" type="button" slot="trigger">
+        <template v-if="boothNum === 1">
+          <span>Skranke 1</span>
+        </template>
+        <template v-else-if="boothNum === 2">
+          <span>Skranke 2</span>
+        </template>
+          <template v-else-if="boothNum === 3">
+          <span>Skranke 3</span>
+        </template>
+        <b-icon icon="menu-down"></b-icon>
+      </button>
+
+      <b-dropdown-item :value="1" aria-role="listitem">
+        <div class="media">
+          <div class="media-content">
+            <h3>Skranke 1</h3>
+          </div>
+        </div>
+      </b-dropdown-item>
+
+      <b-dropdown-item :value="2" aria-role="listitem">
+        <div class="media">
+          <div class="media-content">
+            <h3>Skranke 2</h3>
+          </div>
+        </div>
+      </b-dropdown-item>
+
+      <b-dropdown-item :value="3" aria-role="listitem">
+        <div class="media">
+          <div class="media-content">
+            <h3>Skranke 3</h3>
+          </div>
+        </div>
+      </b-dropdown-item>
+    </b-dropdown>
+  </div>
   <h1 class="title">Køoversikt</h1>
   <h1 class="subtitle">Valgt henvendelse:</h1>
   <div class="card" v-if="inquiry !== null">
@@ -101,7 +141,8 @@ export default {
       inquiry: null,
       queueNumberDisplaySocket: null,
       boothSocket: null,
-      user: null
+      user: null,
+      boothNum: null
     };
   },
   created: async function () {

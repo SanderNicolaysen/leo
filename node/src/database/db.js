@@ -12,10 +12,13 @@ import timeavtale from './seeds/forms/avtale';
 import sykkel from './seeds/forms/sykkel';
 import firma from './seeds/forms/firma';
 import telefon from './seeds/forms/telefon';
+import booths from './seeds/booths';
 
 // Models
 import Faq from './models/faq';
 import priority from './models/priority';
+import Booth from './models/booth';
+import TypeMultiplier from './models/typeMultiplier';
 import Form from './models/form';
 import User from './models/user';
 
@@ -35,6 +38,7 @@ module.exports = {
 
     // Add dummy-data
     Faq.insertMany(faqs.faqs, onInsert);
+    Booth.insertMany(booths.booths, onInsert);
 
     priority.insertMany(priorities.priorities, onInsert);
 

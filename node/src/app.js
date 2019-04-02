@@ -38,6 +38,7 @@ app.use('/api/dashboard', auth(), require('./routes/dashboard'));
 app.use('/api/inquiries', require('./routes/inquiries'), rtInquiry(io));
 app.use('/api/faqs', require('./routes/faqs'));
 app.use('/api/forms', require('./routes/forms'));
+app.use('/api/booths', require('./routes/booths'));
 app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/api/priorities/', auth(), require('./routes/priorities'));
 app.use('/', require('./routes/auth'));

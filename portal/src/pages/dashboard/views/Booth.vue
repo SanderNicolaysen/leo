@@ -1,7 +1,7 @@
 <template>
 <div class="section">
   <div class="is-pulled-right">
-    <b-dropdown v-if="boothNum != null" v-model="boothNum" aria-role="list">
+    <b-dropdown @change="updateBooth" v-if="boothNum != null" v-model="boothNum" aria-role="list">
       <button class="button is-link" type="button" slot="trigger">
         <template v-if="boothNum === 1">
           <span>Skranke 1</span>
@@ -111,7 +111,7 @@
       </div>
       <div v-else class="message-body">
         <p>Velg skranke under for å starte.</p>
-        <b-dropdown v-model="boothNum" aria-role="list">
+        <b-dropdown @change="updateBooth" v-model="boothNum" aria-role="list">
           <button class="button is-link" type="button" slot="trigger">
               <template>
                 <span>Velg skranke</span>
@@ -160,6 +160,7 @@ import InquiryBox from '@/components/InquiryBox.vue';
 import FormView from '@/components/FormView.vue';
 import StatusIndicator from '@/components/StatusIndicator.vue';
 import Inquiries from '@/services/Inquiries.js';
+import Booths from '@/services/Booths.js';
 import _ from 'lodash';
 import io from 'socket.io-client/dist/socket.io';
 
@@ -264,6 +265,10 @@ export default {
 
     inquiryAttr (attr) {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : '';
+    },
+
+    updateBooth: function (boothNum) {
+      Booths.update(boothNum);
     }
   },
   mounted: function () {

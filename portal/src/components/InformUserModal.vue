@@ -13,7 +13,7 @@
 
         <footer class="modal-card-foot">
           <div class="block">
-            <router-link to="/Grabticket"><button class="button is-success is-size-4 is-uppercase" @click="changeModal()">{{ $t('trekkKølapp') }}</button></router-link>
+            <router-link :to="{ name: 'grabticket' }"><button class="button is-success is-size-4 is-uppercase" @click="changeModal()">{{ $t('trekkKølapp') }}</button></router-link>
           </div>
         </footer>
       </div>

@@ -39,7 +39,7 @@ app.use('/api/inquiries', require('./routes/inquiries'), rtInquiry(io));
 app.use('/api/faqs', require('./routes/faqs'));
 app.use('/api/forms', require('./routes/forms'));
 app.use('/api/appointments', require('./routes/appointments.js'));
-app.use('/api/priorities/', auth(), require('./routes/inquiries'));
+app.use('/api/priorities/', auth(), require('./routes/priorities'));
 app.use('/', require('./routes/auth'));
 
 http.listen('8081');

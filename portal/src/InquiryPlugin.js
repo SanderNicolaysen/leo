@@ -32,6 +32,8 @@ export default {
   install: function (Vue, options) {
     Vue.prototype.$inquiry = {
       start: async function (type) {
+        type = type || 'Annet';
+
         if (this.exists()) {
           console.error('Can\'t start new inquiry before current is cleared.');
           return;

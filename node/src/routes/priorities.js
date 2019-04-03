@@ -1,5 +1,5 @@
 import express from 'express';
-import Priority from '../database/models/inquiry';
+import Priority from '../database/models/priority';
 
 const router = express.Router();
 
@@ -26,3 +26,5 @@ router.patch('/:type/', async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;

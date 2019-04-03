@@ -7,6 +7,7 @@ import Booth from './views/Booth.vue';
 import AdminFaq from './views/AdminFaq.vue';
 import Appointments from './views/Appointments.vue';
 import FormsEditor from './views/FormsEditor.vue';
+import QueuePriorities from './views/QueuePriorities.vue';
 
 Vue.use(Router);
 
@@ -26,7 +27,8 @@ export default new Router({
         { path: '/booth', name: 'booth', component: Booth },
         { path: '/admin/faq', name: 'adminFaq', component: AdminFaq },
         { path: '/appointments', name: 'appointments', component: Appointments },
-        { path: '/skjemaer/', name: 'formseditor', component: FormsEditor }
+        { path: '/skjemaer/', name: 'formseditor', component: FormsEditor },
+        { path: '/koprioritet', name: 'queuepriorities', component: QueuePriorities }
         /*
         { path: '/example-path', name: 'example', component: Example }
         */

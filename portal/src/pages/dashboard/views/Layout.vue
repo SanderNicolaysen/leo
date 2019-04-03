@@ -46,6 +46,7 @@
               <li><router-link :to="{ name: 'adminFaq' }">Rediger FAQ</router-link></li>
               <li><router-link :to="{ name: 'appointments' }">Timeavtaler</router-link></li>
               <li><router-link :to="{ name: 'formseditor' }">Skjemaer</router-link></li>
+              <li><router-link :to="{ name: 'queuepriorities' }">Køprioritering</router-link></li>
             </ul>
           </aside>
         </div>

@@ -57,15 +57,15 @@ export default {
     Box
   },
   methods: {
-    changePage () {
-      if (this.link) this.$parent.$emit('changePage', this.link);
-
+    async changePage () {
       // If an inquiryType-prop has been passed, update the type in current inquiry
       if (this.inquiryType != null) {
-        this.updateInquiry();
+        await this.updateInquiry();
       }
+
+      if (this.link) this.$parent.$emit('changePage', this.link);
     },
-    updateInquiry (event) {
+    async updateInquiry (event) {
       if (event != null) {
         // Update current inquiry-dob
         if (event instanceof Date) {
@@ -74,7 +74,11 @@ export default {
           this.$inquiry.update({ [this.updateKey]: event.target.value });
         }
       } else { // Update current inquiry-type
-        this.$inquiry.update({ type: this.inquiryType });
+        if (!this.$inquiry.exists()) {
+          await this.$inquiry.start(this.inquiryType);
+        } else {
+          this.$inquiry.update({ type: this.inquiryType });
+        }
       }
     },
     // Check if the current time is valid for showing this TreeInput

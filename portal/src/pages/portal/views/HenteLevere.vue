@@ -16,9 +16,9 @@
             <TreeInput label="Hva skal du hente?" type="title" />
             <TreeInput type="boxes">
               <TreeInput :link="{ ext: 'pass', extInitial: '1' }" label="Pass" type="box" />
-              <TreeInput :link="{ loc: '3' }" inquiryType="Hente Beslag" label="Beslag" type="box" />
-              <TreeInput :link="{ ext: 'garantiskjema', extInitial: 'hente' }" inquiryType="Hente Garantiskjema" label="Garantiskjema" type="box" />
-              <TreeInput :link="{ loc: '5' }" inquiryType="Hente Annet" label="Annet" type="box" />
+              <TreeInput :link="{ loc: '3' }" inquiryType="Hente/Beslag" label="Beslag" type="box" />
+              <TreeInput :link="{ ext: 'garantiskjema', extInitial: 'hente' }" label="Garantiskjema" type="box" />
+              <TreeInput :link="{ loc: '5' }" inquiryType="Hente/Annet" label="Annet" type="box" />
             </TreeInput>
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
@@ -56,9 +56,9 @@
           <TreeItem pageName="7">
             <TreeInput label="Hva skal du levere?" type="title" />
             <TreeInput type="boxes">
-              <TreeInput :between="{from: 8, to: 10}" inquiryType="Levere Garantiskjema" :link="{ ext: 'grabticket' }" label="Garantiskjema" type="box" class="is-2" />
+              <TreeInput :between="{from: 8, to: 10}" :link="{ ext: 'grabticket' }" label="Garantiskjema" type="box" class="is-2" />
               <TreeInput :between="{from: 10, to: 23}" :link="{ ext: 'garantiskjema', extInitial: 'leverer-ikke' }" label="Garantiskjema" type="box" class="is-2" />
-              <TreeInput inquiryType="Levere Annet" :link="{ loc: '5' }" label="Annet" type="box" class="is-2" />
+              <TreeInput inquiryType="Levere/Annet" :link="{ loc: '5' }" label="Annet" type="box" class="is-2" />
             </TreeInput>
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
@@ -92,7 +92,7 @@ export default {
   },
   created: async function () {
     // Start a new inquiry
-    if (!this.$inquiry.exists()) { this.$inquiry.start('HenteLevere'); }
+    if (!this.$inquiry.exists()) { this.$inquiry.start('Hente/Levere'); }
 
     const faq = await Faqs.getFaqs('henteLevere');
     this.faqs = faq;

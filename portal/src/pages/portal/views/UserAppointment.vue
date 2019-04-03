@@ -9,8 +9,8 @@
             <h2 class="title is-3">Velg kategori</h2>
 
             <TreeInput type="boxes">
-              <TreeInput inquiryType="Avhør" :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
-              <TreeInput :link="{ loc: 'annet' }" class="is-2" label="Annet" type="box" />
+              <TreeInput inquiryType="Avtale/Avhør" :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
+              <TreeInput inquiryType="Avtale" :link="{ loc: 'annet' }" class="is-2" label="Annet" type="box" />
             </TreeInput>
           </TreeItem>
 
@@ -78,7 +78,7 @@ export default {
       this.$inquiry.start('Avtale');
     }
 
-    const faq = await Faqs.getFaqs('avtale');
+    const faq = await Faqs.getFaqs('Avtale');
     this.faqs = faq;
   }
 };

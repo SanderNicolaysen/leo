@@ -15,7 +15,7 @@
           <TreeInput :between="{from: 16, to: 23}" :showException="{day:2, from: 8, to: 10}" type="section">
             <TreeInput label="Hva skal du?" type="title" />
             <TreeInput type="boxes">
-              <TreeInput inquiryType="Hente ferdig pass" :link="{ loc: '2' }" label="Hente ferdig pass" type="box" class="is-3" @click.native="startInquiry()" />
+              <TreeInput inquiryType="Pass" :link="{ loc: '2' }" label="Hente ferdig pass" type="box" class="is-3" />
               <TreeInput inquiryType="Nødpass" :link="{ ext: 'grabticket' }" label="Få nødpass" type="box" class="is-3" />
             </TreeInput>
             <TreeInput type="buttons">
@@ -71,12 +71,6 @@ export default {
     this.faqs = faq;
   },
   methods: {
-    startInquiry () {
-      if (this.$inquiry.exists()) return;
-
-      // Start a new inquiry
-      this.$inquiry.start('Pass');
-    }
   }
 };
 </script>

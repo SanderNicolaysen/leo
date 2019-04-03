@@ -1,6 +1,6 @@
 import express from 'express';
 import Inquiry from '../database/models/inquiry';
-import Priority from '../database/models/inquiry';
+import Priority from '../database/models/priority';
 import Form from '../database/models/form';
 import mongoose from 'mongoose';
 import crypto from 'crypto';

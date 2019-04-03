@@ -17,18 +17,27 @@ router.get('/', async (req, res, next) => {
 router.patch('/:boothNum/update', async (req, res, next) => {
 
   try {
-    const booth = await Booth.findOne({ num: req.params.boothNum });
+    const oldBooth = await Booth.findOne({ ip: req.connection.remoteAddress });
+    const newBooth = await Booth.findOne({ num: req.params.boothNum });
     
-    if (booth === null) {
+    if (newBooth === null) {
       res.sendStatus(404);
       return;
     }
 
     delete req.body.__v;
-    booth['ip'] = req.connection.remoteAddress;
-    await booth.save();
 
-    res.status(200).json(booth);
+    // An IP-address can only be assigned to one booth at a time
+    if (oldBooth != null) {
+      oldBooth['ip'] = '';
+      await oldBooth.save();
+    }
+
+    newBooth['ip'] = req.connection.remoteAddress;
+    
+    await newBooth.save();
+
+    res.status(200).json(newBooth);
     next();
   } catch (error) {
     next(error);

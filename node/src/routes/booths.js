@@ -33,6 +33,11 @@ router.patch('/:boothNum/update', async (req, res, next) => {
 
     delete req.body.__v;
 
+    if (newBooth.ip != "" && !req.body.confirmOverwrite) {
+      res.json({ oldBooth: oldBooth, booth: newBooth, taken: true });
+      return;
+    }
+
     // An IP-address can only be assigned to one booth at a time
     if (oldBooth != null) {
       oldBooth['ip'] = '';

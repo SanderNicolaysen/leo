@@ -243,6 +243,21 @@ export default {
       });
     },
 
+    confirmBoothUpdate: async function (resp) {
+      this.$dialog.confirm({
+        title: 'Skranke ' + resp.booth.num + " er tatt.",
+        message: 'Bekreft valg av skranke',
+        confirmText: 'Ta skranke',
+        cancelText: 'Avbryt',
+        type: 'is-default',
+        onConfirm: async () => {
+          this.updateBooth(resp.booth.num, true);
+          this.$toast.open('Byttet skranke');
+          this.boothNum = resp.booth.num;
+        }
+      });
+    },
+
     summon: async function () {
       this.$snackbar.open('Kaller inn kønummer #' + this.inquiry.inquiry_id);
 
@@ -271,8 +286,19 @@ export default {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : '';
     },
 
-    updateBooth: function (boothNum) {
-      Booths.update(boothNum);
+    updateBooth: async function (boothNum, confirmOverwrite) {
+      const resp = await Booths.update(boothNum, confirmOverwrite);
+
+      if (resp.taken === true) {
+        if (resp.oldBooth != null) {
+          this.boothNum = resp.oldBooth.num;
+        }
+        else {
+          this.boothNum = null;
+        }
+        
+        this.confirmBoothUpdate(resp);
+      }
     }
   },
   mounted: function () {

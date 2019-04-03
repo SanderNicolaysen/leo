@@ -109,7 +109,7 @@
         <p>Trykk neste eller velg henvendelse under for å starte.</p>
         <button class="button is-large" @click="next">Neste</button>
       </div>
-      <div v-else class="message-body">
+      <div v-if="!loading && boothNum === null" class="message-body">
         <p>Velg skranke under for å starte.</p>
         <b-dropdown @change="updateBooth" v-model="boothNum" aria-role="list">
           <button class="button is-link" type="button" slot="trigger">
@@ -178,7 +178,8 @@ export default {
       queueNumberDisplaySocket: null,
       boothSocket: null,
       user: null,
-      boothNum: null
+      boothNum: null,
+      loading: true
     };
   },
   created: async function () {
@@ -261,6 +262,9 @@ export default {
       this.inquiries = await Inquiries.getInquiries();
       // Only show unfinished inquiries
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+      // If the IP-address is already assigned to a booth, get the booth-number
+      this.boothNum = await Booths.getBooth();
+      this.loading = false;
     },
 
     inquiryAttr (attr) {

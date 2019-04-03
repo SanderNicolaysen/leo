@@ -3,11 +3,17 @@ import Booth from '../database/models/booth';
 
 const router = express.Router();
 
-// Fetch all booths
+// Fetch booth
 router.get('/', async (req, res, next) => {
   try {
-    const booths = await Booth.find({}).sort({ _id: 1 }).exec();
-    res.status(200).json(booths);
+    const booth = await Booth.findOne({ ip: req.connection.remoteAddress }).exec();
+
+    if (booth != null) {
+      res.status(200).json(booth.num);
+    }
+    else {
+      res.json(null);
+    }
   } catch (error) {
     next(error);
   }
@@ -34,7 +40,6 @@ router.patch('/:boothNum/update', async (req, res, next) => {
     }
 
     newBooth['ip'] = req.connection.remoteAddress;
-    
     await newBooth.save();
 
     res.status(200).json(newBooth);

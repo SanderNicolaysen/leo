@@ -2,7 +2,7 @@ import Api from '@/services/Api';
 
 export default {
 
-  async getBooths () {
+  async getBooth () {
     try {
       const response = await Api().get('/booths');
       return response.data;

@@ -245,15 +245,15 @@ export default {
 
     confirmBoothUpdate: async function (resp) {
       this.$dialog.confirm({
-        title: 'Skranke ' + resp.booth.num + " er tatt.",
+        title: 'Skranke ' + resp.newBooth.num + ' er tatt',
         message: 'Bekreft valg av skranke',
-        confirmText: 'Ta skranke',
+        confirmText: 'Ta skranken',
         cancelText: 'Avbryt',
-        type: 'is-default',
+        type: 'is-danger',
         onConfirm: async () => {
-          this.updateBooth(resp.booth.num, true);
+          this.updateBooth(resp.newBooth.num, true);
           this.$toast.open('Byttet skranke');
-          this.boothNum = resp.booth.num;
+          this.boothNum = resp.newBooth.num;
         }
       });
     },
@@ -286,18 +286,23 @@ export default {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : '';
     },
 
-    updateBooth: async function (boothNum, confirmOverwrite) {
-      const resp = await Booths.update(boothNum, confirmOverwrite);
+    updateBooth: async function (boothNum, confirmedOverwrite) {
+      // Change to the booth with the corresponding boothNum, if it's not taken
+      const resp = await Booths.update(boothNum, confirmedOverwrite);
 
-      if (resp.taken === true) {
+      // If the chosen booth is already taken, change boothNum back to the currently assigned booth, or back to null if it wasn't assigned. Then ask the user for confirmation of booth-choice
+      if (resp.taken) {
         if (resp.oldBooth != null) {
           this.boothNum = resp.oldBooth.num;
-        }
-        else {
+        } else {
           this.boothNum = null;
         }
-        
+
         this.confirmBoothUpdate(resp);
+      } else {
+        if (!confirmedOverwrite) {
+          this.$toast.open('Byttet skranke');
+        }
       }
     }
   },

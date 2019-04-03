@@ -11,9 +11,9 @@ export default {
     }
   },
 
-  async update (boothNum, confirmOverwrite) {
+  async update (boothNum, confirmedOverwrite) {
     try {
-      const response = await Api().patch('/booths/' + boothNum + '/update', { confirmOverwrite });
+      const response = await Api().patch('/booths/' + boothNum + '/update', { confirmedOverwrite });
       return response.data;
     } catch (error) {
       console.error(error);

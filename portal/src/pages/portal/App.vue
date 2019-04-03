@@ -36,6 +36,7 @@ export default {
       if (id === this.$inquiry.get().inquiry_id) {
         this.showModal = true;
         this.id = id;
+        this.$inquiry.update({ status: 'Behandles' });
       }
     }.bind(this));
   }

@@ -1,6 +1,6 @@
 // Dummy data 
 import faqs from './seeds/faqs';
-import typeMultipliers from './seeds/typeMultipliers';
+import priorities from './seeds/priorities';
 import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
 import hentHittegods from './seeds/forms/hentHittegods';
 import leverHittegods from './seeds/forms/leverHittegods';
@@ -15,7 +15,7 @@ import telefon from './seeds/forms/telefon';
 
 // Models
 import Faq from './models/faq';
-import TypeMultiplier from './models/typeMultiplier';
+import priority from './models/priority';
 import Form from './models/form';
 import User from './models/user';
 
@@ -36,7 +36,7 @@ module.exports = {
     // Add dummy-data
     Faq.insertMany(faqs.faqs, onInsert);
 
-    TypeMultiplier.insertMany(typeMultipliers.typeMultipliers, onInsert);
+    priority.insertMany(priorities.priorities, onInsert);
 
     Form.create(forenkletAnmeldelse, onCreate);
     Form.create(hentHittegods, onCreate);

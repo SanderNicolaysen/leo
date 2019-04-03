@@ -1,5 +1,6 @@
 import express from 'express';
 import Inquiry from '../database/models/inquiry';
+import Priority from '../database/models/inquiry';
 import Form from '../database/models/form';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
@@ -8,7 +9,7 @@ import _ from 'lodash';
 
 const router = express.Router();
 
-// Fetch next inquiry
+// Fetch next inquiry by algorithm
 router.get('/next', auth(), async (req, res, next) => {
 
   try {
@@ -86,9 +87,12 @@ router.patch('/:id/update', async (req, res, next) => {
     }
 
     delete req.body.__v;
+    let changedType = !(inquiry.type === req.body.type);
     for (const prop in req.body) {
       inquiry[prop] = req.body[prop];
     }
+    if (changedType)
+      inquiry.priority = getPriority(inquiry.type);
     await inquiry.save();
 
     res.status(200).json(inquiry);
@@ -159,5 +163,9 @@ router.patch('/:id/forms', async (req, res, next) => {
     next(error);
   }
 });
+
+const getPriority = function(type) {
+  return Priority.findOne({type: type}).exec().priority;
+};
 
 module.exports = router;

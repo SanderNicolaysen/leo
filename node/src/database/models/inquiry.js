@@ -1,14 +1,6 @@
 import _ from 'lodash';
 import mongoose from 'mongoose';
-import TypeMultiplier from './typeMultiplier';
 const Schema = mongoose.Schema;
-
-// const appointment = new Schema({
-//   type: String,
-//   surname: String,
-//   birth: String,
-//   caseNumber: String
-// });
 
 const InquirySchema = new Schema({
   inquiry_id: Number,
@@ -25,20 +17,44 @@ const InquirySchema = new Schema({
     enum: ['Venter', 'Skriver', 'Behandles', 'Ferdig'],
     default: 'Skriver'
   },
-  caseNumber: String
+  caseNumber: String,
+  priority: {
+    type: String,
+    enum: ['1', '2', '3', '4', '5'],
+    default: '1'
+  }
 });
 
 InquirySchema.methods.getPoints = async function () {
   // relation between points and ms
   const pointratio = 0.001/60;
   
-  let mul;
-  try {
-    mul = (await TypeMultiplier.findOne({ type: this.type }).exec()).multiplier;
-  } catch (error) {
-    mul = 1;
+  let multiplier = 1;
+  let bonus = 0;
+
+  switch(this.priority) {
+  case '1':
+    multiplier = 1;
+    break;
+  case '2':
+    multiplier = 1.6;
+    break;
+  case '3':
+    multiplier = 2.5;
+    break;
+  case '4':
+    multiplier = 3;
+    bonus = 20;
+    break;
+  case '5':
+    multiplier = 5;
+    bonus = 120;
+    break;
+  default:
+    multiplier = 1;
   }
-  return (Date.now() - this.created) * mul * pointratio;
+  //     ((         AGE             ) * PRIORITYMULTIPLIER * GLOBALRATIO) + PRIORITYBONUSPOINTS
+  return ((Date.now() - this.created) * multiplier         * pointratio)  + bonus;
 };
 
 InquirySchema.methods.assignId = async function () {

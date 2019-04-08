@@ -25,7 +25,7 @@
         </TreeItem>
 
         <TreeItem pageName="2">
-          <TreeInput updateKey="dob" label="Fødselsdato" placeholder="DDMMYY" type="text" />
+          <TreeInput updateKey="dob" label="Fødselsdato" type="date" />
           <TreeInput type="buttons">
             <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             <TreeInput :link="{ loc: '3' }" label="Neste" class="is-primary" type="button" />

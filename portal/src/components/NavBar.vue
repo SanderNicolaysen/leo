@@ -27,6 +27,7 @@ export default {
   methods: {
     changeLocale (locale) {
       i18n.locale = locale;
+      this.$validator.localize(locale);
     }
   }
 };

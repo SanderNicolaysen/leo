@@ -20,7 +20,7 @@ export default {
     }, {
       choices: [],
       id: 2,
-      type: "text",
+      type: "model-year",
       sizeClass: "is-4",
       label: "Årsmodell",
       info: "f.eks \"2012\""

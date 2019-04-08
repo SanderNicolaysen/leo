@@ -13,14 +13,14 @@ const page0 = {
   }, {
     choices: [],
     id: 1,
-    type: "text",
+    type: "birth-num",
     sizeClass: "is-4",
     label: "Fødselsnummer",
     info: "11 siffer"
   }, {
     choices: [],
     id: 2,
-    type: "text",
+    type: "country",
     sizeClass: "is-6",
     label: "Statsborgerskap",
     info: ""
@@ -43,13 +43,13 @@ const page1 = {
   elements: [{
     choices: [],
     id: 4,
-    type: "text",
+    type: "tel",
     sizeClass: "is-6",
     label: "Telefonnummer"
   }, {
     choices: [],
     id: 5,
-    type: "text",
+    type: "email",
     sizeClass: "is-6",
     label: "E-post",
     info: "kari.nordmann@leverandor.no"

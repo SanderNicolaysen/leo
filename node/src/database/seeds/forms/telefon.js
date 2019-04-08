@@ -28,7 +28,7 @@ export default {
     {
       choices: [],
       id: 3,
-      type: "text",
+      type: "imei",
       sizeClass: "is-6",
       label: "IMEI (International Mobile Equipment Identity)",
       info: ""

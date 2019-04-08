@@ -42,6 +42,15 @@
                       <span class="truncate" v-else-if="type==='radio'">Radioknapper</span>
                       <span class="truncate" v-else-if="type==='select'">Nedtrekksmeny</span>
                       <span class="truncate" v-else-if="type==='postal'">Postnr/sted</span>
+                      <span class="truncate" v-else-if="type==='tel'">Telefonnummer</span>
+                      <span class="truncate" v-else-if="type==='country'">Land</span>
+                      <span class="truncate" v-else-if="type==='email'">E-post</span>
+                      <span class="truncate" v-else-if="type==='birth-num'">Fødselsnummer</span>
+                      <span class="truncate" v-else-if="type==='imei'">IMEI</span>
+                      <span class="truncate" v-else-if="type==='model-year'">Årsmodell</span>
+                      <span class="truncate" v-else-if="type==='license-plate'">Kjennemerke (Skiltnummer)</span>
+                      <span class="truncate" v-else-if="type==='vin'">Rammenummer</span>
+                      <span class="truncate" v-else-if="type==='org-num'">Organisasjonsnummer</span>
                       <span class="truncate" v-else>Velg type</span>
                       <span class="icon"><img src="@/assets/icons/menu-down.svg" /></span>
                     </button>
@@ -50,7 +59,16 @@
                     <b-dropdown-item :value="'textarea'"><h3>Tekstområde</h3><small>Tekstfelt som kan inneholde flere linjer med tekst</small></b-dropdown-item>
                     <b-dropdown-item :value="'radio'"><h3>Radioknapper</h3><small>Brukeren får flere valg å velge fra</small></b-dropdown-item>
                     <b-dropdown-item :value="'select'"><h3>Nedtrekksmeny</h3><small>Brukeren får flere valg å velge fra i nedtrekksmeny</small></b-dropdown-item>
-                    <b-dropdown-item :value="'postal'"><h3>Postnr/sted</h3><small>Et felt for postnr. som automatisk fyller ut poststed</small></b-dropdown-item>
+                    <b-dropdown-item :value="'postal'"><h3>Postnr/sted</h3><small>Et felt for postnr, som automatisk fyller ut poststed</small></b-dropdown-item>
+                    <b-dropdown-item :value="'tel'">Telefonnummer<h3></h3><small>Et felt for telefonnummer</small></b-dropdown-item>
+                    <b-dropdown-item :value="'country'">Land<h3></h3><small>Brukeren får alle land i verden å velge fra i nedtrekksmeny, på språket han/hun har valgt</small></b-dropdown-item>
+                    <b-dropdown-item :value="'email'">E-post<h3></h3><small>Et felt for e-post</small></b-dropdown-item>
+                    <b-dropdown-item :value="'birth-num'">Fødselsnummer<h3></h3><small>Et felt for fødselsnummer</small></b-dropdown-item>
+                    <b-dropdown-item :value="'imei'">IMEI<h3></h3><small>Et felt for IMEI</small></b-dropdown-item>
+                    <b-dropdown-item :value="'model-year'">Årsmodell<h3></h3><small>Et felt for årsmodell</small></b-dropdown-item>
+                    <b-dropdown-item :value="'license-plate'">Kjennemerke (Skiltnummer)<h3></h3><small>Et felt for kjennemerke (skiltnummer)</small></b-dropdown-item>
+                    <b-dropdown-item :value="'vin'">Rammenummer<h3></h3><small>Et felt for rammenummer</small></b-dropdown-item>
+                    <b-dropdown-item :value="'org-num'">Organisasjonsnummer<h3></h3><small>Et felt for organisasjonsnummer</small></b-dropdown-item>
                   </b-dropdown>
                 </div>
                 <div class="control">

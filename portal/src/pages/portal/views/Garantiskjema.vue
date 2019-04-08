@@ -20,7 +20,7 @@
 
           <TreeItem pageName="hente">
             <p class="title is-4">Vennligst fyll ut:</p>
-            <TreeInput updateKey="dob" label="Fødselsdato" placeholder="DDMMYY" type="text" />
+            <TreeInput updateKey="dob" label="Fødselsdato" type="date" />
 
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />

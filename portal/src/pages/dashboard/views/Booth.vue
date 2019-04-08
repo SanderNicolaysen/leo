@@ -80,6 +80,10 @@
           <td>Etternavn</td>
           <td>{{ inquiryAttr('lname') }}</td>
         </tr>
+        <tr>
+          <td>Saksnummer</td>
+          <td>{{ inquiryAttr('caseNumber') }}</td>
+        </tr>
         <template v-if="inquiryAttr('forms') && inquiry.forms.length > 0">
           <tr v-for="form in inquiry.forms" :key="form._id">
             <td>{{ form.name }}</td>

@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import i18n from '@/lang/i18n';
 import InquiryPlugin from '@/InquiryPlugin';
+import VeeValidate, { Validator } from 'vee-validate';
+import no from 'vee-validate/dist/locale/nb_NO';
 
 import Navbar from '@/components/NavBar';
 import './../../../node_modules/@mdi/font/scss/materialdesignicons.scss';
@@ -17,10 +19,13 @@ Vue.config.productionTip = false;
 
 Vue.use(Buefy);
 Vue.use(InquiryPlugin);
+Vue.use(VeeValidate);
 Vue.component('navbar', Navbar);
 Vue.component('TreeSelector', TreeSelector);
 Vue.component('TreeItem', TreeItem);
 Vue.component('TreeInput', TreeInput);
+
+Validator.localize('no', no);
 
 new Vue({
   i18n,

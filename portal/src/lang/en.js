@@ -49,6 +49,15 @@ export default {
 
   // UserAppointment.vue
   avtale: 'appointment',
-  etternavn: 'etternavn'
+  etternavn: 'etternavn',
 
+  // Validation-messages
+  postalError: 'Postal code is not valid',
+  telError: 'Telephone number is not valid',
+  birthNumError: 'National identity number is not valid',
+  imeiError: 'IMEI is not valid',
+  modelYearError: 'Model year is not valid',
+  licensePlateError: 'Vehicle registration plate is not valid',
+  vinError: 'Vehicle identification number is not valid',
+  orgNumError: 'Organisation number is not valid'
 };

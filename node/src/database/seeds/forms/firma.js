@@ -13,7 +13,7 @@ const page0 = {
   }, {
     choices: [],
     id: 1,
-    type: "text",
+    type: "org-num",
     sizeClass: "is-12",
     label: "Organisasjonsnummer",
     info: ""
@@ -30,13 +30,13 @@ const page1 = {
   elements: [{
     choices: [],
     id: 4,
-    type: "text",
+    type: "tel",
     sizeClass: "is-6",
     label: "Telefonnummer"
   }, {
     choices: [],
     id: 5,
-    type: "text",
+    type: "email",
     sizeClass: "is-6",
     label: "E-post",
     info: "kari@bedrift.no"

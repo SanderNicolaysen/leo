@@ -1,16 +1,19 @@
 <template>
-  <div v-if="visible && (type === 'text' || type === 'date')" class="field has-text-left" style="max-width: 350px; margin: auto;  ">
+  <div v-if="visible && (type === 'text' || type === 'date' || type === 'number')" class="field has-text-left" style="max-width: 350px; margin: auto;  ">
     <label class="label">{{ label }}</label>
-    <div class="control">
-      <input v-if="type === 'text'" class="input" type="text" :placeholder="placeholder" @change="updateInquiry($event)">
+    <b-field>
+      <b-input v-if="type === 'text'" type="text" maxlength="50" :has-counter="false" :placeholder="placeholder" @change.native="updateInquiry($event)" />
+      <b-input v-else-if="type === 'number'" type="number" :placeholder="placeholder" @change.native="updateInquiry($event)" />
 
       <b-datepicker v-else-if="type === 'date'"
         :placeholder="placeholder"
         icon="calendar-today"
         :first-day-of-week="1"
+        :min-date="minDate"
+        :max-date="maxDate"
         @input="updateInquiry($event)"
       ></b-datepicker>
-    </div>
+    </b-field>
   </div>
   <div v-else-if="visible && type === 'buttons'" class="has-text-centered">
     <div class="buttons are-large is-inline-block">
@@ -53,6 +56,12 @@ export default {
     'hideException',
     'showException'
   ],
+  data () {
+    return {
+      minDate: new Date('January 1, 1900'),
+      maxDate: new Date()
+    };
+  },
   components: {
     Box
   },

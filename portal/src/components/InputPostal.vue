@@ -1,8 +1,16 @@
 <template>
-  <span class="input-postal is-flex">
-    <input class="input" type="text" v-model="postalNo" />
-    <span class="has-text-weight-semibold">{{ postalLoc }}</span>
-  </span>
+  <b-field
+    :type="{ 'is-danger': hasError }"
+    :message="message">
+    <span class="input-postal is-flex">
+      <b-input
+        type="number"
+        v-model="postalNo"
+        >
+      </b-input>
+      <span class="has-text-weight-semibold">{{ postalLoc }}</span>
+    </span>
+  </b-field>
 </template>
 
 <script>
@@ -14,7 +22,8 @@ export default {
     return {
       postalNo: '',
       postalLoc: '',
-      postMap: []
+      postMap: [],
+      hasError: false
     };
   },
   watch: {
@@ -26,10 +35,19 @@ export default {
       if (newVal.length !== 4) {
         // No point to search for anything but 4-digit postal codes
         this.postalLoc = '';
+
+        // If the field is empty, do not show validation-error-message
+        if (newVal.length === 0) this.hasError = false;
+        else this.hasError = true;
       } else {
         const poststed = this.postMap.get(newVal);
-        if (typeof poststed === 'undefined') this.postalLoc = '';
-        else this.postalLoc = poststed;
+        if (typeof poststed === 'undefined') {
+          this.postalLoc = '';
+          this.hasError = true;
+        } else {
+          this.postalLoc = poststed;
+          this.hasError = false;
+        }
       }
 
       // Emit a input-event for v-model to work.
@@ -45,6 +63,14 @@ export default {
 
     // Set the postal number from value
     this.postalNo = this.value.split(' ')[0];
+  },
+  computed: {
+    message: function () {
+      // Get the validation-error-message in the chosen language
+      const message = this.$t('postalError');
+
+      return { [message]: this.hasError };
+    }
   }
 };
 </script>
@@ -56,8 +82,7 @@ export default {
 }
 
 .input-postal .input {
-  width: 80px;
-  text-align: right;
+  width: 85px;
 }
 
 .input-postal span {

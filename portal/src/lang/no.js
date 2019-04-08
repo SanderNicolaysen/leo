@@ -51,5 +51,15 @@ export default {
   avtale: 'Avtale',
   etternavn: 'Etternavn',
   fødselsdato: 'Fødselsdato',
-  fullfør: 'Fullfør'
+  fullfør: 'Fullfør',
+
+  // Validasjons-meldinger
+  postalError: 'Postnummer er ikke gyldig',
+  telError: 'Telefonnummer er ikke gyldig',
+  birthNumError: 'Fødselsnummer er ikke gyldig',
+  imeiError: 'IMEI er ikke gyldig',
+  modelYearError: 'Årsmodell er ikke gyldig',
+  licensePlateError: 'Kjennemerke (Skiltnummer) er ikke gyldig',
+  vinError: 'Rammenummer er ikke gyldig',
+  orgNumError: 'Organisasjonsnummer er ikke gyldig'
 };

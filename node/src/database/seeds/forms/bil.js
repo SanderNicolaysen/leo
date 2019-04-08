@@ -20,7 +20,7 @@ export default {
     }, {
       choices: [],
       id: 2,
-      type: "text",
+      type: "model-year",
       sizeClass: "is-4",
       label: "Årsmodell",
       info: "f.eks \"2009\""
@@ -40,14 +40,14 @@ export default {
     }, {
       choices: [],
       id: 5,
-      type: "text",
+      type: "license-plate",
       sizeClass: "is-4",
       label: "Kjennemerke (Skiltnummer)",
       info: "f.eks. AB12345"
     }, {
       choices: [],
       id: 6,
-      type: "text",
+      type: "vin",
       sizeClass: "is-12",
       label: "Rammenummer",
       info: "f.eks. \"WVWZZZ3BZWE689725\" eller \"1GKCS13W8P2579514\""

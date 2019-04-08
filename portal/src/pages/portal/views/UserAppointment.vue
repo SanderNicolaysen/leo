@@ -31,7 +31,7 @@
 
             <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
             <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
-            <TreeInput updateKey="caseNumber" :label="$t('saksnummer')" type="text" />
+            <TreeInput updateKey="caseNumber" :label="$t('saksnummer')" type="number" />
 
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />

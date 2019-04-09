@@ -18,7 +18,6 @@ import booths from './seeds/booths';
 import Faq from './models/faq';
 import priority from './models/priority';
 import Booth from './models/booth';
-import TypeMultiplier from './models/typeMultiplier';
 import Form from './models/form';
 import User from './models/user';
 

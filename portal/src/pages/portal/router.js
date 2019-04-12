@@ -24,7 +24,7 @@ export default new Router({
       component: Grabticket
     },
     {
-      path: '/skjema/:name',
+      path: '/skjema/:name/:page',
       name: 'forms',
       component: Forms
     },

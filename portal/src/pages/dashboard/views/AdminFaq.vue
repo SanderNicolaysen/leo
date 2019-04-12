@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar />
     <div class="">
       <nav class="block">
         <div class="tabs is-centered">
@@ -115,11 +114,10 @@ export default {
       options: [
         { id: 0, option: 'Alle', subject: 'alle', active: true },
         { id: 1, option: 'Pass', subject: 'pass', active: false },
-        { id: 2, option: 'Anmeld tyveri eller skadeverk', subject: 'tyveri-og-skadeverk', active: false },
-        { id: 3, option: 'Hente beslag', subject: 'beslag', active: false },
-        { id: 4, option: 'Bot', subject: 'bot', active: false },
-        { id: 5, option: 'Våpen', subject: 'våpen', active: false },
-        { id: 6, option: 'Avhør', subject: 'avhør', active: false }
+        { id: 2, option: 'Anmelde', subject: 'tyveri-og-skadeverk', active: false },
+        { id: 3, option: 'Hente/Levere', subject: 'henteLevere', active: false },
+        { id: 4, option: 'Garantiskjema', subject: 'garantiskjema', active: false },
+        { id: 5, option: 'Avtale', subject: 'Avtale', active: false }
       ],
       faqs: [],
       currentChoice: null,

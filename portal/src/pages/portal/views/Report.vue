@@ -91,7 +91,7 @@ export default {
 
       await this.$inquiry.setForms(forms.join(','));
 
-      this.$router.push({ name: 'forms', params: { name: forms[0] } });
+      this.$router.push({ name: 'forms', params: { name: forms[0], page: 0 } });
     }
   },
   watch: {

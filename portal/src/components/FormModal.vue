@@ -3,7 +3,7 @@
     <div class="card-content">
       <template v-for="form in forms">
         <p class="title is-size-4" :key="form._id">{{ form.name }}</p>
-        <div class="columns is-multiline" v-for="page in form.pages" :key="page.id">
+        <div class="columns is-multiline" v-for="page in form.pages" :key="form._id + page.id">
           <div class="column" v-for="element in page.elements" :key="element._id" :class="[ element.sizeClass ]">
             <p class="has-text-weight-bold">{{ element.label }}:</p>
             <p>{{ element.value }}</p>

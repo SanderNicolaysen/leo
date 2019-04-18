@@ -1,8 +1,11 @@
 <template>
 <div class="section">
   <div class="is-pulled-right">
-    <b-dropdown @change="updateBooth" v-if="boothNum != null" v-model="boothNum" aria-role="list">
+    <b-dropdown @change="updateBooth" v-if="boothNum != null || inquiry" v-model="boothNum" aria-role="list">
       <button class="button is-link" type="button" slot="trigger">
+        <template v-if="boothNum === null">
+          <span>Velg skranke</span>
+        </template>
         <template v-if="boothNum === 1">
           <span>Skranke 1</span>
         </template>
@@ -42,7 +45,7 @@
   </div>
   <h1 class="title">Køoversikt</h1>
   <h1 class="subtitle">Valgt henvendelse:</h1>
-  <div class="card" v-if="inquiry !== null">
+  <div class="card" v-if="inquiry !== null" ref="inquiryCard">
     <div class="card-header">
       <p class="card-header-title">Kategori: {{ inquiryAttr('type') }}</p>
     </div>
@@ -54,33 +57,33 @@
         </tr>
         <tr>
           <td>Opprettet</td>
-          <td>{{ inquiry.created }}</td>
+          <td>{{ inquiryAttr('created') }}</td>
         </tr>
         <tr>
           <td>Status</td>
           <td><StatusIndicator :status="inquiry.status" /></td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('NIN')">
           <td>Personnummer</td>
           <td>{{ inquiryAttr('NIN') }}</td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('priority')">
           <td>Prioritet</td>
           <td>{{ inquiryAttr('priority') }}</td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('dob')">
           <td>Fødselsdato</td>
           <td>{{ inquiryAttr('dob') }}</td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('fname')">
           <td>Fornavn</td>
           <td>{{ inquiryAttr('fname') }}</td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('lname')">
           <td>Etternavn</td>
           <td>{{ inquiryAttr('lname') }}</td>
         </tr>
-        <tr>
+        <tr v-show="inquiryAttr('caseNumber')">
           <td>Saksnummer</td>
           <td>{{ inquiryAttr('caseNumber') }}</td>
         </tr>
@@ -152,8 +155,8 @@
   </div>
   <h1 class="subtitle">Aktive henvendelser:</h1>
   <div class="columns is-multiline">
-    <div class="column is-6" v-for="inquiry in inquiries" :key="inquiry.inquiry_id">
-      <InquiryBox :inquiry="inquiry"/>
+    <div class="column is-6" v-for="i in inquiries" :key="i.inquiry_id">
+      <InquiryBox :inquiry="i" @selected="select(i)" />
     </div>
   </div>
 </div>
@@ -218,17 +221,21 @@ export default {
       }.bind(this));
     },
     next: async function () {
-      if (this.inquiry) {
+      if (this.inquiry && this.inquiry.status === 'Behandles') {
         this.inquiry.status = 'Ferdig';
         this.boothSocket.emit('update', this.inquiry);
         this.inquiries = _.filter(this.inquiries, (o) => { return o._id !== this.inquiry._id; });
       }
 
-      let checkInquiries = _.find(this.inquiries, (o) => { return o.status !== 'Behandles' && o.status !== 'Ferdig'; });
-      if (checkInquiries) {
-        this.inquiry = checkInquiries;
-      } else {
-        this.inquiry = null;
+      this.inquiry = await Inquiries.nextInquiry();
+    },
+    select: async function (inquiry) {
+      this.inquiry = inquiry;
+      await this.$nextTick();
+
+      // Scroll to the inquiry card at the top if it's not already in view
+      if (this.$refs.inquiryCard.offsetTop < window.pageYOffset) {
+        this.$refs.inquiryCard.scrollIntoView();
       }
     },
 
@@ -263,6 +270,17 @@ export default {
     },
 
     summon: async function () {
+      if (this.boothNum === null) {
+        this.$dialog.alert({
+          title: 'Ingen skranke er valgt',
+          message: 'Du må ha valgt en skranke for å kunne kalle inn.',
+          type: 'is-danger',
+          hasIcon: true,
+          icon: 'alert-circle',
+          iconPack: 'mdi'
+        });
+        return;
+      }
       this.$snackbar.open('Kaller inn kønummer #' + this.inquiry.inquiry_id);
 
       // If you try to summon user while the user is typing inform the user with a modal

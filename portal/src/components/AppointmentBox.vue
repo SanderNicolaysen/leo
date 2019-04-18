@@ -4,7 +4,9 @@
       <p class="card-header-title">
         Avtale
       </p>
-      <button class="delete" aria-label="delete" @click="handleClick(appointment)"></button>
+      <span class="card-header-icon">
+        <button class="delete" @click="handleClick(appointment)"></button>
+      </span>
     </div>
     <div class="card-content">
       <div class="content">

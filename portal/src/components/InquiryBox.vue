@@ -4,6 +4,13 @@
       <p class="card-header-title">
         Kategori: {{ safeAttribute('type', 'ukjent') }}
       </p>
+      <a class="card-header-icon">
+        <span class="icon">
+          <b-tooltip label="Trykk for å behandle denne henvendelsen">
+            <i class="mdi mdi-arrow-expand-up" @click="$emit('selected')"></i>
+          </b-tooltip>
+        </span>
+      </a>
     </div>
     <div class="card-content">
       <div class="content">

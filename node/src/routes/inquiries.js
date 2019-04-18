@@ -14,7 +14,7 @@ router.get('/next', auth(), async (req, res, next) => {
 
   try {
     // Get all inquiries
-    const inquiries = await Inquiry.find({}).exec();
+    const inquiries = await Inquiry.find({ status: { $nin: ['Ferdig', 'Behandles'] } }).exec();
 
     // If no inquiries are found, return not found status code
     if (_.size(inquiries) < 1) {

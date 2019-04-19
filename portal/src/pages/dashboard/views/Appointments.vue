@@ -90,7 +90,9 @@ export default {
   watch: {
     date: function (current, old) {
       if (this.date !== null) {
-        this.form.userBirth = this.date.toLocaleDateString('no-NO');
+        // e.g. 1. april 2019
+        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+        this.form.userBirth = this.date.toLocaleDateString('no-NO', options);
       }
     }
   },

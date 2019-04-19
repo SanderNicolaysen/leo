@@ -78,7 +78,9 @@ export default {
       if (event != null) {
         // Update current inquiry-dob
         if (event instanceof Date) {
-          this.$inquiry.update({ [this.updateKey]: event.toLocaleDateString('no-NO') });
+          // e.g. 1. april 2019
+          let options = { year: 'numeric', month: 'long', day: 'numeric' };
+          this.$inquiry.update({ [this.updateKey]: event.toLocaleDateString('no-NO', options) });
         } else if (event.type === 'change') { // Update current inquiry-fname or lname
           this.$inquiry.update({ [this.updateKey]: event.target.value });
         }

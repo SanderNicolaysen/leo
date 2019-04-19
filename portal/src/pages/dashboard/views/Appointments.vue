@@ -111,7 +111,7 @@ export default {
       // Get all appointments
       this.appointments = await Appointments.getAppointments();
       // Get all inquiries of appointment-type
-      this.inquiries = (await Inquiries.getInquiries()).filter(i => { return i.type === 'Avtale' && i.status !== 'Ferdig'; });
+      this.inquiries = (await Inquiries.getInquiries()).filter(i => { return (i.type === 'Avtale' || i.type === 'Avtale/Avhør') && i.status !== 'Ferdig'; });
       // Reset pairs
       this.pairs = [];
       // Add all appointments to pairs, including matching inquiries where applicable.

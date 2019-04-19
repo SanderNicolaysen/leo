@@ -12,6 +12,10 @@
               <TreeInput inquiryType="Avtale/Avhør" :link="{ loc: 'avhor' }" class="is-2" label="Avhør" type="box" />
               <TreeInput inquiryType="Avtale" :link="{ loc: 'annet' }" class="is-2" label="Annet" type="box" />
             </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
           </TreeItem>
 
           <TreeItem pageName="avhor">

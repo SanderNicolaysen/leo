@@ -12,6 +12,10 @@
               <TreeInput :link="{ loc: '2' }" label="Et firma/en organisasjon" type="box" @click.native="behalfOf = 'org'" />
               <TreeInput :link="{ loc: '2' }" label="Andre" type="box" @click.native="behalfOf = 'other'" />
             </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
           </TreeItem>
 
           <TreeItem pageName="2">
@@ -21,6 +25,10 @@
               <TreeInput :link="{ ext: 'grabticket' }" label="Ja" type="box" class="is-3" />
               <TreeInput :link="{ loc: '3' }" label="Nei" type="box" class="is-3" />
             </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+            </TreeInput>
           </TreeItem>
 
           <TreeItem pageName="3">
@@ -29,6 +37,10 @@
             <TreeInput type="boxes">
               <TreeInput :link="{ loc: '4' }" label="Tyveri" type="box" class="is-3" />
               <TreeInput :link="{ ext: 'grabticket' }" label="Annet" type="box" class="is-3" />
+            </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             </TreeInput>
           </TreeItem>
 
@@ -40,6 +52,10 @@
               <TreeInput label="Bil" type="box" class="is-3" @click.native="item = 'bil'" />
               <TreeInput label="Sykkel" type="box" class="is-3" @click.native="item = 'sykkel'" />
               <TreeInput :link="{ ext: 'grabticket' }" label="Annet" type="box" class="is-3" />
+            </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             </TreeInput>
           </TreeItem>
 

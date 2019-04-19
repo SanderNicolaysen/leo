@@ -18,9 +18,6 @@
               <TreeInput inquiryType="Pass" :link="{ loc: '2' }" label="Hente ferdig pass" type="box" class="is-3" />
               <TreeInput inquiryType="Nødpass" :link="{ ext: 'grabticket' }" label="Få nødpass" type="box" class="is-3" />
             </TreeInput>
-            <TreeInput type="buttons">
-              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
-            </TreeInput>
           </TreeInput>
         </TreeItem>
 
@@ -37,7 +34,7 @@
           <TreeInput updateKey="lname" label="Etternavn" type="text" />
           <TreeInput type="buttons">
             <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
-            <TreeInput :link="{ ext: 'grabticket' }" label="Neste" class="is-primary" type="button" />
+            <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />
           </TreeInput>
         </TreeItem>
 

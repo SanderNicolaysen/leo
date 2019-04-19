@@ -8,7 +8,11 @@
             <TreeInput label="Hva skal du?" type="title"></TreeInput>
             <TreeInput type="boxes">
               <TreeInput :link="{ loc: '2' }" class="is-2" label="Hente" type="box" />
-              <TreeInput :link="{ loc: '7' }" class="is-2" label="Levere" type="box" />
+              <TreeInput :link="{ loc: '6' }" class="is-2" label="Levere" type="box" />
+            </TreeInput>
+
+            <TreeInput type="buttons">
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             </TreeInput>
           </TreeItem>
 
@@ -39,7 +43,8 @@
           <TreeItem pageName="4">
             <TreeInput label="Politivakta leverer ikke ut beslag; Kontakt etterforsker." type="title" />
             <TreeInput type="buttons">
-              <TreeInput :link="{ ext: 'start' }" label="OK" type="button" />
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+              <TreeInput :link="{ ext: 'start' }" label="OK" class="is-primary" type="button" />
             </TreeInput>
           </TreeItem>
 
@@ -53,7 +58,7 @@
             </TreeInput>
           </TreeItem>
 
-          <TreeItem pageName="7">
+          <TreeItem pageName="6">
             <TreeInput label="Hva skal du levere?" type="title" />
             <TreeInput type="boxes">
               <TreeInput :between="{from: 8, to: 10}" :link="{ ext: 'grabticket' }" label="Garantiskjema" type="box" class="is-2" />

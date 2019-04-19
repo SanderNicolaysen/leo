@@ -14,7 +14,7 @@
             </TreeInput>
 
             <TreeInput type="buttons">
-              <TreeInput :link="{ ext: 'start' }" label="Tilbake" type="button" />
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             </TreeInput>
           </TreeItem>
 
@@ -24,7 +24,7 @@
 
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
-              <TreeInput :link="{ ext: 'grabticket' }" label="Neste" class="is-primary" type="button" />
+              <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />
             </TreeInput>
           </TreeItem>
 
@@ -32,7 +32,8 @@
             <TreeInput label="Vi godkjenner bare garantiskjema mellom kl 8 og 10. Kom tilbake en annen gang." type="title" />
 
             <TreeInput type="buttons">
-              <TreeInput :link="{ ext: 'start' }" label="OK" type="button" />
+              <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
+              <TreeInput :link="{ ext: 'start' }" label="OK" class="is-primary" type="button" />
             </TreeInput>
           </TreeItem>
 

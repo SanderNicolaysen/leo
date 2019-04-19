@@ -53,9 +53,13 @@ export default {
         debouncedUpdate();
       },
 
-      complete: function () {
+      complete: async function () {
         if (this.exists()) {
-          this.update({ status: 'Venter' });
+          // If status is already changed to 'Behandles' dont change it to 'Venter'. (when pressing 'kall inn' from booth while user is typing)
+          let inquiry = await Inquiries.getInquiry(getLocal()._id);
+          if (inquiry.status !== 'Behandles') {
+            this.update({ status: 'Venter' });
+          }
           debouncedUpdate.flush();
           clearLocal();
         }

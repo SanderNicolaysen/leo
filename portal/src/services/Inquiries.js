@@ -20,6 +20,15 @@ export default {
     }
   },
 
+  async getInquiry (id) {
+    try {
+      const response = await Api().get(`/inquiries/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   async startInquiry (_type) {
     try {
       const response = await Api().post('/inquiries', { type: _type });

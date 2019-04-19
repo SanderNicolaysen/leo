@@ -47,6 +47,16 @@ router.get('/', auth(), async (req, res, next) => {
   }
 });
 
+// Get inquiry
+router.get('/:id', auth(), async (req, res, next) => {
+  try {
+    const inquiry = await Inquiry.findOne({ _id: req.params.id}).exec();
+    res.status(200).json(inquiry);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Start a new inquiry
 router.post('/', async (req, res, next) => {
   const inquiry = new Inquiry({ type: req.body.type, created: Date.now() });

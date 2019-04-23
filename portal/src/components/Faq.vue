@@ -4,7 +4,7 @@
     <b-collapse class="card" aria-id="faq" v-for="choice in items" :key="choice.id" :open="false">
       <div slot="trigger" slot-scope="props" class="card-header" role="button" aria-controls="faq">
         <p class="card-header-title">
-          {{ choice.question }}
+          {{ getSubstring(choice.question) }}
         </p>
         <a class="card-header-icon">
           <img src="@/assets/icons/menu-up.svg" alt="Opp" v-if="props.open">
@@ -13,7 +13,7 @@
       </div>
       <div class="card-content">
         <div class="content">
-          {{ choice.answer }}
+          {{ getSubstring(choice.answer) }}
         </div>
       </div>
     </b-collapse>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import getSubstring from '@/lang/utils.js';
+
 export default {
   name: 'Faq',
   props: [
@@ -31,6 +33,11 @@ export default {
   data () {
     return {
     };
+  },
+  methods: {
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
+    }
   }
 };
 </script>

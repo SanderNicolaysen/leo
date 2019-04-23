@@ -103,7 +103,6 @@ export default {
       if (this.behalfOf === 'other') forms.push('fornermede');
 
       forms.push(this.item);
-      console.log(forms);
 
       await this.$inquiry.setForms(forms.join(','));
 

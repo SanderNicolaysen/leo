@@ -62,7 +62,7 @@ export default {
     }));
 
     // Set the postal number from value
-    this.postalNo = this.value.split(' ')[0];
+    if (this.value != null) { this.postalNo = this.value.split(' ')[0]; }
   },
   computed: {
     message: function () {

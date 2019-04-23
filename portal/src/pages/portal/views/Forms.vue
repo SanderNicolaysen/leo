@@ -4,10 +4,10 @@
     <div class="hero-head">
       <div class="container">
         <h1 class="title">
-          {{ page.title }}
+          {{ getSubstring(page.title) }}
         </h1>
         <h2 class="subtitle">
-          {{ page.subtitle }}
+          {{ getSubstring(page.subtitle) }}
         </h2>
         <progress class="progress is-link" :value='progress' max="100"></progress>
       </div>
@@ -17,9 +17,9 @@
       <div class="container">
         <article class="message is-primary" v-if="page.info">
           <div class="message-header">
-            <p>Informasjon</p>
+            <p>{{ $t('info') }}</p>
           </div>
-          <div class="message-body" v-html="page.info"></div>
+          <div class="message-body" v-html="getSubstring(page.info)"></div>
         </article>
 
         <div class="columns is-multiline">
@@ -69,6 +69,7 @@
 <script>
 import _ from 'lodash';
 import FlexiInput from '@/components/FlexiInput.vue';
+import getSubstring from '@/lang/utils.js';
 
 export default {
   name: 'forms',
@@ -129,6 +130,9 @@ export default {
     },
     exists: function (prop) {
       return !_.isUndefined(prop) && prop !== '';
+    },
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
     }
   },
   created: async function () {

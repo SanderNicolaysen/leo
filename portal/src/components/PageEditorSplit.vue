@@ -85,7 +85,7 @@
         <div class="column">
           <article class="message is-primary">
             <div class="message-header">
-              <p>Informasjon</p>
+              <p>{{ $t('info') }}</p>
             </div>
             <div class="message-body">
               <ContentEditableDiv v-model="page.info" />

@@ -1,22 +1,22 @@
 const page0 = {
   id: 0,
-  title: 'Firma',
-  subtitle: 'Fyll ut firmaets opplysninger',
+  title: 'Firma|Company',
+  subtitle: 'Fyll ut firmaets opplysninger|Fill in the company information',
   info: '',
   elements: [{
     choices: [],
     id: 0,
     type: "text",
     sizeClass: "is-12",
-    label: "Firmanavn",
-    info: ""
+    label: "Firmanavn|Company name",
+    info: "|"
   }, {
     choices: [],
     id: 1,
     type: "org-num",
     sizeClass: "is-12",
-    label: "Organisasjonsnummer",
-    info: ""
+    label: "Organisasjonsnummer|Organization number",
+    info: "|"
   }],
   nextPage: 1,
   prevPage: null
@@ -24,36 +24,38 @@ const page0 = {
 
 const page1 = {
   id: 1,
-  title: "Firma",
-  subtitle: "Fyll ut firmaets kontaktinformasjon",
-  info: "",
+  title: "Firma|Company",
+  subtitle: "Fyll ut firmaets kontaktinformasjon|Fill in the company contact information",
+  info: "|",
   elements: [{
     choices: [],
     id: 4,
     type: "tel",
     sizeClass: "is-6",
-    label: "Telefonnummer"
+    label: "Telefonnummer|Phone number",
+    info: "|"
   }, {
     choices: [],
     id: 5,
     type: "email",
     sizeClass: "is-6",
-    label: "E-post",
-    info: "kari@bedrift.no"
+    label: "E-post|Email",
+    info: "kari@bedrift.no|john@company.com"
   }, {
     choices: [],
     id: 6,
     type: "text",
     sizeClass: "is-6",
-    label: "Adresse",
-    info: "Gatenavn Gatenummer"
+    label: "Adresse|Address",
+    info: "Gatenavn Gatenummer|Street-name Street-number"
   }, {
     choices: [],
     id: 7,
     type: "postal",
     value: "",
     sizeClass: "is-6",
-    label: "Postnr."
+    label: "Postnr.|Postal code",
+    info: "|"
   }],
   prevPage: 0,
   nextPage: null

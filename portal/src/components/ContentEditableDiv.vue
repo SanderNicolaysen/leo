@@ -14,6 +14,7 @@
 
 <script>
 import { replace } from 'lodash';
+import getSubstring from '@/lang/utils.js';
 
 export default {
   props: ['value'],
@@ -26,17 +27,25 @@ export default {
   watch: {
     value: function (newValue, oldValue) {
       if (this.edit === false) {
-        this.$refs.div.innerHTML = newValue;
+        this.$refs.div.innerHTML = this.getSubstring(newValue);
+      }
+    },
+    '$i18n.locale': function () { // If lang changes, get translated value
+      if (this.value !== '') {
+        this.$refs.div.innerHTML = this.getSubstring(this.value);
       }
     }
   },
   mounted: function () {
     if (this.value === undefined) this.$refs.div.innerHTML = '';
-    else this.$refs.div.innerHTML = this.value;
+    else this.$refs.div.innerHTML = this.getSubstring(this.value);
   },
   methods: {
     keypress: function () {
       this.$emit('input', replace(this.$refs.div.innerText, /\n/g, '<br>'));
+    },
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
     }
   }
 };

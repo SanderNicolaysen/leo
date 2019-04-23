@@ -14,12 +14,20 @@
           </div>
         </div>
       </div>
+      <div class="columns" v-if="form !== null">
+        <a class="column" @click="changeLocale('no')">
+          <img src="@/assets/icons/norway.svg" alt="country-Norway" width="50" height="60">
+        </a>
+        <a class="column" @click="changeLocale('en')">
+          <img src="@/assets/icons/uk.svg" alt="country-UK" width="50" height="60">
+        </a>
+      </div>
     </div>
 
     <div class="is-clearfix"></div>
     <div class="buttons is-pulled-left" v-if="form !== null">
-      <button class="button is-success" @click="save($event)" :disabled="initial === JSON.stringify(form)">Lagre</button>
-      <button class="button" @click="form = JSON.parse(initial)" :disabled="initial === JSON.stringify(form)">Angre endringer</button>
+      <button class="button is-success" @click="save($event)" :disabled="isDisabled">Lagre</button>
+      <button class="button" @click="form = JSON.parse(initial)" :disabled="isDisabled">Angre endringer</button>
     </div>
 
     <div class="field is-horizontal is-pulled-right" v-if="form !== null">
@@ -71,6 +79,7 @@ import _ from 'lodash';
 import Form from '@/services/Forms';
 import PageEditorNormal from '@/components/PageEditorNormal.vue';
 import PageEditorSplit from '@/components/PageEditorSplit.vue';
+import getSubstring from '@/lang/utils.js';
 
 export default {
   components: {
@@ -90,7 +99,49 @@ export default {
   },
   watch: {
   },
+  computed: {
+    isDisabled: function () {
+      const initialObj = JSON.parse(this.initial);
+
+      this.form.pages.forEach(function (page, i) {
+        if (!page.title.includes('|')) {
+          if (this.$i18n.locale === 'no') { this.addEn(this.$i18n, initialObj.pages[i], page, 'title'); } else { this.addNo(this.$i18n, initialObj.pages[i], page, 'title'); }
+        } else if (!page.subtitle.includes('|')) {
+          if (this.$i18n.locale === 'no') { this.addEn(this.$i18n, initialObj.pages[i], page, 'subtitle'); } else { this.addNo(this.$i18n, initialObj.pages[i], page, 'subtitle'); }
+        } else if (!page.info.includes('|')) {
+          if (this.$i18n.locale === 'no') { this.addEn(this.$i18n, initialObj.pages[i], page, 'info'); } else { this.addNo(this.$i18n, initialObj.pages[i], page, 'info'); }
+        }
+      }, this);
+
+      return this.initial === JSON.stringify(this.form);
+    }
+  },
   methods: {
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
+    },
+    addEn: function (i18n, initialPage, page, field) { // Add english part to the page's field data
+      i18n.locale = 'en';
+
+      if (initialPage != null) {
+        if (field === 'title') { page.title = page.title + '|' + this.getSubstring(initialPage.title); } else if (field === 'subtitle') { page.subtitle = page.subtitle + '|' + this.getSubstring(initialPage.subtitle); } else if (field === 'info') { page.info = page.info + '|' + this.getSubstring(initialPage.info); }
+      } else {
+        if (field === 'title') { page.title = page.title + '|' + 'Title'; } else if (field === 'subtitle') { page.subtitle = page.subtitle + '|' + 'Subtitle'; } else if (field === 'info') { page.info = page.info + '|' + ''; }
+      }
+
+      i18n.locale = 'no';
+    },
+    addNo: function (i18n, initialPage, page, field) { // Add norwegian part to the page's field data
+      i18n.locale = 'no';
+
+      if (initialPage != null) {
+        if (field === 'title') { page.title = this.getSubstring(initialPage.title) + '|' + page.title; } else if (field === 'subtitle') { page.subtitle = this.getSubstring(initialPage.subtitle) + '|' + page.subtitle; } else if (field === 'info') { page.info = this.getSubstring(initialPage.info) + '|' + page.info; }
+      } else {
+        if (field === 'title') { page.title = 'Tittel' + '|' + page.title; } else if (field === 'subtitle') { page.subtitle = 'Undertittel' + '|' + page.subtitle; } else if (field === 'info') { page.info = '' + '|' + page.info; }
+      }
+
+      i18n.locale = 'en';
+    },
     selectForm: function (event) {
       if (this.initial !== '' && this.initial !== JSON.stringify(this.form)) {
         event.preventDefault();
@@ -98,7 +149,10 @@ export default {
           message: 'Vil du bytte skjema uten å lagre?',
           confirmText: 'Fortsett uten å lagre',
           cancelText: 'Avbryt',
-          onCancel: () => { },
+          onCancel: () => {
+            const initialObj = JSON.parse(this.initial);
+            this.selectedForm = initialObj.normalizedName;
+          },
           onConfirm: () => { this.load(event.target.value); }
         });
       } else {
@@ -106,8 +160,8 @@ export default {
       }
     },
 
-    load: async function () {
-      this.form = await Form.find(event.target.value);
+    load: async function (value) {
+      this.form = await Form.find(value);
       this.initial = JSON.stringify(this.form);
       if (this.form === undefined) {
         this.$toast.open({
@@ -121,6 +175,7 @@ export default {
 
     save: async function (event) {
       event.target.classList.toggle('is-loading');
+
       const res = await Form.put(this.form);
       if (res === false) {
         this.$toast.open({
@@ -142,9 +197,9 @@ export default {
       const lastPage = _.last(this.form.pages);
       const newPage = {
         id: this.form.pages.length,
-        title: 'Tittel',
-        subtitle: 'Undertittel',
-        info: '',
+        title: 'Tittel|Title',
+        subtitle: 'Undertittel|Subtitle',
+        info: '|',
         elements: [],
         prevPage: lastPage === undefined ? null : lastPage.id,
         nextPage: null
@@ -165,6 +220,22 @@ export default {
         nextPage.prevPage = page.prevPage;
       }
       this.form.pages.splice(index, 1);
+    },
+    changeLocale (locale) {
+      if (this.$i18n.locale !== locale) {
+        if (!this.isDisabled) {
+          this.$dialog.confirm({
+            message: 'Vil du bytte språk uten å lagre?',
+            confirmText: 'Fortsett uten å lagre',
+            cancelText: 'Avbryt',
+            onCancel: () => { },
+            onConfirm: () => {
+              this.form = JSON.parse(this.initial);
+              this.$i18n.locale = locale;
+            }
+          });
+        } else { this.$i18n.locale = locale; }
+      }
     }
   }
 };
@@ -178,5 +249,9 @@ export default {
 
 .form-editor .new-page-button {
   padding: 25px 0;
+}
+
+.columns a:hover {
+  background-color: #fafafa;
 }
 </style>

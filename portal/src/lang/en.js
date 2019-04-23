@@ -3,6 +3,7 @@ export default {
   'please-choose-category': 'Please choose a category so we can better help you:',
   'eller': 'or',
   ofteStilteSpørsmål: 'Frequently asked questions',
+  info: 'Information',
 
   pass: 'Passport',
   passTekst: 'Renew or apply for passport, or emergency passport, outside the Passport Office\'s opening hours.',

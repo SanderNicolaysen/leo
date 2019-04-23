@@ -3,6 +3,7 @@ export default {
   'please-choose-category': 'Vennligst velg en kategori slik at vi kan hjelpe deg raskere:',
   'eller': 'eller',
   ofteStilteSpørsmål: 'Ofte stilte spørsmål',
+  info: 'Informasjon',
 
   pass: 'Pass',
   passTekst: 'Fornye eller søke om nytt pass, eller nødpass, utenfor passkontorets åpningstider.',

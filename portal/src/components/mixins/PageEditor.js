@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import getSubstring from '@/lang/utils.js';
 
 export default {
   props: ['page', 'layout'],
@@ -10,18 +11,47 @@ export default {
     };
   },
   methods: {
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
+    },
+    addEn: function (i18n, element, initialElement) { // Add english parts to element
+      i18n.locale = 'en';
+      element.info =
+          element.info + '|' + this.getSubstring(initialElement.info);
+      element.label =
+          element.label + '|' + this.getSubstring(initialElement.label);
+      element.choices.forEach(function (choice, i) {
+        element.choices[i] =
+            choice + '|' + this.getSubstring(initialElement.choices[i]);
+      }, this);
+      i18n.locale = 'no';
+    },
+    addNo: function (i18n, element, initialElement) { // Add norwegian parts to element
+      i18n.locale = 'no';
+      element.info =
+          this.getSubstring(initialElement.info) + '|' + element.info;
+      element.label =
+          this.getSubstring(initialElement.label) + '|' + element.label;
+      element.choices.forEach(function (choice, i) {
+        element.choices[i] =
+            this.getSubstring(initialElement.choices[i]) + '|' + choice;
+      }, this);
+      i18n.locale = 'en';
+    },
     addElement () {
-      const element = { id: this.page.elements.length, type: this.type, value: '', sizeClass: this.sizeRemainder };
+      const element = { id: this.page.elements.length, type: this.type, sizeClass: this.sizeRemainder };
 
-      if (this.type === 'text') element.label = 'Tekst';
-      else if (this.type === 'textarea') element.label = 'Tekstområde';
-      else if (this.type === 'radio') element.label = 'Radioknapper';
-      else if (this.type === 'select') element.label = 'Nedtrekksmeny';
-      else if (this.type === 'postal') element.label = 'Postnr.';
+      if (this.type === 'text') element.label = 'Tekst|Text';
+      else if (this.type === 'textarea') element.label = 'Tekstområde|Text area';
+      else if (this.type === 'radio') element.label = 'Radioknapper|Radio buttons';
+      else if (this.type === 'select') element.label = 'Nedtrekksmeny|Dropdown menu';
+      else if (this.type === 'postal') element.label = 'Postnr.|Postal code';
 
       if (this.type === 'radio' || this.type === 'select') {
-        element.choices = ['Valg 1', 'Valg 2'];
+        element.choices = ['Valg 1|Choice 1', 'Valg 2|Choice 2'];
       }
+
+      element.info = '|';
 
       this.page.elements.push(element);
     },
@@ -29,6 +59,11 @@ export default {
       this.page.elements.splice(index, 1);
     },
     save (element) {
+      var i18n = this.$i18n;
+      const initialElement = this.page.elements[this.editByIndex];
+
+      if (i18n.locale === 'no') { this.addEn(i18n, element, initialElement); } else { this.addNo(i18n, element, initialElement); }
+
       this.page.elements.splice(this.editByIndex, 1, element);
     },
     growElement (index) {

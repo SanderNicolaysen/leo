@@ -1,7 +1,7 @@
 <template>
   <div class="column" :class="[ element.sizeClass ]">
     <!-- Label -->
-    <label class="label" v-if="element.type !== 'checkbox'">{{ element.label }}</label>
+    <label class="label" v-if="element.type !== 'checkbox'">{{ getSubstring(element.label) }}</label>
 
     <!-- Input type: text -->
     <b-field v-if="element.type === 'text'">
@@ -17,7 +17,7 @@
     <div class="control" v-else-if="element.type === 'radio'">
       <label class="radio" v-for="choice in element.choices" :key="choice">
         <input type="radio" :value="choice" v-model="element.value">
-        {{ choice }}
+        {{ getSubstring(choice) }}
       </label>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="control" v-else-if="element.type === 'select'">
       <div class="select">
         <select v-model="element.value">
-          <option v-for="choice in element.choices" :key="choice">{{ choice }}</option>
+          <option v-for="choice in element.choices" :key="choice">{{ getSubstring(choice) }}</option>
         </select>
       </div>
     </div>
@@ -136,7 +136,7 @@
       </b-input>
     </b-field>
 
-    <p class="help is-primary" v-if="exists(element.info)">{{ element.info }}</p>
+    <p class="help is-primary" v-if="exists(element.info)">{{ getSubstring(element.info) }}</p>
   </div>
 </template>
 
@@ -145,6 +145,7 @@ import _ from 'lodash';
 import InputPostal from '@/components/InputPostal.vue';
 import InputCountry from '@/components/InputCountry.vue';
 import InputBirthNum from '@/components/InputBirthNum.vue';
+import getSubstring from '@/lang/utils.js';
 
 export default {
   name: 'FlexiInput',
@@ -157,6 +158,9 @@ export default {
   methods: {
     exists: function (prop) {
       return !_.isUndefined(prop) && prop !== '';
+    },
+    getSubstring: function (string) {
+      if (string != null) { return getSubstring(string, this); }
     }
   }
 };

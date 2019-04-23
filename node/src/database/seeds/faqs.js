@@ -3,19 +3,19 @@ module.exports = {
     // PASS
     {
       subject: 'pass',
-      question: 'Kan jeg få nødpass?',
-      answer: 'Ja det kan du få'
+      question: 'Kan jeg få nødpass?|Can I get an emergency passport?',
+      answer: 'Ja det kan du få|Yes you can'
     }, 
     {
       subject: 'pass',
-      question: 'Kan jeg få nytt bilde på passet mitt?',
-      answer: 'Ja det kan du få'
+      question: 'Kan jeg få nytt bilde på passet mitt?|Can I get a new photo on my passport?',
+      answer: 'Ja det kan du få|Yes you can'
     },
     // TYVERI OG SKADEVERK
     {
       subject: 'tyveri-og-skadeverk',
-      question: 'Kan jeg gjøre dette hjemme?',
-      answer: 'Ja, dersom det ikke ble brukt vold og du er norsk statsborger over 18'
+      question: 'Kan jeg gjøre dette hjemme?|Can I do this at home?',
+      answer: 'Ja, dersom det ikke ble brukt vold og du er norsk statsborger over 18|Yes, if no violence were involved and you are a norwegian citizen over the age of 18'
     },
     // UDI GARANTISKJEMA
     {

@@ -1,14 +1,9 @@
 // Dummy data 
 import faqs from './seeds/faqs';
 import priorities from './seeds/priorities';
-import forenkletAnmeldelse from './seeds/forms/forenklet-anmeldelse';
-import hentHittegods from './seeds/forms/hentHittegods';
-import leverHittegods from './seeds/forms/leverHittegods';
 import fornermede from './seeds/forms/fornermede';
 import personopplysninger from './seeds/forms/personopplysninger';
-import hendelse from './seeds/forms/hendelse';
 import bil from './seeds/forms/bil';
-import timeavtale from './seeds/forms/avtale';
 import sykkel from './seeds/forms/sykkel';
 import firma from './seeds/forms/firma';
 import telefon from './seeds/forms/telefon';
@@ -41,13 +36,8 @@ module.exports = {
 
     priority.insertMany(priorities.priorities, onInsert);
 
-    Form.create(forenkletAnmeldelse, onCreate);
-    Form.create(hentHittegods, onCreate);
-    Form.create(leverHittegods, onCreate);
-    Form.create(timeavtale, onCreate);
     Form.create(fornermede, onCreate);
     Form.create(personopplysninger, onCreate);
-    Form.create(hendelse, onCreate);
     Form.create(bil, onCreate);
     Form.create(sykkel, onCreate);
     Form.create(firma, onCreate);

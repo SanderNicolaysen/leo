@@ -46,12 +46,37 @@ export default {
       else if (this.type === 'radio') element.label = 'Radioknapper|Radio buttons';
       else if (this.type === 'select') element.label = 'Nedtrekksmeny|Dropdown menu';
       else if (this.type === 'postal') element.label = 'Postnr.|Postal code';
+      else if (this.type === 'tel') element.label = 'Telefonnummer|Phone number';
+      else if (this.type === 'country') element.label = 'Statsborgerskap|Citizenship';
+      else if (this.type === 'email') {
+        element.label = 'E-post|Email';
+        element.info = 'kari@bedrift.no|john@company.com';
+      }
+      else if (this.type === 'birth-num') {
+        element.label = 'Fødselsnummer|Identity number';
+        element.info = '11 siffer|11 digits';
+      } 
+      else if (this.type === 'imei') element.label = 'IMEI (International Mobile Equipment Identity)|IMEI (International Mobile Equipment Identity)';
+      else if (this.type === 'model-year') {
+        element.label = 'Årsmodell|Model year'; 
+        element.info = 'f.eks. \"2009\"|f.ex. \"2009\"';
+      }
+      else if (this.type === 'license-plate') {
+        element.label = 'Kjennemerke (Skiltnummer)|Number plate'; 
+        element.info = 'f.eks. AB12345|f.ex. AB12345';
+      }
+      else if (this.type === 'vin') {
+        element.label = 'Rammenummer|Vehicle Identification Number'; 
+        element.info = 'f.eks. \"WVWZZZ3BZWE689725\" eller \"1GKCS13W8P2579514\"|f.ex. \"WVWZZZ3BZWE689725\" or \"1GKCS13W8P2579514\"';
+      }
+      else if (this.type === 'org-num') element.label = 'Organisasjonsnummer|Organization number';
 
       if (this.type === 'radio' || this.type === 'select') {
         element.choices = ['Valg 1|Choice 1', 'Valg 2|Choice 2'];
       }
 
-      element.info = '|';
+      if (element.info == null)
+        element.info = '|';
 
       this.page.elements.push(element);
     },

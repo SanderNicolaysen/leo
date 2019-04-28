@@ -43,6 +43,7 @@ router.patch('/:boothNum/update', async (req, res, next) => {
     // An IP-address can only be assigned to one booth at a time
     if (oldBooth != null) {
       oldBooth['ip'] = '';
+      oldBooth['queueNumber'] = '';
       await oldBooth.save();
     }
 

@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import Appointment from '../database/models/appointment';
+import { notifyAppointmentsChange } from '../socketio/dashboard';
 
 router.post('/', async (req, res, next) => {
   try {
@@ -17,6 +18,7 @@ router.post('/', async (req, res, next) => {
   catch (error) {
     next(error);
   }
+  next();
 });
 
 router.get('/', async (req, res, next) => {
@@ -43,6 +45,13 @@ router.delete('/:id', async (req, res, next) => {
   catch (error) {
     next(error);
   }
+  next();
+});
+
+// Alert authorized socketio dashboard clients of changes
+router.all('*', (req, res, next) => {
+  notifyAppointmentsChange();
+  next();
 });
 
 module.exports = router;

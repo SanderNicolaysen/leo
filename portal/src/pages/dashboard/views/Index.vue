@@ -22,26 +22,38 @@
       <div class="tile is-ancestor has-text-centered">
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">{{ queueNumber }}</p>
             <p class="subtitle">I kø</p>
+            <p class="title">{{ queueCount }}</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">{{ queueInprogress }}</p>
             <p class="subtitle">Behandles</p>
+            <p class="title">{{ queueInprogress }}</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">#408</p>
-            <p class="subtitle">Aktivt kønummer</p>
+            <table class="table is-fullwidth is-narrow">
+              <tr>
+                <td class="is-size-7 has-text-grey">Skranke 1</td>
+                <td class="is-size-6 has-text-centered">{{ active[0] }}</td>
+              </tr>
+              <tr>
+                <td class="is-size-7 has-text-grey">Skranke 2</td>
+                <td class="is-size-6 has-text-centered">{{ active[1] }}</td>
+              </tr>
+              <tr>
+                <td class="is-size-7 has-text-grey">Skranke 3</td>
+                <td class="is-size-6 has-text-centered">{{ active[2] }}</td>
+              </tr>
+            </table>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <p class="title">#275</p>
             <p class="subtitle">Neste kønummer</p>
+            <p class="title">{{ next ? '#' + next : '' }}</p>
           </article>
         </div>
       </div>
@@ -51,7 +63,7 @@
         <div class="card events-card">
           <header class="card-header">
             <p class="card-header-title">
-              Events
+              Henvendelser i kø
             </p>
             <a href="#" class="card-header-icon" aria-label="more options">
               <span class="icon">
@@ -62,26 +74,29 @@
           <div class="card-table">
             <div class="content">
               <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr><th>Kønr.</th><th>Kategori</th><th>Status</th></tr>
+                </thead>
                 <tbody>
-                  <tr v-for="n in 50" :key="n">
-                    <td width="5%"><i class="fa fa-bell-o"></i></td>
-                    <td>Lorum ipsum dolem aire</td>
-                    <td><a class="button is-small is-primary" href="#">Action</a></td>
+                  <tr v-for="inquiry in inquiries" :key="inquiry.inquiry_id">
+                    <td style="width: 5%">#{{ inquiry.inquiry_id }}</td>
+                    <td>{{ inquiry.type }}</td>
+                    <td class="has-text-grey">{{ inquiry.status }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           <footer class="card-footer">
-            <a href="#" class="card-footer-item">View All</a>
+            <router-link :to="{ name: 'booth' }" class="card-footer-item">Vis alle</router-link>
           </footer>
         </div>
       </div>
       <div class="column is-6">
-        <div class="card">
+        <div class="card events-card">
           <header class="card-header">
             <p class="card-header-title">
-              Inventory Search
+              Timeavtaler
             </p>
             <a href="#" class="card-header-icon" aria-label="more options">
               <span class="icon">
@@ -89,44 +104,25 @@
               </span>
             </a>
           </header>
-          <div class="card-content">
+          <div class="card-table">
             <div class="content">
-              <div class="control has-icons-left has-icons-right">
-                <input class="input is-large" type="text" placeholder="">
-                <span class="icon is-medium is-left">
-                  <i class="fa fa-search"></i>
-                </span>
-                <span class="icon is-medium is-right">
-                  <i class="fa fa-check"></i>
-                </span>
-              </div>
+              <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr><th>Vert</th><th>Bruker</th><th>Saksnummer</th></tr>
+                </thead>
+                <tbody>
+                  <tr v-for="appointment in appointments" :key="appointment._id">
+                    <td>{{ appointment.hostName }}</td>
+                    <td>{{ appointment.userName }}</td>
+                    <td>{{ appointment.caseNumber }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">
-              User Search
-            </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </a>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <div class="control has-icons-left has-icons-right">
-                <input class="input is-large" type="text" placeholder="">
-                <span class="icon is-medium is-left">
-                  <i class="fa fa-search"></i>
-                </span>
-                <span class="icon is-medium is-right">
-                  <i class="fa fa-check"></i>
-                </span>
-              </div>
-            </div>
-          </div>
+          <footer class="card-footer">
+            <router-link :to="{ name: 'booth' }" class="card-footer-item">Vis alle</router-link>
+          </footer>
         </div>
       </div>
     </div>
@@ -136,30 +132,57 @@
 <script>
 import _ from 'lodash';
 import auth from '@/services/Auth';
-import dashboardApi from '@/services/DashboardApi';
+import io from 'socket.io-client/dist/socket.io';
 
 export default {
   data: function () {
     return {
       greeting: '',
-      queueNumber: '',
-      queueInprogress: ''
+      active: [],
+      next: '',
+      queueCount: '',
+      queueInprogress: '',
+      inquiries: [],
+      appointments: []
     };
   },
   created: async function () {
     auth.user().then((user) => {
-      const hour = new Date().getHours();
-      if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
-      else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
-      else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
-      else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
-      else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+      const greet = () => {
+        const hour = new Date().getHours();
+        if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
+        else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
+        else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
+        else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
+        else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+      };
+      greet();
+      setInterval(greet, 1000 * 60 * 10);
     });
 
-    dashboardApi.stats().then((stats) => {
-      this.queueNumber = stats.queue;
-      this.queueInprogress = stats.inprogress;
+    let socket;
+    if (process.env.NODE_ENV === 'development') {
+      socket = io.connect('http://localhost:8081/dash');
+    } else {
+      socket = io.connect('/dash');
+    }
+
+    socket.on('stats', (msg) => {
+      this.queueCount = msg.queue;
+      this.queueInprogress = msg.inprogress;
+      this.next = msg.next;
+      this.active = _.map(msg.active, a => { return a.queueNumber ? '#' + a.queueNumber + ' ' : 'N/A'; });
     });
+
+    socket.on('inquiries', inquiries => {
+      this.inquiries = inquiries;
+    });
+
+    socket.on('appointments', appointments => {
+      this.appointments = appointments;
+    });
+
+    socket.emit('init');
   }
 };
 </script>

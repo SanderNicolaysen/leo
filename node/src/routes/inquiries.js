@@ -96,6 +96,11 @@ router.patch('/:id/update', async (req, res, next) => {
       return;
     }
 
+    // Prevent an inquiry from going into waiting status after it has been called in from a booth
+    if (inquiry.status === 'Behandles' && req.body.status === 'Venter') {
+      delete req.body.status;
+    }
+
     delete req.body.__v;
     let changedType = !(inquiry.type === req.body.type);
     for (const prop in req.body) {

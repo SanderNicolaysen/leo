@@ -1,0 +1,1 @@
+export default (socket) => { return socket.request.session && socket.request.session.passport && socket.request.session.passport.user; };

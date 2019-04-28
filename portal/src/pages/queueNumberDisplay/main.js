@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import queueNumberDisplay from './views/queueNumberDisplay';
+import 'bulma';
 
 Vue.config.productionTip = false;
 

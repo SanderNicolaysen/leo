@@ -1,7 +1,8 @@
-import Inquiry from './database/models/inquiry';
+import Inquiry from '../database/models/inquiry';
+import { notifyQueueChange } from './dashboard';
 import mongoose from 'mongoose';
 
-const auth = (socket) => { return socket.request.session && socket.request.session.passport && socket.request.session.passport.user; };
+import auth from './auth';
 
 export function update(io) {
   let booth = io.of('/booth');
@@ -21,12 +22,14 @@ export function update(io) {
     });
     
 
-    socket.on('update', function(data) {
-      updateInquiry(data, booth, socket);
+    socket.on('update', async function(data) {
+      await updateInquiry(data, booth, socket);
+      notifyQueueChange();
     });
 
-    socket.on('delete', function(data) {
-      deleteInquiry(data, booth); 
+    socket.on('delete', async function(data) {
+      await deleteInquiry(data, booth);
+      notifyQueueChange();
     });
   });
 }
@@ -82,22 +85,4 @@ async function deleteInquiry(data, booth) {
     throw error;
   }
   
-}
-
-export function updateQueueNumberDisplay(io) {
-
-  io.of('/queueNumberDisplay').on('connection', function(socket) {
-    console.log(`${socket.id} connected`);
-    
-    // When client disconnects from server
-    socket.on('disconnect', () => console.log(`${socket.id} disconnected`));
-    
-    if (!auth(socket)) {
-      return;
-    }
-
-    socket.on('summon', function (qndNumber) {
-      io.of('queueNumberDisplay').emit('display', qndNumber);
-    });
-  });
 }

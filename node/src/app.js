@@ -12,7 +12,6 @@ import passport from './config/passport.config';
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const socket = require('./socket.js');
 
 var dbConnection = db.setUpDB().then(() => {
   return db.connection();
@@ -49,8 +48,9 @@ io.use((socket, next) => {
   sessionMiddleware(socket.request, {}, next);
 });
 
-socket.update(io);
-socket.updateQueueNumberDisplay(io);
+require('./socketio/booth').update(io);
+require('./socketio/queuenumberDisplay').updateQueueNumberDisplay(io);
+require('./socketio/dashboard').register(io);
 
 console.log('Listening on port 8081');
 

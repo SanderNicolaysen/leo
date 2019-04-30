@@ -41,5 +41,21 @@ export default {
     } catch (error) {
       return null;
     }
+  },
+
+  /**
+   * Register new user
+   * @param {String} username
+   * @param {String} password
+   * @returns {Boolean}
+   */
+  async register (user) {
+    try {
+      await server.post('/register', { name: user.name, username: user.username, password: user.password });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 };

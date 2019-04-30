@@ -45,7 +45,7 @@ module.exports = {
 
     // Inquiry.insertMany(inquiries.inquiries, onInsert);
 
-    User.register(new User({ username: 'leo' }), 'secret', function (err) {
+    User.register(new User({ username: 'leo', name: 'Admin', isAdmin: true }), 'secret', function (err) {
       if (err) {
         console.error('Error while registering default user', err);
       } else {

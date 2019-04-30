@@ -24,7 +24,7 @@ router.get('/user', (req, res, next) => {
 
 router.post('/register', auth(), async (req, res, next) => {
   try {
-    await User.register(new User({ username: req.body.username }), req.body.password);
+    await User.register(new User({ username: req.body.username, name: req.body.name }), req.body.password);
   } catch (error) {
     next(error);
     return;

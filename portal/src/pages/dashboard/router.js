@@ -8,6 +8,7 @@ import AdminFaq from './views/AdminFaq.vue';
 import Appointments from './views/Appointments.vue';
 import FormsEditor from './views/FormsEditor.vue';
 import QueuePriorities from './views/QueuePriorities.vue';
+import Users from './views/users.vue';
 
 Vue.use(Router);
 
@@ -28,7 +29,8 @@ export default new Router({
         { path: '/admin/faq', name: 'adminFaq', component: AdminFaq },
         { path: '/appointments', name: 'appointments', component: Appointments },
         { path: '/skjemaer/', name: 'formseditor', component: FormsEditor },
-        { path: '/koprioritet', name: 'queuepriorities', component: QueuePriorities }
+        { path: '/koprioritet', name: 'queuepriorities', component: QueuePriorities },
+        { path: '/brukere', name: 'users', component: Users }
         /*
         { path: '/example-path', name: 'example', component: Example }
         */

@@ -47,6 +47,7 @@
               <li><router-link :to="{ name: 'appointments' }">Timeavtaler</router-link></li>
               <li><router-link :to="{ name: 'formseditor' }">Skjemaer</router-link></li>
               <li><router-link :to="{ name: 'queuepriorities' }">Køprioritering</router-link></li>
+              <li><router-link :to="{ name: 'users' }">Brukere</router-link></li>
             </ul>
           </aside>
         </div>

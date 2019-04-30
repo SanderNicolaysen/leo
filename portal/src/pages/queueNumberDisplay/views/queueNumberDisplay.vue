@@ -29,7 +29,11 @@ export default {
     };
   },
   created: function () {
-    this.socket = io.connect('http://localhost:8081/queueNumberDisplay');
+    if (process.env.NODE_ENV === 'development') {
+      this.socket = io.connect('http://localhost:8081/queueNumberDisplay');
+    } else {
+      this.socket = io.connect('/queueNumberDisplay');
+    }
     this.socket.on('connect', () => {
       console.log('connected to QND with id: ', this.socket.id);
     });

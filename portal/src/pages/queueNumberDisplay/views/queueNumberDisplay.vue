@@ -24,15 +24,17 @@ export default {
         { num: 2, queueNumber: null, flash: false },
         { num: 3, queueNumber: null, flash: false }
       ],
-      queueNumber: 0
+      queueNumber: 0,
+      audioContext: null
     };
   },
   created: function () {
     this.socket = io.connect('http://localhost:8081/queueNumberDisplay');
     this.socket.on('connect', () => {
       console.log('connected to QND with id: ', this.socket.id);
-    }
-    );
+    });
+
+    this.audioContext = new AudioContext();
   },
   mounted: function () {
     // Update the display when a change occurs
@@ -63,11 +65,10 @@ export default {
   },
   methods: {
     beep: function () {
-      const context = new AudioContext();
-      const o = context.createOscillator();
+      const o = this.audioContext.createOscillator();
       o.type = 'square';
       o.frequency.value = 200;
-      o.connect(context.destination);
+      o.connect(this.audioContext.destination);
       o.start();
       setTimeout(() => { o.stop(); }, 350);
     }

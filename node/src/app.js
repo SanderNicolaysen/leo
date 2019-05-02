@@ -1,6 +1,11 @@
 // Required for async/await, and other ES2015+ features
 import '@babel/polyfill';
 
+// Load enviroment variables
+require('dotenv').config();
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
+console.log(`Running in environment: ${process.env.NODE_ENV}`);
+
 import express from 'express';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -13,8 +18,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-var dbConnection = db.setUpDB().then(() => {
-  return db.connection();
+const dbConnection = db.init().then((connection) => {
+  return connection;
 });
 
 const store = MongoStore(session);
@@ -42,7 +47,11 @@ app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/api/priorities/', auth(), require('./routes/priorities'));
 app.use('/', require('./routes/auth'));
 
-http.listen('8081');
+if (process.env.NODE_ENV === 'production') {
+  http.listen('80');
+} else {
+  http.listen('8081');
+}
 
 io.use((socket, next) => {
   sessionMiddleware(socket.request, {}, next);

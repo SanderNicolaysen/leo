@@ -1,1 +1,2 @@
-node node/dist/app.js;
+cd node;
+node dist/app.js;

@@ -3,7 +3,7 @@
     <h3 class="title is-size-3">Brukere</h3>
 
     <div class="box">
-       <button class="button is-primary block" type="button" @click="AddUserModal()">
+       <button class="button is-primary block" type="button" @click="AddUserModal()" v-if="isAdmin">
           <b-icon icon="pencil"></b-icon>
           <span>Opprett ny bruker</span>
       </button>
@@ -17,10 +17,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
-            <td>{{user.name}}</td>
+          <tr v-for="user in users" :key="user._id">
+            <td><b-icon v-if="user.isAdmin" icon="star" type="is-warning" size="is-small"></b-icon>{{user.name}}</td>
             <td>{{user.username}}</td>
-            <td v-if="isAdmin">
+            <template v-if="isAdmin && user._id !== loggedInUser._id">
+              <td>
                 <a>
                   <span class="icon" @click="EditUserModal(user)">
                     <b-tooltip label="Rediger">
@@ -29,6 +30,10 @@
                   </span>
                 </a>
             </td>
+            </template>
+            <template v-else>
+              <td></td>
+            </template>
           </tr>
         </tbody>
       </table>
@@ -49,12 +54,17 @@ export default {
   },
   data () {
     return {
-      users: [
-        { id: 0, username: 'Bob', name: 'Bob Smith', password: 'password' },
-        { id: 1, username: 'Bob', name: 'Smith', password: 'password' }
-      ],
-      isAdmin: true
+      users: [],
+      loggedInUser: null,
+      isAdmin: false
     };
+  },
+  created: async function () {
+    this.loggedInUser = await Auth.user();
+    this.users = await Auth.getUsers();
+    if (this.loggedInUser.isAdmin) {
+      this.isAdmin = true;
+    }
   },
   methods: {
     EditUserModal (user) {
@@ -64,8 +74,9 @@ export default {
         props: { user },
         events: {
           deleteUser: this.deleteUser,
-          saveUser: this.saveUser
-        }
+          updateUser: this.updateUser
+        },
+        canCancel: ['escape', 'outside']
       });
     },
     AddUserModal () {
@@ -75,29 +86,56 @@ export default {
         props: {},
         events: {
           addUser: this.addUser
-        }
+        },
+        canCancel: ['escape', 'outside']
       });
     },
-    deleteUser (user) {
+    deleteUser (user, self) {
       this.$dialog.confirm({
         title: 'Sletter bruker',
         message: 'Er du sikker på at du vill slette kontoen? Dette kan ikke tilbakestilles.',
         confirmText: 'Slett bruker',
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => {
-          this.users = _.filter(this.users, o => { return o !== user; });
+        onConfirm: async () => {
+          const res = await Auth.delete(user._id);
+          if (res instanceof Error) {
+            this.danger(`Du kan ikke slette admin`);
+            return;
+          }
+          this.users = _.filter(this.users, o => { return o._id !== user._id; });
           this.$toast.open('Bruker slettet!');
+          self.close();
         }
       });
     },
-    saveUser (user) {
-      console.log(this.users[_.findIndex(this.users, o => { return o === user; })]);
-      console.log(user);
+    async updateUser (user, self) {
+      const res = await Auth.update(user._id, user);
+      if (res instanceof Error) {
+        this.danger(`Det skjedde en feil. Husk at alle brukernavn må være unike`);
+        return;
+      }
+
+      this.users[_.findIndex(this.users, o => { return o._id === user._id; })] = user;
+      self.close();
     },
-    async addUser (user) {
-      await Auth.register(user);
+    async addUser (user, self) {
+      const res = await Auth.register(user);
+      if (res instanceof Error) {
+        this.danger(`Det skjedde en feil. Husk at alle brukernavn må være unike og alle felt må være fylt ut`);
+        return;
+      }
+      this.users.push(res);
       this.$toast.open('La til ny bruker');
+      self.close();
+    },
+    danger (messageText) {
+      this.$toast.open({
+        duration: 5000,
+        message: messageText,
+        position: 'is-bottom',
+        type: 'is-danger'
+      });
     }
   }
 };

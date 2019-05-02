@@ -150,11 +150,11 @@ export default {
     auth.user().then((user) => {
       const greet = () => {
         const hour = new Date().getHours();
-        if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.username + '!';
-        else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.username + '!';
-        else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.username + '!';
-        else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.username + '!';
-        else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.username + '!';
+        if (_.inRange(hour, 0, 6)) this.greeting = 'God natt, ' + user.name + '!';
+        else if (_.inRange(hour, 6, 9)) this.greeting = 'God morgen, ' + user.name + '!';
+        else if (_.inRange(hour, 9, 12)) this.greeting = 'God formiddag, ' + user.name + '!';
+        else if (_.inRange(hour, 12, 18)) this.greeting = 'God ettermiddag, ' + user.name + '!';
+        else if (_.inRange(hour, 18, 24)) this.greeting = 'God kveld, ' + user.name + '!';
       };
       greet();
       setInterval(greet, 1000 * 60 * 10);

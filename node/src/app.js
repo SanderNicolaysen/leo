@@ -1,10 +1,8 @@
 // Required for async/await, and other ES2015+ features
 import '@babel/polyfill';
 
-// Load enviroment variables
-require('dotenv').config();
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
-console.log(`Running in environment: ${process.env.NODE_ENV}`);
+import { config } from './config/enviroment.config';
+config();
 
 import express from 'express';
 import session from 'express-session';
@@ -31,7 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(logger('dev'));
+
+if (process.env.NODE_ENV === 'development') app.use(logger('dev'));
+else app.use(logger('common'));
 
 // Use auth() as middleware for routes that require a logged in user
 import auth from './middleware/auth';
@@ -47,11 +47,12 @@ app.use('/api/appointments', require('./routes/appointments.js'));
 app.use('/api/priorities/', auth(), require('./routes/priorities'));
 app.use('/', require('./routes/auth'));
 
-if (process.env.NODE_ENV === 'production') {
-  http.listen('80');
-} else {
-  http.listen('8081');
+if (!process.env.WEBSERVER_PORT) {
+  console.error('Missing webserver port in envirorment file. Please specify and start again.');
+  process.exit();
 }
+
+http.listen(process.env.WEBSERVER_PORT);
 
 io.use((socket, next) => {
   sessionMiddleware(socket.request, {}, next);

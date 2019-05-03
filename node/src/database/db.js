@@ -31,12 +31,6 @@ module.exports = {
 
     if (process.env.NODE_ENV === 'development') {
       await mongoose.connection.db.dropDatabase();
-      
-      await User.register(new User({ username: 'leo' }), 'secret', error => {
-        if (error) console.error(error);
-        else console.log(`Registered user 'leo' with password 'secret'`);
-      });
-
       await this.seed();
     }
 
@@ -65,9 +59,13 @@ module.exports = {
       pass: process.env.DB_PASS,
       useNewUrlParser: true
     };
+    mongoose.set('useCreateIndex', true);
+
+    if (process.env.DB_DEBUG === 'TRUE') {
+      mongoose.set('debug', true);
+    }
 
     try {
-      mongoose.set('useCreateIndex', true);
       await mongoose.connect(uri, options);
     } catch (error) {
       console.error(error);
@@ -115,7 +113,7 @@ module.exports = {
       admin.username = process.env.ADMIN_USERNAME;
       await admin.setPassword(process.env.ADMIN_PASSWORD);
       await admin.save();
-      console.log(`Admin user's password have been reset (username: '${admin.username}').`);
+      console.log(`Admin username and password have been reset to enviroment default (username: '${admin.username}').`);
     } else {
       User.register(new User({ username: process.env.ADMIN_USERNAME, name: 'Admin', isAdmin: true }), process.env.ADMIN_PASSWORD, (error) => {
         if (error) {

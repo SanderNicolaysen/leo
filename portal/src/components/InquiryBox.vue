@@ -21,7 +21,7 @@
           </tr>
           <tr v-if="safeAttribute('forms') && inquiry.forms.length > 0">
             <td>Skjema:</td>
-            <td><a @click="showForms(inquiry.forms)">Klikk for å forhåndsvise</a></td>
+            <td><a @click="isModalActive = true">Klikk for å forhåndsvise</a></td>
           </tr>
           <tr v-if="safeAttribute('lname')">
             <td>Etternavn:</td>
@@ -47,6 +47,9 @@
           </p>
         </div>
       </div>
+      <b-modal :active.sync="isModalActive">
+        <FormModal :forms="inquiry.forms" />
+      </b-modal>
     </div>
   </div>
 </template>
@@ -58,19 +61,18 @@ import FormModal from '@/components/FormModal.vue';
 
 export default {
   props: ['inquiry', 'active'],
+  data: function () {
+    return {
+      isModalActive: false
+    };
+  },
   components: {
-    StatusIndicator
+    StatusIndicator,
+    FormModal
   },
   methods: {
     safeAttribute (attr, fallback) {
       return _.has(this.inquiry, attr) ? this.inquiry[attr] : (fallback || '');
-    },
-    showForms (forms) {
-      this.$modal.open({
-        parent: this,
-        component: FormModal,
-        props: { 'forms': forms }
-      });
     }
   }
 };

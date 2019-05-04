@@ -70,7 +70,7 @@
                 <td>{{ getSubstring(faq.question) }}</td>
                 <td>{{ getSubstring(faq.answer) }}</td>
                 <td>
-                  <div class="buttons has-addons">
+                  <div class="buttons has-addons flex-nowrap">
                     <span class="button is-primary" @click='edit(faq)'>{{$t('rediger')}}</span>
                     <span class="button is-danger" @click='deleteFaq(faq, index)'>{{$t('slett')}}</span>
                   </div>
@@ -91,7 +91,7 @@
                   </div>
                 </td>
                 <td>
-                  <div class="buttons has-addons">
+                  <div class="buttons has-addons flex-nowrap">
                     <span class="button is-success" @click='updateFaq(faq)'>{{$t('oppdater')}}</span>
                     <span class="button is-danger" @click='exitFaq(faq)'>{{$t('tilbake')}}</span>
                   </div>

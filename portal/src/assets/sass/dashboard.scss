@@ -1,5 +1,9 @@
 @import "_variables.scss";
 
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+
 .admin-wrapper {
   nav.navbar {
     border-top: 4px solid $primary;

@@ -1,4 +1,5 @@
 import Inquiry from '../database/models/inquiry';
+import Booth from '../database/models/booth';
 import { notifyQueueChange } from './dashboard';
 import mongoose from 'mongoose';
 
@@ -27,9 +28,17 @@ export function update(io) {
       notifyQueueChange();
     });
 
-    socket.on('delete', async function(data) {
-      await deleteInquiry(data, booth);
-      notifyQueueChange();
+    socket.on('delete', async function (data, fn) {
+      const inuseByBooth = await Booth.findOne({ queueNumber: data.inquiry.inquiry_id }).exec();
+
+      // Can't delete if already in use by another booth
+      if (inuseByBooth && inuseByBooth.num !== data.boothNum) {
+        fn({ success: false, inUseBy: inuseByBooth.num });
+        return;
+      }
+
+      await deleteInquiry(data.inquiry, booth);
+      fn({ success: true });
     });
   });
 }
@@ -79,6 +88,7 @@ async function deleteInquiry(data, booth) {
     }
 
     booth.emit('delete', inquiry);
+    notifyQueueChange();
     await inquiry.delete();
 
   } catch (error) {

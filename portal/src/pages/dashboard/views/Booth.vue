@@ -218,6 +218,10 @@ export default {
     deleteReceiver: function () {
       this.boothSocket.on('delete', function (response) {
         this.inquiries = _.filter(this.inquiries, (o) => { return o._id !== response._id; });
+        if (this.inquiry._id === response._id) {
+          this.inquiry = null;
+          this.$toast.open('Henvendelsen er slettet');
+        }
       }.bind(this));
     },
     next: async function () {
@@ -247,9 +251,14 @@ export default {
         cancelText: 'Avbryt',
         type: 'is-danger',
         onConfirm: async () => {
-          this.boothSocket.emit('delete', this.inquiry);
-          this.$toast.open('Slettet FAQ');
-          this.inquiry = null;
+          this.boothSocket.emit('delete', { inquiry: this.inquiry, boothNum: this.boothNum }, (response) => {
+            if (!response.success) {
+              this.$toast.open({ message: `Kan ikke slette. Denne henvendelsen er under behandling i skranke ${response.inUseBy}`, type: 'is-danger' });
+            } else {
+              this.$toast.open('Slettet FAQ');
+              this.inquiry = null;
+            }
+          });
         }
       });
     },
@@ -300,7 +309,14 @@ export default {
       // Only show unfinished inquiries
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
       // If the IP-address is already assigned to a booth, get the booth-number
-      this.boothNum = await Booths.getBooth();
+      const booth = await Booths.getBooth();
+      if (booth !== null) {
+        this.boothNum = booth.num;
+        if (booth.queueNumber) {
+          this.inquiry = this.inquiries.find(i => i.inquiry_id === booth.queueNumber);
+        }
+      }
+
       this.loading = false;
     },
 

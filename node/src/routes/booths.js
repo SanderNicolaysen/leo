@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
     const booth = await Booth.findOne({ ip: req.connection.remoteAddress }).exec();
 
     if (booth != null) { // Fetch the assigned booth-num
-      res.status(200).json(booth.num);
+      res.status(200).json(booth);
     }
     else {
       res.json(null);

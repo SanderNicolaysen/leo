@@ -49,9 +49,10 @@
           </TreeItem>
 
           <TreeItem pageName="5">
-            <TreeInput label="Vennligst fyll ut" type="title" />
+            <TreeInput label="Dine personopplysninger" type="title" />
 
-            <TreeInput updateKey="dob" label="Fødselsdato" type="date" />
+            <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
+            <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
             <TreeInput type="buttons">
               <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
               <TreeInput :link="{ ext: 'grabticket' }" label="Fullfør" class="is-primary" type="button" />

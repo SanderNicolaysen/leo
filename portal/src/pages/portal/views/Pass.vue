@@ -22,7 +22,9 @@
         </TreeItem>
 
         <TreeItem pageName="2">
-          <TreeInput updateKey="dob" label="Fødselsdato" type="date" />
+          <p class="title is-4">Dine personopplysninger</p>
+          <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
+          <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
           <TreeInput type="buttons">
             <TreeInput :link="{ prev: true }" label="Tilbake" type="button" />
             <TreeInput :link="{ loc: '3' }" label="Neste" class="is-primary" type="button" />

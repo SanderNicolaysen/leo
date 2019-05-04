@@ -19,7 +19,7 @@
           </TreeItem>
 
           <TreeItem pageName="avhor">
-            <h1 class="title is-3">Vennligst fyll ut</h1>
+            <h1 class="title is-3">Dine personopplysninger</h1>
 
             <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
             <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
@@ -31,8 +31,7 @@
           </TreeItem>
 
           <TreeItem pageName="annet">
-            <h1 class="title is-3">Vennligst fyll ut</h1>
-
+            <h1 class="title is-3">Dine personopplysninger</h1>
             <TreeInput updateKey="lname" :label="$t('etternavn')" type="text" />
             <TreeInput updateKey="dob" :label="$t('fødselsdato')" type="date" />
             <TreeInput updateKey="caseNumber" :label="$t('saksnummer')" type="number" />

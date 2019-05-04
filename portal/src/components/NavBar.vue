@@ -2,10 +2,11 @@
  <!-- NAVBAR -->
     <nav class="navbar block" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-          <router-link class="navbar-item is-large" to="/">
-            <img src="@/assets/icons/politilogo.svg">
-          </router-link>
-        </div>
+        <router-link class="navbar-item position" to="/">
+          <b-icon id="position" icon="home" size="is-large" type=""></b-icon>
+          <p class="is-size-3 has-text-weight-normal">POLITIVAKTA</p>
+        </router-link>
+      </div>
       <div id="navMenu" class="navbar-menu">
         <div class="navbar-end">
           <a class="navbar-item" @click="changeLocale('no')">

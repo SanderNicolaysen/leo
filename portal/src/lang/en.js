@@ -49,8 +49,10 @@ export default {
   saksnummer: 'Case Number',
 
   // UserAppointment.vue
-  avtale: 'appointment',
-  etternavn: 'etternavn',
+  avtale: 'Appointment',
+  etternavn: 'Last name',
+  fødselsdato: 'Date of birth',
+  fullfør: 'Finish',
 
   // Validation-messages
   postalError: 'Postal code is not valid',

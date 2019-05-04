@@ -66,6 +66,9 @@ router.post('/', async (req, res, next) => {
 
   // Assign an ID/queue number to the inquriy
   await inquiry.assignId();
+
+  // Set the priority based on category
+  inquiry.priority = await getPriority(inquiry.type);
   
   try {
     await inquiry.save();
@@ -107,7 +110,7 @@ router.patch('/:id/update', async (req, res, next) => {
       inquiry[prop] = req.body[prop];
     }
     if (changedType)
-      inquiry.priority = getPriority(inquiry.type);
+      inquiry.priority = await getPriority(inquiry.type);
     await inquiry.save();
 
     res.status(200).json(inquiry);
@@ -179,8 +182,8 @@ router.patch('/:id/forms', async (req, res, next) => {
   }
 });
 
-const getPriority = function(type) {
-  return Priority.findOne({type: type}).exec().priority;
+const getPriority = async function(type) {
+  return (await Priority.findOne({type: type}).exec()).priority;
 };
 
 module.exports = router;

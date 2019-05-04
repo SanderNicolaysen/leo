@@ -2,51 +2,51 @@ module.exports = {
   priorities: [
     {
       type: 'Anmeldelse',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Annet',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Avtale',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Avtale/Avhør',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Avhør',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Pass',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Nødpass',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Garantiskjema',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Hente/Levere',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Hente/Beslag',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Hente/Annet',
-      priority: '1'
+      priority: 'normal'
     },
     {
       type: 'Levere/Annet',
-      priority: '1'
+      priority: 'normal'
     }
   ]
 };

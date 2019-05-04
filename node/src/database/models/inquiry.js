@@ -20,8 +20,8 @@ const InquirySchema = new Schema({
   caseNumber: String,
   priority: {
     type: String,
-    enum: ['1', '2', '3', '4', '5'],
-    default: '1'
+    enum: ['normal', 'high', 'urgent'],
+    default: 'normal'
   }
 });
 
@@ -33,22 +33,15 @@ InquirySchema.methods.getPoints = async function () {
   let bonus = 0;
 
   switch(this.priority) {
-  case '1':
+  case 'normal':
     multiplier = 1;
     break;
-  case '2':
+  case 'high':
     multiplier = 1.6;
     break;
-  case '3':
+  case 'urgent':
     multiplier = 2.5;
-    break;
-  case '4':
-    multiplier = 3;
-    bonus = 20;
-    break;
-  case '5':
-    multiplier = 5;
-    bonus = 120;
+    bonus = 300;
     break;
   default:
     multiplier = 1;

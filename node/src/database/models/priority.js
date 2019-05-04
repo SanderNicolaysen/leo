@@ -5,7 +5,7 @@ const PrioritySchema = new Schema({
   type: String,
   priority: {
     type: String,
-    enum: ['1', '2', '3', '4', '5']
+    enum: ['normal', 'high', 'urgent']
   }
 });
 

@@ -31,7 +31,6 @@ module.exports = {
 
     if (process.env.NODE_ENV === 'development') {
       await mongoose.connection.db.dropDatabase();
-      await this.seed();
     }
 
     // Make sure that the DB is set up

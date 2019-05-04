@@ -3,8 +3,8 @@ import fs from 'fs';
 export function config () {
   // Load enviroment variables
   const load = require('dotenv').config();
-  
-  if (!load) {
+
+  if (load.error) {
     console.error('Error: Missing .env file');
     console.log('Creating .env file - please fill out necesarry details.');
     fs.writeFileSync('.env', defaultEnv);

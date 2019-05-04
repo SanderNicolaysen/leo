@@ -46,39 +46,34 @@
     </div>
   </div>
   <br>
-  <div class="">
-    <div class="columns" v-for="pair in pairs" :key="pair.id">
-      <div class="column is-two-fifths">
-        <AppointmentBox v-if="typeof pair.appointment !== 'undefined'" v-bind:appointment="pair.appointment" @delete="deleteAppointment"/>
-      </div>
-      <div class="column is-one-fifth title has-text-centered">
-        <div class="level" style="height: 100%">
-          <div class="level-item">
-            <span class="title is-1">&harr;</span>
-          </div>
-        </div>
-      </div>
-      <div class="column is-two-fifths">
-        <AppointmentInquiryBox v-if="typeof pair.inquiry !== 'undefined'" v-bind:inquiry="pair.inquiry" @delete="deleteAppointment"/>
-      </div>
-    </div>
+  <div class="box">
+    <table class="table is-fullwidth">
+      <tr>
+        <th>Brukers Etternavn</th>
+        <th>Verts navn</th>
+        <th>Avtaledato</th>
+        <th>Saksnummer</th>
+        <th>Har møtt opp</th>
+      </tr>
+      <tr v-for="pair in pairs" :key="pair.id">
+        <td> {{pair.appointment.userName}} </td>
+        <td> {{pair.appointment.hostName}} </td>
+        <td> {{pair.appointment.date}} </td>
+        <td> {{pair.appointment.caseNumber}} </td>
+        <td> <b-icon icon="account-check" v-if="!(pair.inquiry === undefined)"></b-icon> </td>
+      </tr>
+    </table>
   </div>
 </div>
 </template>
 
 <script>
 import _ from 'lodash';
-import AppointmentBox from '@/components/AppointmentBox.vue';
-import AppointmentInquiryBox from '@/components/AppointmentInquiryBox.vue';
 import Appointments from '@/services/Appointments.js';
 import Inquiries from '@/services/Inquiries';
 
 export default {
   name: 'appointments',
-  components: {
-    AppointmentBox,
-    AppointmentInquiryBox
-  },
   data: function () {
     return {
       appointments: [],
@@ -151,14 +146,14 @@ export default {
         }
       });
       // Add all remaining (unmatched) inquiries to pairs
-      let self = this;
+      /* let self = this;
       this.inquiries.forEach(inquiry => {
         self.pairs.push({
           'id': inquiry._id,
           'appointment': undefined,
           'inquiry': inquiry
         });
-      });
+      }); */
     },
     deleteAppointment: async function (data) {
       this.$dialog.confirm({

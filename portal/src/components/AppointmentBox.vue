@@ -27,6 +27,10 @@
             <td>Saksnummer:</td>
             <td>{{appointment.caseNumber}}</td>
           </tr>
+          <tr>
+            <td>Dato:</td>
+            <td>{{appointment.date}}</td>
+          </tr>
         </table>
       </div>
     </div>

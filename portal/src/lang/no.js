@@ -44,9 +44,10 @@ export default {
 
   // Appointments.vue
   vertsNavn: 'Verts navn',
-  brukersNavn: 'Brukers navn',
+  brukersEtternavn: 'Brukers etternavn',
   brukersFødsel: 'Brukers fødselsdato',
   saksnummer: 'Saksnummer',
+  avtaledato: 'Avtaledato',
 
   // UserAppointment.vue
   avtale: 'Avtale',

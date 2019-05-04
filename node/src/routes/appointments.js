@@ -10,7 +10,8 @@ router.post('/', async (req, res, next) => {
       hostName: req.body.hostName,
       userName: req.body.userName,
       userBirth: req.body.userBirth,
-      caseNumber: req.body.caseNumber
+      caseNumber: req.body.caseNumber,
+      date: req.body.date
     });
     await new_appointment.save();
     res.status(201).json(new_appointment);

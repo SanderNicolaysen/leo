@@ -11,7 +11,7 @@
         </div>
         <div class="field">
           <div class="control">
-            <input type="text" class="input" :placeholder="$t('brukersNavn')" v-model="form.userName">
+            <input type="text" class="input" :placeholder="$t('brukersEtternavn')" v-model="form.userName">
           </div>
         </div>
         <div class="field">
@@ -20,13 +20,23 @@
               :placeholder="$t('brukersFødsel')"
               icon="calendar-today"
               :first-day-of-week=1
-              v-model="date">
-          </b-datepicker>
+              v-model="dob">
+            </b-datepicker>
           </div>
         </div>
         <div class="field">
           <div class="control">
             <input type="tel" class="input" :placeholder="$t('saksnummer')" v-model="form.caseNumber">
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <b-datepicker
+              :placeholder="$t('avtaledato')"
+              icon="calendar-today"
+              :first-day-of-week=1
+              v-model="date">
+            </b-datepicker>
           </div>
         </div>
         <div class="block">
@@ -74,25 +84,35 @@ export default {
       appointments: [],
       inquiries: [],
       pairs: [],
+      dob: new Date(),
       date: new Date(),
       form: {
         hostName: '',
         userName: '',
         userBirth: '',
-        caseNumber: ''
+        caseNumber: '',
+        date: ''
       }
     };
   },
   created: async function () {
     this.updatePairs();
     this.date = null;
+    this.dob = null;
   },
   watch: {
+    dob: function (current, old) {
+      if (this.dob !== null) {
+        // e.g. 1. april 2019
+        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+        this.form.userBirth = this.dob.toLocaleDateString('no-NO', options);
+      }
+    },
     date: function (current, old) {
       if (this.date !== null) {
         // e.g. 1. april 2019
         let options = { year: 'numeric', month: 'long', day: 'numeric' };
-        this.form.userBirth = this.date.toLocaleDateString('no-NO', options);
+        this.form.date = this.date.toLocaleDateString('no-NO', options);
       }
     }
   },
@@ -106,6 +126,7 @@ export default {
 
       this.updatePairs();
       this.date = null;
+      this.dob = null;
     },
     updatePairs: async function () {
       // Get all appointments

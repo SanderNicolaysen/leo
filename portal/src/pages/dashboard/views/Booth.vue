@@ -209,6 +209,7 @@ export default {
       this.boothSocket.on('update', function (response) {
         this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === response._id; })] = response;
         this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+        this.inquiries = _.sortBy(this.inquiries, i => i.priority === 'urgent' ? 0 : 1);
 
         if (this.inquiry && this.inquiry._id === response._id) {
           this.inquiry = null;
@@ -308,6 +309,7 @@ export default {
       this.inquiries = await Inquiries.getInquiries();
       // Only show unfinished inquiries
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+      this.inquiries = _.sortBy(this.inquiries, i => i.priority === 'urgent' ? 0 : 1);
       // If the IP-address is already assigned to a booth, get the booth-number
       const booth = await Booths.getBooth();
       if (booth !== null) {
@@ -348,6 +350,7 @@ export default {
     this.boothSocket.on('get', function (response) {
       this.inquiries = response;
       this.inquiries = _.filter(this.inquiries, (o) => { return o.status !== 'Ferdig'; });
+      this.inquiries = _.sortBy(this.inquiries, i => i.priority === 'urgent' ? 0 : 1);
 
       if (this.inquiry) {
         this.inquiry = this.inquiries[_.findIndex(this.inquiries, (o) => { return o._id === this.inquiry._id; })];

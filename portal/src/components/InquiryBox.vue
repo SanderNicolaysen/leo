@@ -2,6 +2,7 @@
   <div class="card" v-bind:class="{ 'has-background-grey-lighter': active === inquiry.inquiry_id}">
     <div class="card-header">
       <p class="card-header-title">
+        <b-icon v-if="inquiry.priority==='urgent'" icon="alert" type="is-danger"></b-icon>
         Kategori: {{ safeAttribute('type', 'ukjent') }}
       </p>
       <a class="card-header-icon">

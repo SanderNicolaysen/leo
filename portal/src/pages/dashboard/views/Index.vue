@@ -79,8 +79,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="inquiry in inquiries" :key="inquiry.inquiry_id">
-                    <td style="width: 5%">#{{ inquiry.inquiry_id }}</td>
-                    <td>{{ inquiry.type }}</td>
+                    <td>#{{inquiry.inquiry_id}}</td>
+                    <td>{{ inquiry.type }} <b-icon v-if="inquiry.priority==='urgent'" icon="alert" type="is-danger"></b-icon></td>
                     <td class="has-text-grey">{{ inquiry.status }}</td>
                   </tr>
                 </tbody>
@@ -175,7 +175,7 @@ export default {
     });
 
     socket.on('inquiries', inquiries => {
-      this.inquiries = inquiries;
+      this.inquiries = _.sortBy(inquiries, i => i.priority === 'urgent' ? 0 : 1);
     });
 
     socket.on('appointments', appointments => {

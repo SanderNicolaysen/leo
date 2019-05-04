@@ -42,6 +42,10 @@ export default {
         const inquiry = await Inquiries.startInquiry(type);
         setLocal(inquiry);
 
+        if (type === 'Annet') {
+          return;
+        }
+
         Vue.prototype.$snackbar.open({
           message: 'Du har nå fått plass i køen. Vennligst fyll ut så mye du klarer.',
           duration: 9000

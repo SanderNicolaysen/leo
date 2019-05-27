@@ -33,7 +33,7 @@ export default {
         countries = await axios.get('/countries-en.txt');
       }
 
-      this.countries = countries.data.split(/\s\n/);
+      this.countries = countries.data.split('\n');
 
       if (this.country === '') { // If no country is chosen, the default country chosen is Norge/Norway
         this.setCountryToNorway();
